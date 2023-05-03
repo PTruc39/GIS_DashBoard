@@ -1,122 +1,198 @@
-/* eslint-disable no-underscore-dangle */
-import React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import macbook from '../../Images/macbook_pro.png';
+import axios from 'axios';
 import './tableList.scss';
 
-// mui table
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 
-import book1 from '../../Images/book1.jpg';
-import book2 from '../../Images/book2.jpg';
-import book3 from '../../Images/book3.jpg';
-import book4 from '../../Images/book4.jpg';
-import book5 from '../../Images/book5.jpg';
-import macbook from '../../Images/macbook_pro.jpg';
-function TableList() {
-    const data = [
+const productData = [
+    {
+        id: '1',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '24',
+    },
+    {
+        id: '2',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'Ha Noi City',
+        age: '29',
+    },
+    {
+        id: '3',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '20',
+    },
+    {
+        id: '4',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '23',
+    },
+    {
+        id: '5',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'Thanh Hoa',
+        age: '30',
+    },
+    {
+        id: '6',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '23',
+    },
+    {
+        id: '7',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'Thanh Hoa',
+        age: '29',
+    },
+    {
+        id: '8',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '20',
+    },
+    {
+        id: '9',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'Thanh Hoa',
+        age: '30',
+    },
+    {
+        id: '10',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '23',
+    },
+    {
+        id: '11',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '30',
+    },
+    {
+        id: '12',
+        productName: 'dangbalinh',
+        email: 'linha1xp@gmail.com',
+        image: macbook,
+        address: 'HCMC City',
+        age: '29',
+    },
+];
+function TableList({type}) {
+    
+    const [data, setData] = useState(productData);
+    const handleDlt = (id) => {
+        setData(data.filter((item) => item.id !== id));
+    };
+    useEffect(() => {
+        axios.get('https://api.example.com/data')
+          .then(response => {
+            setData(response.data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }, []);
+    const columns = [
         {
-            _id: 1,
-            product: 'IPhone 15',
-            image: macbook,
-            customer: 'Nguyen Thanh Trung',
-            date: '3 October, 2023',
-            ammount: 1,
-            method: 'Online Payment',
-            status: 'Approved',
+            field: 'id',
+            headerName: 'ID',
+            width: 150,
+            renderCell: (param) => (
+                <div className="userr">
+                    <img src={param.row.image} alt="Product Image" className="userr_image" />
+                    {param.row.id}
+                </div>
+            ),
         },
         {
-            _id: 2,
-            product: 'IPhone 15',
-            image: macbook,
-            customer: 'Nguyen Thanh Trung',
-            date: '23 April, 2023',
-            ammount: 1,
-            method: 'Cash On Delivery',
-            status: 'Pending',
+            field: 'productName',
+            headerName: 'Product Name',
+            width: 180,
         },
+        { field: 'email', headerName: 'Email', width: 280 },
         {
-            _id: 3,
-            product: 'IPhone 15',
-            image: macbook,
-            customer: 'Nguyen Thanh Trung',
-            date: '10 October, 2023',
-            ammount: 1,
-            method: 'Online Payment',
-            status: 'Approved',
+            field: 'address',
+            headerName: 'Color',
+            width: 150,
+            renderCell: (param) => (
+                <div className={`status ${param.row.address}`}>{param.row.address}</div>
+            ),
         },
+        { field: 'age', headerName: 'Age', width: 120 },
         {
-            _id: 4,
-            product: 'IPhone 15',
-            image: macbook,
-            customer: 'Nguyen Thanh Trung',
-            date: '3 March, 2023',
-            ammount: 1,
-            method: 'Cash On Delivery',
-            status: 'Approved',
-        },
-        {
-            _id: 5,
-            product: 'IPhone 15',
-            image: macbook,
-            customer: 'Nguyen Thanh Trung',
-            date: '20 November, 2023',
-            ammount: 1,
-            method: 'Online Payment',
-            status: 'Approved',
-        },
-        {
-            _id: 6,
-            product: 'IPhone 15',
-            image: macbook,
-            customer: 'Nguyen Thanh Trung',
-            date: '12 June, 2023',
-            ammount: 1,
-            method: 'Cash On Delivery',
-            status: 'Pending',
+            field: 'action',
+            headerName: 'Action',
+            width: 270,
+            renderCell: (params) => (
+                <div className="actionn">
+                    <Link to={params.row.id}>
+                        <button type="button" className="view_btn">
+                            View
+                        </button>
+                    </Link>
+                    <button
+                        type="button"
+                        className="delete_btn"
+                        onClick={() => handleDlt(params.row.id)}
+                    >
+                        Delete
+                    </button>
+                    <Link 
+                        to={`/${
+                            type === 'product' ? 'products' : 'customer' ? 'customers' : 'blogs'
+                        }/updatenew`}
+                        style={{ textDecoration: 'none' }}
+                        
+                    >
+                        <button
+                            type="button"
+                            className="update_btn"
+                        >Update</button>
+                    </Link>
+                    
+                </div>
+            ),
         },
     ];
 
     return (
-        <TableContainer component={Paper} className="table_list">
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell className="table_cell">Id</TableCell>
-                        <TableCell className="table_cell">Product</TableCell>
-                        <TableCell className="table_cell">Customer</TableCell>
-                        <TableCell className="table_cell">Ammount</TableCell>
-                        <TableCell className="table_cell">Date</TableCell>
-                        <TableCell className="table_cell">Payment Status</TableCell>
-                        <TableCell className="table_cell">Status</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row) => (
-                        <TableRow key={row._id}>
-                            <TableCell component="th" scope="row" className="table_cell">
-                                <div className="product_idd">
-                                    <img src={row.image} alt="product" className="product_img" />
-                                    {row._id}
-                                </div>
-                            </TableCell>
-                            <TableCell className="table_cell">{row.product}</TableCell>
-                            <TableCell className="table_cell">{row.customer}</TableCell>
-                            <TableCell className="table_cell">{row.ammount}</TableCell>
-                            <TableCell className="table_cell">{row.date}</TableCell>
-                            <TableCell className="table_cell">{row.method}</TableCell>
-                            <TableCell className="table_cell">
-                                <span className={`status ${row.status}`}>{row.status}</span>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div className="data_table">
+            <DataGrid
+                className="data_grid"
+                rows={data}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                checkboxSelection
+            />
+        </div>
     );
 }
 

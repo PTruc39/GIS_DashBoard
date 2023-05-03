@@ -18,6 +18,7 @@ function  UserLists({ type }) {
                 
                 <div className="data_table">
                     <div className="btnn">
+
                         <Link
                             to={`/${
                                 type === 'product' ? 'products' : 'customer' ? 'customers' : 'blogs'
@@ -28,7 +29,8 @@ function  UserLists({ type }) {
                         </Link>
                     </div>
 
-                    {type === 'customer' ? <DataTable /> : <TableList />}
+                    {/* select the content of the table  */}
+                    {type === 'customer' ? <DataTable /> : <TableList type='product'/>}
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ function Input(inpDetails) {
 
     return (
         <div className="input_component">
-            <lable>{lable}</lable>
+            <label className="form__label">{lable}</label>
             <input
                 className="input_field"
                 {...detail}
@@ -22,6 +22,7 @@ function Input(inpDetails) {
                 focused={focus.toString()}
                 type={type}
             />
+            
 
             <span>{errorMsg}</span>
         </div>

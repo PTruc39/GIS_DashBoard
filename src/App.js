@@ -5,7 +5,7 @@ import Home from './Components/Home/Home';
 import AddNew from './Pages/AddNew/AddNew';
 import BlogDetail from './Pages/BlogDetail/BlogDetail';
 import Blogs from './Pages/Blogs/Blogs';
-import Lists from './Pages/CustomerLists/UserLists';
+import UserLists from './Pages/CustomerLists/UserLists';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
 import UpdateNew from './Pages/UpdateNew/UpdateNew';
@@ -108,6 +108,42 @@ const productInpDetails = [
         required: true,
         errorMsg: 'This field is required!',
     },
+    {
+        id: 7,
+        name: 'color',
+        lable: 'Mau sac',
+        type: 'text',
+        placeholder: 'Mau sac',
+        required: true,
+        errorMsg: 'This field is required!',
+    },
+    {
+        id: 8,
+        name: 'ram',
+        lable: 'Ram',
+        type: 'text',
+        placeholder: 'Ram',
+        required: true,
+        errorMsg: 'This field is required!',
+    },
+    {
+        id: 9,
+        name: 'cip',
+        lable: 'Chip',
+        type: 'text',
+        placeholder: 'Chip',
+        required: true,
+        errorMsg: 'This field is required!',
+    },
+    {
+        id: 10,
+        name: 'batteries',
+        lable: 'Pin',
+        type: 'text',
+        placeholder: 'Pin',
+        required: true,
+        errorMsg: 'This field is required!',
+    },
 ];
 const blogInputs = [
     {
@@ -151,7 +187,7 @@ function App() {
                         <Route path="login" element={<Login />} />
 
                         <Route path="customers">
-                            <Route index element={<Lists type="customer" />} />
+                            <Route index element={<UserLists type="customer" />} />
                             <Route path=":customerId" element={<Detail />} />
                             <Route
                                 path="addnew"
@@ -166,18 +202,20 @@ function App() {
                             <Route  path="updatenew"
                                     element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="CUSTOMER"/>
+                                     type="CUSTOMER"
+                                     titlee="Update Current Customer"
+                                     />
                                     }></Route>
                         </Route>
 
 
                         
                         <Route path="products">
-                            <Route index element={<Lists type="product" />} />
+                            <Route index element={<UserLists type="product" />} />
                             <Route path=":productId" element={<Detail />} />
                             <Route
                                 path="addnew"
-                                element={
+                                element={ 
                                     <AddNew
                                         inputs={productInpDetails}
                                         titlee="Add New Product"
@@ -185,6 +223,13 @@ function App() {
                                     />
                                 }
                             />
+                            <Route  path="updatenew"
+                                    element={
+                                    <UpdateNew inputs={productInpDetails}
+                                    type="PRODUCT"
+                                    titlee="Update Current Product"
+                                     />
+                                    }></Route>
                         </Route>
 
                         <Route path="news">

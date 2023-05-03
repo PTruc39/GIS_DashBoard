@@ -1,69 +1,78 @@
 import React, { useState } from 'react';
 import Input from '../../Components/Input/Input';
-const UpdateNew = ({ inputs, titlee, type}) => {
+import macbook from '../../Images/macbook_pro.png';
+import './Update.scss';
+const UpdateNew = ({ inputs, titlee, type }) => {
+
+	let dynamicInpVal;
+	switch (type) {
+		case 'CUSTOMER':
+			dynamicInpVal = {
+				username: '',
+				name: '',
+				email: '',
+				password: '',
+				address: '',
+			};
+			break;
+		case 'PRODUCT':
+			dynamicInpVal = {
+				title: '',
+				description: '',
+				category: '',
+				price: '',
+				stock: '',
+			};
+			break;
+		case 'BLOG':
+			dynamicInpVal = {
+				title: '',
+				description: '',
+				tags: '',
+			};
+			break;
+		default:
+			break;
+	}
+	const [userInp, setUserInp] = useState(dynamicInpVal);
+	const handleChange = (e) => {
+		setUserInp({ ...userInp, [e.target.name]: e.target.value });
+	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(userInp);
+	};
+
+	return (
+		<div className="new_page_main">
+			<div className="add_new_item">
+				<h1>{titlee}</h1>
+			</div>
+			<div className="new_page_form">
+				<div className="containerImg">
+					<img src={macbook}></img>
+					<img src={macbook}></img>
+					<img src={macbook}></img>
+					<img src={macbook}></img>
+				</div>
+				<form onSubmit={handleSubmit}>
+					{inputs.map((detail) => (
+						<Input
+							key={detail.id}
+							{...detail}
+							value={userInp[detail.name]}
+							onChange={handleChange}
+						/>
+					))}
+					<div className='wrap'>
+						<button type="submit" className='button'>Update</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
 
-
-
-  let dynamicInpVal;
-  switch (type) {
-    case 'CUSTOMER':
-        dynamicInpVal = {
-            username: '',
-            name: '',
-            email: '',
-            password: '',
-            address: '',
-        };
-        break;
-    case 'PRODUCT':
-        dynamicInpVal = {
-            title: '',
-            description: '',
-            category: '',
-            price: '',
-            stock: '',
-        };
-        break;
-    case 'BLOG':
-        dynamicInpVal = {
-            title: '',
-            description: '',
-            tags: '',
-        };
-        break;
-    default:
-        break;
-  }
-  const [userInp, setUserInp] = useState(dynamicInpVal);
-  const handleChange = (e) => {
-    setUserInp({ ...userInp, [e.target.name]: e.target.value });
-};
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(userInp);
-  };
-
-  return (
-    <div className="new_page_main">
-      
-      <h2>Update</h2>
-          <form onSubmit={handleSubmit}>
-          {inputs.map((detail) => (
-                                    <Input
-                                        key={detail.id}
-                                        {...detail}
-                                        value={userInp[detail.name]}
-                                        onChange={handleChange}
-                                    />
-                                ))}
-            <button type="submit">Update</button>
-          </form>
-   
-    </div>
-      
-    
-  );
+	);
 };
 
 export default UpdateNew;
