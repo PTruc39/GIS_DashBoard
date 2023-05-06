@@ -106,43 +106,67 @@ const productData = [
 ];
 function TableList({type}) {
     
-    const [data, setData] = useState(productData);
+    const [data, setData] = useState([]);
     const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+        axios.delete(`http://localhost:3001/product/${id}`)
+        .then(response => {
+            console.log('Item deleted successfully.');
+            
+        })
+        .catch(error => {
+        console.error('Error deleting item:', error);
+        });
     };
+
     useEffect(() => {
-        axios.get('https://api.example.com/data')
+        axios.get('http://localhost:3001/product')
           .then(response => {
-            setData(response.data);
+            const fetchedData = response.data.listProducts.map(item => {
+                return {
+                    ...item,
+                    id: 1
+                }
+            });
+            setData(fetchedData);
           })
           .catch(error => {
             console.error(error);
           });
       }, []);
+      console.log(data);
+
     const columns = [
         {
             field: 'id',
             headerName: 'ID',
             width: 150,
             renderCell: (param) => (
+
                 <div className="userr">
-                    <img src={param.row.image} alt="Product Image" className="userr_image" />
                     {param.row.id}
+                    <img src={param.row.hinh} alt="Product Image" className="userr_image" />
                 </div>
             ),
         },
         {
             field: 'productName',
             headerName: 'Product Name',
-            width: 180,
+            width: 250,
+            renderCell:  (param) => {
+                <div className='productName'>{param.row.tensanpham}</div>
+            }
         },
-        { field: 'email', headerName: 'Email', width: 280 },
+        { 
+            field: 'email', 
+            headerName: 'Email', 
+            width: 280 
+        },
         {
-            field: 'address',
-            headerName: 'Color',
+            field: 'price',
+            headerName: 'Price',
             width: 150,
             renderCell: (param) => (
-                <div className={`status ${param.row.address}`}>{param.row.address}</div>
+                <div className={`status ${param.row.address}`}>{param.row.gia}</div>
             ),
         },
         { field: 'age', headerName: 'Age', width: 120 },
@@ -160,7 +184,7 @@ function TableList({type}) {
                     <button
                         type="button"
                         className="delete_btn"
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleDlt(params.row._id)}
                     >
                         Delete
                     </button>
