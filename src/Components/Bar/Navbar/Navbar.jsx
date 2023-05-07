@@ -3,8 +3,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useContext } from 'react';
-import { ColorContext } from '../../ColorContext/darkContext';
-import images from '../../Assets/Images';
+import { ColorContext } from '../../../ColorContext/darkContext';
+import images from '../../../Assets/Images';
 
 
 import './navbar.scss';

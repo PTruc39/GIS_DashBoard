@@ -1,9 +1,9 @@
 import React from 'react';
-import Chart from '../Chart/Chart';
-import ItemLists from '../ItemLists/ItemLists';
-import Navbar from '../Navbar/Navbar';
-import ProgressBar from '../ProgressBar/ProgressBar';
-import Sidebar from '../Sidebar/Sidebar';
+import Chart from '../../Components/Chart/Chart';
+import ItemLists from '../../Components/ItemLists/ItemLists';
+import Navbar from '../../Components/Bar/Navbar/Navbar';
+import ProgressBar from '../../Components/Bar/ProgressBar/ProgressBar';
+import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
 import './Home.scss';
 

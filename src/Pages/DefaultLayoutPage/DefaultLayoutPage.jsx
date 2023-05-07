@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
-import Navbar from '../../Components/Navbar/Navbar';
-import Sidebar from '../../Components/Sidebar/Sidebar';
+import Navbar from '../../Components/Bar/Navbar/Navbar';
+import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
 import TableProduct from '../../Components/DataTable/TableProduct/TableProduct';
-import './userlists.scss';
+import './DefaultLayoutPage.scss';
 
-function  UserLists({ type }) {
+function  DefaultLayoutPage({ type }) {
     //
     return (
         <div className="list_page">
@@ -37,4 +37,4 @@ function  UserLists({ type }) {
     );
 }
 
-export default UserLists;
+export default DefaultLayoutPage;

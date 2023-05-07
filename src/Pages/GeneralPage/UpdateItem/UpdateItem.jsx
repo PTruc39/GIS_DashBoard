@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Input from '../../Components/Input/Input';
-import macbook from '../../Assets/Images/macbook_pro.png';
-import './Update.scss';
+import Input from '../../../Components/Input/Input';
+import macbook from '../../../Assets/Images/macbook_pro.png';
+import './UpdateItem.scss';
 const UpdateNew = ({ inputs, titlee, type }) => {
 
 	let dynamicInpVal;

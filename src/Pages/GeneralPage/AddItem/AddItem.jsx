@@ -1,11 +1,11 @@
 
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import React, { useState } from 'react';
-import Input from '../../Components/Input/Input';
-import Navbar from '../../Components/Navbar/Navbar';
-import Sidebar from '../../Components/Sidebar/Sidebar';
-import noImage from '../../Assets/Images/no-results.png';
-import './New.scss';
+import Input from '../../../Components/Input/Input';
+import Navbar from '../../../Components/Bar/Navbar/Navbar';
+import Sidebar from '../../../Components/Bar/Sidebar/Sidebar';
+import noImage from '../../../Assets/Images/no-results.png';
+import './AddItem.scss';
 
 function AddNew({ inputs, titlee, type }) {
     let dynamicInpVal;

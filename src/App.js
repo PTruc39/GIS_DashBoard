@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ColorContext } from './ColorContext/darkContext';
-import Home from './Components/Home/Home';
-import AddNew from './Pages/AddNew/AddNew';
-import BlogDetail from './Pages/BlogDetail/BlogDetail';
-import Blogs from './Pages/Blogs/Blogs';
-import UserLists from './Pages/CustomerLists/UserLists';
+import Home from './Pages/Home/Home';
+import AddNew from './Pages/GeneralPage/AddItem/AddItem';
+import BlogDetail from './Pages/NewDetail/NewDetail';
+import Blogs from './Pages/News/News';
+import UserLists from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
-import UpdateNew from './Pages/UpdateNew/UpdateNew';
+import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
 import './app.scss';
 
 const userInpDetails = [
@@ -186,6 +186,8 @@ function App() {
                         <Route index element={<Home />} />
                         <Route path="login" element={<Login />} />
 
+                        {/* customer */}
+
                         <Route path="customers">
                             <Route index element={<UserLists type="customer" />} />
                             <Route path=":customerId" element={<Detail />} />
@@ -209,7 +211,7 @@ function App() {
                         </Route>
 
 
-                        
+                        {/* product */}
                         <Route path="products">
                             <Route index element={<UserLists type="product" />} />
                             <Route path=":productId" element={<Detail />} />
@@ -231,6 +233,8 @@ function App() {
                                      />
                                     }></Route>
                         </Route>
+
+                        {/* new */}
 
                         <Route path="news">
                             <Route index element={<Blogs type="blog" />} />
