@@ -1,12 +1,14 @@
+// Ahead the website
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useContext } from 'react';
-import { ColorContext } from '../../ColorContext/darkContext';
+import { ColorContext } from '../../../ColorContext/darkContext';
+import images from '../../../Assets/Images';
+
 
 import './navbar.scss';
 
-import admin from '../../Images/portrait.png';
 
 function Navbar() {
     const { darkMode, dispatch } = useContext(ColorContext);
@@ -34,7 +36,7 @@ function Navbar() {
                     )}
                 </div>
                 <div className="item">
-                    <img className="admin_pic" src={admin} alt="admin" />
+                    <img className="admin_pic" src={images.portrait} alt="admin" />
                 </div>
             </div>
         </div>

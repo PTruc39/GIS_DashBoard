@@ -1,9 +1,9 @@
 import React from 'react';
 import Chart from '../../Components/Chart/Chart';
-import Navbar from '../../Components/Navbar/Navbar';
-import Sidebar from '../../Components/Sidebar/Sidebar';
-import TableList from '../../Components/TableList/TableList';
-import userPic from '../../Images/portrait.png';
+import Navbar from '../../Components/Bar/Navbar/Navbar';
+import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
+import TableList from '../../Components/DataTable/TableProduct/TableProduct';
+import userPic from '../../Assets/Images/portrait.png';
 import './Detail.scss';
 
 function Detail() {

@@ -1,14 +1,11 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../Components/Navbar/Navbar';
-import Sidebar from '../../Components/Sidebar/Sidebar';
-import portrait from '../../Images/portrait.png';
+import Navbar from '../../Components/Bar/Navbar/Navbar';
+import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
+import portrait from '../../Assets/Images/portrait.png';
 
-import './blogs.scss';
+import './News.scss';
 
 const userData = [
     {

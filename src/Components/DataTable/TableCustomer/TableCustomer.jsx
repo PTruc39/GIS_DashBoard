@@ -1,9 +1,8 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import man from '../../Images/portrait.png';
-
-import './datatable.scss';
+import man from '../../../Assets/Images/portrait.png';
+import './TableCustomer.scss';
 
 const userData = [
     {
@@ -104,7 +103,7 @@ const userData = [
     },
 ];
 
-function DataTable({type}) {
+function TableCustomer({type}) {
     const [data, setData] = useState(userData);
 
     const handleDlt = (id) => {
@@ -188,4 +187,4 @@ function DataTable({type}) {
     );
 }
 
-export default DataTable;
+export default TableCustomer;

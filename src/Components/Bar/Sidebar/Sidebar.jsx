@@ -6,18 +6,18 @@ import PersonIcon from '@mui/icons-material/Person';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ColorContext } from '../../ColorContext/darkContext';
+import { ColorContext } from '../../../ColorContext/darkContext';
 import './Sidebar.scss';
 
 function Sidebar() {
-    // color state management using react context
+    
     const { darkMode, dispatch } = useContext(ColorContext);
 
     return (
         <div className="sidebar">
             <div className="logo">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <h3 className="text_none">adminDashboard</h3>
+                    <h3 className="text_none">Dashboard</h3>
                 </Link>
             </div>
 
@@ -59,6 +59,11 @@ function Sidebar() {
                     <Link to="/orders" style={{ textDecoration: 'none' }}>
                         <li>
                             <CreditCardIcon className="icon" /> Orders Management
+                        </li>
+                    </Link>
+                    <Link to="/orders" style={{ textDecoration: 'none' }}>
+                        <li>
+                            <CreditCardIcon className="icon" /> Stores Management
                         </li>
                     </Link>
                     <p className="spann">Settings</p>
