@@ -1,28 +1,60 @@
 import React, { useState } from 'react';
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import {useNavigate} from 'react-router-dom'
 import './Login.scss';
 function Login() {
-  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const sendRequestSU = async ()=>{
+    const res = await axios
+    .post(`http://localhost:3001/nhanvien/login`,{
+      email:String(email),
+      password:String(password)
+    })
+    .catch((err)=>{
+      alert("Đăng nhập lỗi!")
+      console.log(err);})
+    const data = await res.data;
+    console.log(data);
+    return data;
+  }
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (e) => {
+    if(email === '' || password === '')
+    {
+        e.preventDefault();
+        alert("login failed!");
+    } else {
+      e.preventDefault();
+      sendRequestSU()
+      .then((data)=>{
+        localStorage.setItem("user",JSON.stringify(data.nhanvien));
+        //localStorage.setItem("token",data.token);
+        Cookies.set('token', data.token);
+      })
+      .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})
+      .then(()=>navigate("/"));
+      }
+}
+  const handleSubmit2 = (event) => {
     event.preventDefault();
-    console.log(`Username: ${username}, Password: ${password}`);
+    console.log(`email: ${email}, password: ${password}`);
   };
 
   return (
     <div className="container">
             <form onSubmit={handleSubmit} className="form">
           <label>
-            Username:
-            <input type="text" value={username} onChange={handleUsernameChange} />
+            Email:
+            <input type="text" value={email} onChange={handleEmailChange} />
           </label>
           <br />
           <label>
