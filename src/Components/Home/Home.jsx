@@ -4,7 +4,7 @@ import ItemLists from '../ItemLists/ItemLists';
 import Navbar from '../Navbar/Navbar';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Sidebar from '../Sidebar/Sidebar';
-import TableList from '../TableList/TableList';
+import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
 import './Home.scss';
 
 function Home() {
@@ -32,7 +32,7 @@ function Home() {
 
                 <div className="table">
                     <div className="title">Lates Orders</div>
-                    <TableList />
+                    <TableCustomer />
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Input from '../../Components/Input/Input';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import noImage from '../../Images/photo-camera.png';
+import noImage from '../../Assets/Images/no-results.png';
 import './New.scss';
 
 function AddNew({ inputs, titlee, type }) {

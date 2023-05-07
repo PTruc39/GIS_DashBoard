@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Input from '../../Components/Input/Input';
-import macbook from '../../Images/macbook_pro.png';
+import macbook from '../../Assets/Images/macbook_pro.png';
 import './Update.scss';
 const UpdateNew = ({ inputs, titlee, type }) => {
 

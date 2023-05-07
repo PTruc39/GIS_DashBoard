@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DataTable from '../../Components/DataTable/DataTable';
+import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import TableList from '../../Components/TableList/TableList';
+import TableProduct from '../../Components/DataTable/TableProduct/TableProduct';
 import './userlists.scss';
 
 function  UserLists({ type }) {
@@ -30,7 +30,7 @@ function  UserLists({ type }) {
                     </div>
 
                     {/* select the content of the table  */}
-                    {type === 'customer' ? <DataTable /> : <TableList type='product'/>}
+                    {type === 'customer' ? <TableCustomer /> : <TableProduct type='product'/>}
                 </div>
             </div>
         </div>

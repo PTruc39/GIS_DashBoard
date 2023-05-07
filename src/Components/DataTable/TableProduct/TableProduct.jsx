@@ -1,112 +1,13 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import macbook from '../../Images/macbook_pro.png';
 import axios from 'axios';
-import './tableList.scss';
+import './TableProduct.scss';
 
-
-const productData = [
-    {
-        id: '1',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '24',
-    },
-    {
-        id: '2',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'Ha Noi City',
-        age: '29',
-    },
-    {
-        id: '3',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '20',
-    },
-    {
-        id: '4',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '5',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '6',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '7',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'Thanh Hoa',
-        age: '29',
-    },
-    {
-        id: '8',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '20',
-    },
-    {
-        id: '9',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '10',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '11',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '30',
-    },
-    {
-        id: '12',
-        productName: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: macbook,
-        address: 'HCMC City',
-        age: '29',
-    },
-];
-function TableList({type}) {
+function TableProduct({type}) {
     
     const [data, setData] = useState([]);
+
     const handleDlt = (id) => {
         axios.delete(`http://localhost:3001/product/${id}`)
         .then(response => {
@@ -118,7 +19,7 @@ function TableList({type}) {
         });
     };
 
-    useEffect(() => {
+    const GetAllProduct = () => {
         axios.get('http://localhost:3001/product')
           .then(response => {
             const fetchedData = response.data.listProducts.map(item => {
@@ -132,48 +33,76 @@ function TableList({type}) {
           .catch(error => {
             console.error(error);
           });
+    }
+    useEffect(() => {
+        GetAllProduct();
       }, []);
+
       console.log(data);
 
     const columns = [
         {
             field: 'id',
             headerName: 'ID',
-            width: 150,
+            width: 50,
+            headerAlign: 'center',
             renderCell: (param) => (
 
                 <div className="userr">
-                    {param.row.id}
-                    <img src={param.row.hinh} alt="Product Image" className="userr_image" />
+                    {param.row.id}   
                 </div>
             ),
+        },
+        {
+            field: 'image',
+            headerName: 'Image',
+            width: 250,
+            headerAlign: 'center',
+            renderCell:  (param) => (
+                <img src={param.row.hinh} alt="Product Image" className="product_image" />
+            )
         },
         {
             field: 'productName',
             headerName: 'Product Name',
             width: 250,
-            renderCell:  (param) => {
-                <div className='productName'>{param.row.tensanpham}</div>
-            }
+            headerAlign: 'center',
+            renderCell:  (param) => (
+                <div className="productName">{param.row.tensanpham}</div>
+            )
         },
         { 
-            field: 'email', 
-            headerName: 'Email', 
-            width: 280 
+            field: 'typeProduct', 
+            headerName: 'Type', 
+            width: 250,
+            headerAlign: 'center',
+            renderCell:  (param) => (
+                <div className="productType">{param.row.loaisanpham}</div>
+            )
         },
         {
             field: 'price',
             headerName: 'Price',
             width: 150,
+            headerAlign: 'center',
             renderCell: (param) => (
-                <div className={`status ${param.row.address}`}>{param.row.gia}</div>
+                <div>{param.row.gia}</div>
             ),
         },
-        { field: 'age', headerName: 'Age', width: 120 },
+        { 
+            field: 'age', 
+            headerName: 'Age', 
+            width: 120,
+            headerAlign: 'center',
+            renderCell: (param) => (
+                <div>{param.row.gia}</div>
+            ),
+        },
         {
             field: 'action',
             headerName: 'Action',
             width: 270,
+            headerAlign: 'center',
             renderCell: (params) => (
                 <div className="actionn">
                     <Link to={params.row.id}>
@@ -215,9 +144,17 @@ function TableList({type}) {
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 checkboxSelection
+                sx={{
+                    boxShadow: 2,
+                    border: 2,
+                    borderColor: 'primary.light',
+                    '& .MuiDataGrid-cell:hover': {
+                      color: 'primary.main',
+                    },
+                  }}
             />
         </div>
     );
 }
 
-export default TableList;
+export default TableProduct;

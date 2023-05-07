@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import portrait from '../../Images/portrait.png';
+import portrait from '../../Assets/Images/portrait.png';
 
 import './blogs.scss';
 
