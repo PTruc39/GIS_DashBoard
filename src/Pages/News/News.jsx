@@ -120,7 +120,7 @@ function Blogs({ type }) {
                     <div className="btnn">
                         <Link
                             to={`/${
-                                type === 'blog' ? 'blogs' : 'user' ? 'users' : 'products'
+                                type === 'blog' ? 'news' : 'user' ? 'users' : 'products'
                             }/addnew`}
                             style={{ textDecoration: 'none' }}
                         >
