@@ -28,6 +28,7 @@ function TableProduct({type}) {
                     id: 1
                 }
             });
+            //_id
             setData(fetchedData);
           })
           .catch(error => {

@@ -7,7 +7,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { Pie, PieChart, ResponsiveContainer } from 'recharts';
 
 // import css filr
-import './progressBar.scss';
+import classes from  './progressBar.module.scss';
 
 function ProgressBar() {
     const data01 = [
@@ -19,14 +19,14 @@ function ProgressBar() {
     ];
 
     return (
-        <div className="progress_bar">
-            <div className="top">
+        <div className={classes.progress_bar}>
+            <div className={classes.top}>
                 <p>Total Revenue</p>
                 <MoreVertOutlinedIcon />
             </div>
 
-            <div className="middle">
-                <div className="progress">
+            <div className={classes.middle}>
+                <div className={classes.progress}>
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart width={400} height={400}>
                             <Pie
@@ -44,25 +44,25 @@ function ProgressBar() {
                     </ResponsiveContainer>
                 </div>
                 <p>Total sales made today.</p>
-                <p className="price">
+                <p className={classes.price}>
                     <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
                     324
                 </p>
             </div>
 
-            <div className="bottom">
+            <div className={classes.bottom}>
                 <p>Previous transection processing. Last payments may not be included.</p>
 
-                <div className="botom_nested">
-                    <div className="nested_nested">
+                <div className={classes.botom_nested}>
+                    <div className={classes.nested_nested}>
                         <p>Last Week</p>
-                        <p className="pricee">
+                        <p className={classes.pricee}>
                             <KeyboardArrowUpOutlinedIcon /> $11.9k
                         </p>
                     </div>
-                    <div className="nested_nested">
+                    <div className={classes.nested_nested}>
                         <p>Last Month</p>
-                        <p className="pricee decrese">
+                        <p className={classes.price_decrease}>
                             <KeyboardArrowUpOutlinedIcon /> $12.4k
                         </p>
                     </div>

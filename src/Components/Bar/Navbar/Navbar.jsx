@@ -7,36 +7,36 @@ import { ColorContext } from '../../../ColorContext/darkContext';
 import images from '../../../Assets/Images';
 
 
-import './navbar.scss';
+import classes from './navbar.module.scss';
 
 
 function Navbar() {
     const { darkMode, dispatch } = useContext(ColorContext);
 
     return (
-        <div className="navbar">
-            <div className="search">
+        <div className={classes.navbar}>
+            <div className={classes.search}>
                 <input type="text" placeholder="Search.." />
 
-                <SearchIcon className="search_icon" />
+                <SearchIcon className={classes.search_icon} />
             </div>
 
-            <div className="item_lists">
-                <div className="item">
+            <div className={classes.item_lists}>
+                <div className={classes.item}>
                     {!darkMode ? (
                         <DarkModeIcon
-                            className="item_icon"
+                            className={classes.item_icon}
                             onClick={() => dispatch({ type: 'TOGGLE' })}
                         />
                     ) : (
                         <LightModeIcon
-                            className="item_icon white"
+                            className={classes.item_icon_white}
                             onClick={() => dispatch({ type: 'TOGGLE' })}
                         />
                     )}
                 </div>
-                <div className="item">
-                    <img className="admin_pic" src={images.portrait} alt="admin" />
+                <div className={classes.item}>
+                    <img className={classes.admin_pic} src={images.portrait} alt="admin" />
                 </div>
             </div>
         </div>

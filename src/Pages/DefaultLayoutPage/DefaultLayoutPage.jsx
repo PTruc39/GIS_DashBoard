@@ -64,6 +64,7 @@ function  DefaultLayoutPage({ type }) {
                 <Navbar />
 
                 
+
                 <div className={classes.data_table}>
                     <div className={classes.btnn}>
 
