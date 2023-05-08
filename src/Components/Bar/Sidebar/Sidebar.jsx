@@ -61,7 +61,7 @@ function Sidebar() {
                             <CreditCardIcon className="icon" /> Orders Management
                         </li>
                     </Link>
-                    <Link to="/orders" style={{ textDecoration: 'none' }}>
+                    <Link to="/stores" style={{ textDecoration: 'none' }}>
                         <li>
                             <CreditCardIcon className="icon" /> Stores Management
                         </li>

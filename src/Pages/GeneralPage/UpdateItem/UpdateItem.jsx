@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../../../Components/Input/Input';
 import macbook from '../../../Assets/Images/macbook_pro.png';
-import './UpdateItem.scss';
+import classes from './UpdateItem.module.scss';
 const UpdateNew = ({ inputs, titlee, type }) => {
 
 	let dynamicInpVal;
@@ -44,12 +44,12 @@ const UpdateNew = ({ inputs, titlee, type }) => {
 	};
 
 	return (
-		<div className="new_page_main">
-			<div className="add_new_item">
+		<div className={classes.new_page_main}>
+			<div className={classes.add_new_item}>
 				<h1>{titlee}</h1>
 			</div>
-			<div className="new_page_form">
-				<div className="containerImg">
+			<div className={classes.new_page_form}>
+				<div className={classes.containerImg}>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
@@ -64,7 +64,7 @@ const UpdateNew = ({ inputs, titlee, type }) => {
 							onChange={handleChange}
 						/>
 					))}
-					<div className='wrap'>
+					<div className={classes.wrap}>
 						<button type="submit" className='button'>Update</button>
 					</div>
 				</form>

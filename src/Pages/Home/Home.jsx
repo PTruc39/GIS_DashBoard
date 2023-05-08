@@ -5,32 +5,32 @@ import Navbar from '../../Components/Bar/Navbar/Navbar';
 import ProgressBar from '../../Components/Bar/ProgressBar/ProgressBar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
-import './Home.scss';
+import classes from './Home.module.scss';
 
 function Home() {
     //
     return (
-        <div className="home">
+        <div className={classes.home}>
             <Sidebar />
 
-            <div className="home_main">
+            <div className={classes.home_main}>
                 <Navbar />
 
-                <div className="bg_color" />
+                <div className={classes.bg_color} />
 
-                <div className="home_items">
+                <div className={classes.home_items}>
                     <ItemLists type="customer" />
                     <ItemLists type="order" />
                     <ItemLists type="earning" />
                     <ItemLists type="balance" />
                 </div>
 
-                <div className="chart_sec">
+                <div className={classes.chart_sec}>
                     <ProgressBar />
                     <Chart height={450} title="Revenue" />
                 </div>
 
-                <div className="table">
+                <div className={classes.table}>
                     <div className="title">Lates Orders</div>
                     <TableCustomer />
                 </div>

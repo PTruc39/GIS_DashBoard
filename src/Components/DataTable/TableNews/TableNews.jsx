@@ -1,12 +1,8 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../Components/Bar/Navbar/Navbar';
-import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
-import portrait from '../../Assets/Images/portrait.png';
-
-import classes from './News.module.scss';
-
+import './TableNews.scss';
+import portrait from '../../../Assets/Images/portrait.png';
 const userData = [
     {
         id: '1',
@@ -52,7 +48,7 @@ const userData = [
     },
 ];
 
-function Blogs({ type }) {
+function TableNews({ type }) {
     const [data, setData] = useState(userData);
 
     const handleDlt = (id) => {
@@ -65,7 +61,7 @@ function Blogs({ type }) {
             headerName: 'ID',
             width: 50,
             renderCell: (param) => (
-                <div className={classes.userr}>
+                <div className="userr">
                     <img src={param.row.image} alt="User Image" className="userr_image" />
                     {param.row.id}
                 </div>
@@ -110,25 +106,14 @@ function Blogs({ type }) {
     ];
 
     return (
-        <div className={classes.blog_page}>
-            <Sidebar />
+        <div className="blog_page">
 
-            <div className={classes.blog_page_main}>
-                <Navbar />
+            <div className="blog_page_main">
 
-                <div className={classes.blog_page_tabl}>
-                    <div className="btnn">
-                        <Link
-                            to={`/${
-                                type === 'blog' ? 'news' : 'user' ? 'users' : 'products'
-                            }/addnew`}
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <button type="button">Add New {type}</button>
-                        </Link>
-                    </div>
+                <div className="blog_page_table">
+
                     <DataGrid
-                        className={classes.data_grid}
+                        className="data_grid"
                         rows={data}
                         columns={columns}
                         pageSize={10}
@@ -141,4 +126,4 @@ function Blogs({ type }) {
     );
 }
 
-export default Blogs;
+export default TableNews;

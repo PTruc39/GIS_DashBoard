@@ -5,7 +5,7 @@ import React from 'react';
 import Navbar from '../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
 import blogimg from '../../Assets/Images/blog2.jpg';
-import './NewDetail.scss';
+import classes from './NewDetail.module.scss';
 
 function BlogDetail() {
     const blogDetail = {
@@ -22,18 +22,18 @@ function BlogDetail() {
     };
 
     return (
-        <div className="blog_details">
+        <div className={classes.blog_details}>
             <Sidebar />
 
-            <div className="detail_page_main">
+            <div className={classes.detail_page_main}>
                 <Navbar />
 
-                <div className="blog_detailss">
+                <div className={classes.blog_detailss}>
                     <h1>{blogDetail.title}</h1>
 
-                    <img src={blogDetail.img} alt="Travel blogs" className="blog_detail_img" />
+                    <img src={blogDetail.img} alt="Travel blogs" className={classes.blog_detail_img} />
 
-                    <div className="blog_detail_tv">
+                    <div className={classes.blog_detail_tv}>
                         <p>
                             <CalendarMonthIcon style={{ marginRight: '3px' }} />
                             {blogDetail.createdAt}
@@ -45,13 +45,13 @@ function BlogDetail() {
                     </div>
 
                     {blogDetail.text.map((t) => (
-                        <p className="blog_detail_txt">{t}</p>
+                        <p className={classes.blog_detail_txt}>{t}</p>
                     ))}
 
-                    <div className="tags">
+                    <div className={classes.tags}>
                         <h3>Tags:</h3>
                         {blogDetail.tags.map((tag, i) => (
-                            <span className="blog_detail_tag" key={i}>
+                            <span className={classes.blog_detail_tag} key={i}>
                                 {tag}
                             </span>
                         ))}

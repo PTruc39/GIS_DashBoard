@@ -5,7 +5,7 @@ import Input from '../../../Components/Input/Input';
 import Navbar from '../../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../../Components/Bar/Sidebar/Sidebar';
 import noImage from '../../../Assets/Images/no-results.png';
-import './AddItem.scss';
+import classes from './AddItem.module.scss';
 
 function AddNew({ inputs, titlee, type }) {
     let dynamicInpVal;
@@ -22,7 +22,7 @@ function AddNew({ inputs, titlee, type }) {
                 age: ''
             };
             break;
-        case 'PRODUCT':
+        case 'PROMOTION':
             dynamicInpVal = {
                 title: '',
                 description: '',
@@ -31,6 +31,15 @@ function AddNew({ inputs, titlee, type }) {
                 stock: '',
             };
             break;
+        case 'PRODUCT':
+            dynamicInpVal = {
+                title: '',
+                description: '',
+                category: '',
+                price: '',
+                stock: '',
+            };
+        break;
         case 'BLOG':
             dynamicInpVal = {
                 title: '',
@@ -58,23 +67,23 @@ function AddNew({ inputs, titlee, type }) {
         console.log(userInp);
     };
     return (
-        <div className="add_new">
+        <div className={classes.add_new}>
             <Sidebar />
 
-            <div className="new_page">
+            <div className={classes.new_page}>
                 <Navbar />
 
-                <div className="new_page_main">
-                    <div className="new_page_content">
-                        <div className="image">
-                            <p className="add_new_user">{titlee}</p>
+                <div className={classes.new_page_main}>
+                    <div className={classes.new_page_content}>
+                        <div className={classes.image}>
+                            <p className={classes.add_new_user}>{titlee}</p>
                             <img src={file ? URL.createObjectURL(file) : noImage} alt="" />
                         </div>
 
-                        <form onSubmit={handleSubmit} className="form">
-                            <div className="form_inp">
+                        <form onSubmit={handleSubmit} className={classes.form}>
+                            <div className={classes.form_inp}>
                                 <label htmlFor="file">
-                                    Upload: <DriveFolderUploadIcon className="file_icon" />
+                                    Upload: <DriveFolderUploadIcon className={classes.file_icon} />
                                 </label>
 
                                 <input
@@ -95,7 +104,7 @@ function AddNew({ inputs, titlee, type }) {
                                 />
                             ))}
 
-                            <button type="submit" className="submit_btn">
+                            <button type="submit" className={classes.submit_btn}>
                                 Submit
                             </button>
                         </form>

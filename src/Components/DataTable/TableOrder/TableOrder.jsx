@@ -2,12 +2,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import man from '../../../Assets/Images/portrait.png';
-import './TableCustomer.scss';
+import './TableOrder.scss';
 
 const userData = [
     {
         id: '1',
-        username: 'dangbalinh',
+        username: 'order',
         email: 'linha1xp@gmail.com',
         image: man,
         address: 'HCMC City',
@@ -15,7 +15,7 @@ const userData = [
     },
     {
         id: '2',
-        username: 'dangbalinh',
+        username: 'order',
         email: 'linha1xp@gmail.com',
         image: man,
         address: 'Ha Noi City',
@@ -103,7 +103,7 @@ const userData = [
     },
 ];
 
-function TableCustomer({type}) {
+function TableOrder({type}) {
     const [data, setData] = useState(userData);
 
     const handleDlt = (id) => {
@@ -156,7 +156,7 @@ function TableCustomer({type}) {
                         Delete
                     </button>
                     <Link 
-                        to={`/customers/updatenew/${params.row.id}`}
+                        to={`/orders/updatenew/${params.row.id}`}
                         style={{ textDecoration: 'none' }}
                         
                     >
@@ -185,4 +185,4 @@ function TableCustomer({type}) {
     );
 }
 
-export default TableCustomer;
+export default TableOrder;
