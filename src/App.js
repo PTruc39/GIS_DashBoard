@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ColorContext } from './ColorContext/darkContext';
 import Home from './Pages/Home/Home';
 import AddNew from './Pages/GeneralPage/AddItem/AddItem';
-import AddOrder from './Pages/GeneralPage/AddItem/AddOrder';
 import BlogDetail from './Pages/NewDetail/NewDetail';
 import Blogs from './Pages/News/News';
 import UserLists from './Pages/DefaultLayoutPage/DefaultLayoutPage';
@@ -11,7 +10,6 @@ import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
 import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
 import './app.scss';
-import UpdateEmployee from './Pages/GeneralPage/UpdateItem/UpdateEmployee';
 
 const userInpDetails = [
     {
@@ -244,9 +242,10 @@ function App() {
                             <Route
                                 path="addnew"
                                 element={
-                                    <AddOrder
+                                    <AddNew
+                                        inputs={userInpDetails}
                                         titlee="Add New Customer"
-                                        type=""
+                                        type="CUSTOMER"
                                     />
                                 }
                         />
@@ -276,7 +275,7 @@ function App() {
                         />
                             <Route  path="updatenew/:employeeId"
                                     element={
-                                    <UpdateEmployee inputs={userInpDetails}
+                                    <UpdateNew inputs={userInpDetails}
                                      type="CUSTOMER"
                                      titlee="Update Current Customer"
                                      />
@@ -334,7 +333,7 @@ function App() {
                         {/* new */}
 
                         <Route path="news">
-                            <Route index element={<Blogs type="blog" />} />
+                            <Route index element={<UserLists type="blog" />} />
                             <Route path=":blogId" element={<BlogDetail />} />
                             <Route
                                 path="addnew"

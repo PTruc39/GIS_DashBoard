@@ -17,8 +17,8 @@ const PopupModalComponent = () => {
       <button onClick={openPopupModal}>Open Popup Modal</button>
 
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className={classes.modal-overlay}>
+          <div className={classes.modal}>
             <h2>Popup Modal Content</h2>
             <p>This is the content of the popup modal.</p>
             <button onClick={closeModal}>Close Popup Modal</button>

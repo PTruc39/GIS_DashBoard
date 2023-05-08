@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import {useNavigate} from 'react-router-dom'
-import './Login.scss';
+import classes from './Login.module.scss';
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -50,8 +50,8 @@ function Login() {
   };
 
   return (
-    <div className="container">
-            <form onSubmit={handleSubmit} className="form">
+    <div className={classes.container}>
+            <form onSubmit={handleSubmit} className={classes.form}>
           <label>
             Email:
             <input type="text" value={email} onChange={handleEmailChange} />
