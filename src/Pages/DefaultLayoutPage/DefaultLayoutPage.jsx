@@ -17,12 +17,17 @@ function  DefaultLayoutPage({ type }) {
 
                 
                 <div className="data_table">
+                    {/* button */}
+
                     <div className="btnn">
 
                         <Link
+
                             to={`/${
-                                type === 'product' ? 'products' : 'customer' ? 'customers' : 'blogs'
-                            }/addnew`}
+                                type === 'product' ? 'products' : 'customer' ? 'customers' : 'blogs'}/addnew`}
+                                //products/addnew
+                                //customers/addnew
+
                             style={{ textDecoration: 'none' }}
                         >
                             <button type="button">Add New {type}</button>
@@ -30,7 +35,9 @@ function  DefaultLayoutPage({ type }) {
                     </div>
 
                     {/* select the content of the table  */}
+
                     {type === 'customer' ? <TableCustomer /> : <TableProduct type='product'/>}
+                    
                 </div>
             </div>
         </div>
