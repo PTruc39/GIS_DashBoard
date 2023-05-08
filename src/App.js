@@ -7,6 +7,7 @@ import AddNew from './Pages/GeneralPage/AddItem/AddItem';
 import BlogDetail from './Pages/NewDetail/NewDetail';
 //import Blogs from './Pages/News/News';
 import UserLists from './Pages/DefaultLayoutPage/DefaultLayoutPage';
+import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
 import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
@@ -30,7 +31,7 @@ function App() {
                         {/* customer */}
 
                         <Route path="customers">
-                            <Route index element={<UserLists type="customer" />} />
+                            <Route index element={<DefaultLayoutPage type="customer" />} />
                             <Route path=":customerId" element={<Detail />} />
                             <Route
                                 path="addnew"
@@ -98,6 +99,28 @@ function App() {
                                      />
                                     }></Route>
                         </Route>
+                        
+                        <Route path="employees">
+                            <Route index element={<DefaultLayoutPage type="employee" />} />
+                            <Route path=":employeeId" element={<Detail />} />
+                            <Route
+                                path="addnew"
+                                element={
+                                    <AddNew
+                                        inputs={userInpDetails}
+                                        titlee="Add New Employee"
+                                        type="EMPLOYEE"
+                                    />
+                                }
+                        />
+                            <Route  path="updatenew"
+                                    element={
+                                    <UpdateNew inputs={userInpDetails}
+                                     type="EMPLOYEE"
+                                     titlee="Update Current Employee"
+                                     />
+                                    }></Route>
+                        </Route>
 
                         {/* employee */}
 
@@ -149,7 +172,7 @@ function App() {
 
                         {/* product */}
                         <Route path="products">
-                            <Route index element={<UserLists type="product" />} />
+                            <Route index element={<DefaultLayoutPage type="product" />} />
                             <Route path=":productId" element={<Detail />} />
                             <Route
                                 path="addnew"
