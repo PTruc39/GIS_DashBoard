@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './TableProduct.scss';
+import classes from './TableProduct.module.scss';
 
 function TableProduct({type}) {
     
@@ -49,7 +49,7 @@ function TableProduct({type}) {
             headerAlign: 'center',
             renderCell: (param) => (
 
-                <div className="userr">
+                <div className={classes.userr}>
                     {param.row.id}   
                 </div>
             ),
@@ -60,7 +60,7 @@ function TableProduct({type}) {
             width: 250,
             headerAlign: 'center',
             renderCell:  (param) => (
-                <img src={param.row.hinh} alt="Product Image" className="product_image" />
+                <img src={param.row.hinh} alt="Product Image" className={classes.product_image} />
             )
         },
         {
@@ -69,7 +69,7 @@ function TableProduct({type}) {
             width: 250,
             headerAlign: 'center',
             renderCell:  (param) => (
-                <div className="productName">{param.row.tensanpham}</div>
+                <div className={classes.productName}>{param.row.tensanpham}</div>
             )
         },
         { 
@@ -78,7 +78,7 @@ function TableProduct({type}) {
             width: 250,
             headerAlign: 'center',
             renderCell:  (param) => (
-                <div className="productType">{param.row.loaisanpham}</div>
+                <div className={classes.productType}>{param.row.loaisanpham}</div>
             )
         },
         {
@@ -105,29 +105,26 @@ function TableProduct({type}) {
             width: 270,
             headerAlign: 'center',
             renderCell: (params) => (
-                <div className="actionn">
+                <div className={classes.actionn}>
                     <Link to={params.row.id}>
-                        <button type="button" className="view_btn">
+                        <button type="button" className={classes.view_btn}>
                             View
                         </button>
                     </Link>
                     <button
                         type="button"
-                        className="delete_btn"
+                        className={classes.delete_btn}
                         onClick={() => handleDlt(params.row._id)}
                     >
                         Delete
                     </button>
                     <Link 
-                        to={`/${
-                            type === 'product' ? 'products' : 'customer' ? 'customers' : 'blogs'
-                        }/updatenew`}
-                        style={{ textDecoration: 'none' }}
-                        
+                        to={`/products/updatenew/${params.row.id}`}
+                        style={{ textDecoration: 'none' }}  
                     >
                         <button
                             type="button"
-                            className="update_btn"
+                            className={classes.update_btn}
                         >Update</button>
                     </Link>
                     
@@ -137,9 +134,9 @@ function TableProduct({type}) {
     ];
 
     return (
-        <div className="data_table">
+        <div className={classes.data_table}>
             <DataGrid
-                className="data_grid"
+                className={classes.data_grid}
                 rows={data}
                 columns={columns}
                 pageSize={10}

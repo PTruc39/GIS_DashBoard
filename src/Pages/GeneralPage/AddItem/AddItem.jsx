@@ -5,6 +5,7 @@ import Navbar from '../../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../../Components/Bar/Sidebar/Sidebar';
 import noImage from '../../../Assets/Images/no-results.png';
 import classes from './AddItem.module.scss';
+import axios from 'axios';
 
 function AddNew({ inputs, titlee, type }) {
     let dynamicInpVal;
@@ -55,7 +56,13 @@ function AddNew({ inputs, titlee, type }) {
 
     const image = false;
 
-    
+    function AddNewItem(type) {
+        switch (type) {
+            case 'CUSTOMER': {
+                axios.post()
+            }
+        }
+    }
 
     const handleChange = (e) => {
         setUserInp({ ...userInp, [e.target.name]: e.target.value });
