@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import man from '../../../Assets/Images/portrait.png';
-import './TablePromotion.scss';
+import classes from './TablePromotion.module.scss';
 
 const userData = [
     {
@@ -116,8 +116,8 @@ function TablePromotion({type}) {
             headerName: 'ID',
             width: 310,
             renderCell: (param) => (
-                <div className="userr">
-                    <img src={param.row.image} alt="User Image" className="userr_image" />
+                <div className={classes.userr}>
+                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
                     {param.row.id}
                 </div>
             ),
@@ -142,15 +142,15 @@ function TablePromotion({type}) {
             headerName: 'Action',
             width: 270,
             renderCell: (params) => (
-                <div className="actionn">
+                <div className={classes.actionn}>
                     <Link to={params.row.id}>
-                        <button type="button" className="view_btn">
+                        <button type="button" className={classes.view_btn}>
                             View
                         </button>
                     </Link>
                     <button
                         type="button"
-                        className="delete_btn"
+                        className={classes.delete_btn}
                         onClick={() => handleDlt(params.row.id)}
                     >
                         Delete
@@ -162,7 +162,7 @@ function TablePromotion({type}) {
                     >
                         <button
                             type="button"
-                            className="update_btn"
+                            className={classes.update_btn}
                         >Update</button>
                     </Link>
                     

@@ -6,7 +6,6 @@ import Home from './Pages/Home/Home';
 import AddNew from './Pages/GeneralPage/AddItem/AddItem';
 import BlogDetail from './Pages/NewDetail/NewDetail';
 //import Blogs from './Pages/News/News';
-import UserLists from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
@@ -55,7 +54,7 @@ function App() {
                         {/* promotion */}
 
                         <Route path="promotions">
-                            <Route index element={<UserLists type="promotion" />} />
+                            <Route index element={<DefaultLayoutPage type="promotion" />} />
                             <Route path=":promotionId" element={<Detail />} />
                             <Route
                                 path="addnew"
@@ -79,7 +78,7 @@ function App() {
                         {/* order */}
 
                         <Route path="orders">
-                            <Route index element={<UserLists type="order" />} />
+                            <Route index element={<DefaultLayoutPage type="order" />} />
                             <Route path=":orderId" element={<Detail />} />
                             <Route
                                 path="addnew"
@@ -125,7 +124,7 @@ function App() {
                         {/* employee */}
 
                         <Route path="employees">
-                            <Route index element={<UserLists type="employee" />} />
+                            <Route index element={<DefaultLayoutPage type="employee" />} />
                             <Route path=":employeeId" element={<Detail />} />
                             <Route
                                 path="addnew"
@@ -149,7 +148,7 @@ function App() {
                         {/* Store */}
 
                         <Route path="stores">
-                            <Route index element={<UserLists type="store" />} />
+                            <Route index element={<DefaultLayoutPage type="store" />} />
                             <Route path=":storeId" element={<Detail />} />
                             <Route
                                 path="addnew"
@@ -185,7 +184,7 @@ function App() {
                                     
                                 }
                             />
-                            <Route  path="updatenew"
+                            <Route  path="updatenew/:productId"
                                     element={
                                     <UpdateNew inputs={productInpDetails}
                                     type="PRODUCT"
@@ -197,7 +196,7 @@ function App() {
                         {/* new */}
 
                         <Route path="news">
-                            <Route index element={<UserLists type="blog" />} />
+                            <Route index element={<DefaultLayoutPage type="blog" />} />
                             <Route path=":blogId" element={<BlogDetail />} />
                             <Route
                                 path="addnew"

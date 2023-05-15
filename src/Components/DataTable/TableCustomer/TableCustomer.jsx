@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import man from '../../../Assets/Images/portrait.png';
-import './TableCustomer.scss';
+import classes from './TableCustomer.module.scss';
 
 const userData = [
     {
@@ -116,8 +116,8 @@ function TableCustomer({type}) {
             headerName: 'ID',
             width: 310,
             renderCell: (param) => (
-                <div className="userr">
-                    <img src={param.row.image} alt="User Image" className="userr_image" />
+                <div className={classes.userr}>
+                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
                     {param.row.id}
                 </div>
             ),
@@ -142,15 +142,15 @@ function TableCustomer({type}) {
             headerName: 'Action',
             width: 270,
             renderCell: (params) => (
-                <div className="actionn">
+                <div className={classes.actionn}>
                     <Link to={params.row.id}>
-                        <button type="button" className="view_btn">
+                        <button type="button" className={classes.view_btn}>
                             View
                         </button>
                     </Link>
                     <button
                         type="button"
-                        className="delete_btn"
+                        className={classes.delete_btn}
                         onClick={() => handleDlt(params.row.id)}
                     >
                         Delete
@@ -162,7 +162,7 @@ function TableCustomer({type}) {
                     >
                         <button
                             type="button"
-                            className="update_btn"
+                            className={classes.update_btn}
                         >Update</button>
                     </Link>
                     
@@ -172,9 +172,9 @@ function TableCustomer({type}) {
     ];
 
     return (
-        <div className="data_table">
+        <div className={classes.data_table}>
             <DataGrid
-                className="data_grid"
+                className={classes.data_grid}
                 rows={data}
                 columns={columns}
                 pageSize={10}

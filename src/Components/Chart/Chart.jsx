@@ -2,7 +2,7 @@ import React from 'react';
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis } from 'recharts';
 
 // import css file
-import './chart.scss';
+import classes from './chart.module.scss';
 
 // Place your own data here
 const data = [
@@ -58,9 +58,9 @@ const data = [
 
 function Chart({ height, title }) {
     return (
-        <div className="chart_sec">
+        <div className={classes.chart_sec}>
             <div>
-                <div className="title">
+                <div className={classes.title}>
                     <p>{title} (Last 1 year)</p>
                 </div>
                 <AreaChart
@@ -76,7 +76,7 @@ function Chart({ height, title }) {
                         </linearGradient>
                     </defs>
                     <XAxis dataKey="name" stroke="gray" />
-                    <CartesianGrid strokeDasharray="3 3" className="strokee" />
+                    <CartesianGrid strokeDasharray="3 3" className={classes.strokee} />
                     <Tooltip />
                     <Area
                         type="monotone"

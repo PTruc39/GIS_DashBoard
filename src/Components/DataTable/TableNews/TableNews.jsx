@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './TableNews.scss';
+import classes from './TableNews.module.scss';
 import portrait from '../../../Assets/Images/portrait.png';
 const userData = [
     {
@@ -61,8 +61,8 @@ function TableNews({ type }) {
             headerName: 'ID',
             width: 50,
             renderCell: (param) => (
-                <div className="userr">
-                    <img src={param.row.image} alt="User Image" className="userr_image" />
+                <div className={classes.userr}>
+                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
                     {param.row.id}
                 </div>
             ),
@@ -80,22 +80,22 @@ function TableNews({ type }) {
             headerName: 'Action',
             width: 300,
             renderCell: (params) => (
-                <div className="actionn">
+                <div className={classes.actionn}>
                     <Link to={params.row.id}>
-                        <button type="button" className="view_btn">
+                        <button type="button" className={classes.view_btn}>
                             View
                         </button>
                     </Link>
                     <button
                         type="button"
-                        className="delete_btn"
+                        className={classes.delete_btn}
                         onClick={() => handleDlt(params.row.id)}
                     >
                         Delete
                     </button>
                     <button
                         type="button"
-                        className="delete_btn"
+                        className={classes.delete_btn}
                         onClick={() => handleDlt(params.row.id)}
                     >
                         Update
@@ -106,14 +106,14 @@ function TableNews({ type }) {
     ];
 
     return (
-        <div className="blog_page">
+        <div className={classes.blog_page}>
 
-            <div className="blog_page_main">
+            <div className={classes.blog_page_main}>
 
-                <div className="blog_page_table">
+                <div className={classes.blog_page_table}>
 
                     <DataGrid
-                        className="data_grid"
+                        className={classes.data_grid}
                         rows={data}
                         columns={columns}
                         pageSize={10}

@@ -5,7 +5,7 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './itemlists.scss';
+import classes from './itemlists.module.scss';
 
 function ItemLists({ type }) {
     let data;
@@ -90,21 +90,22 @@ function ItemLists({ type }) {
     }
 
     return (
-        <div className="item_listss">
-            <div className="name">
+        <div className={classes.item_listss}>
+            <div className={classes.name}>
                 <p>{data.title}</p>
-                <span className="persentage positive">
+                <span className={classes.persentage_positive}>
                     <KeyboardArrowUpIcon />
                     20 %
                 </span>
             </div>
+            {/* Note right there */}
 
-            <div className="counts">
+            <div className={classes.counts}>
                 {data.isMoney && <AttachMoneyOutlinedIcon />}
                 {data.count}
             </div>
 
-            <div className="see_item">
+            <div className={classes.see_item}>
                 <Link to={data.linkto}>
                     <p>{data.link}</p>
                 </Link>

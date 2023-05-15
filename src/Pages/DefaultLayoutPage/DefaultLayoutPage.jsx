@@ -16,9 +16,9 @@ function  DefaultLayoutPage({ type }) {
     function Table({ type }) {
         switch(type) {
           case 'customer':
-            return <TableCustomer />;
+            return <TableCustomer/>;
           case 'product':
-            return <TableProduct type='product' />;
+            return <TableProduct/>;
           case 'promotion':
             return <TablePromotion/>;  
         case 'order':
