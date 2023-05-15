@@ -30,6 +30,7 @@ function TableProduct({type}) {
             });
             //_id
             setData(fetchedData);
+            console.log(fetchedData);
           })
           .catch(error => {
             console.error(error);
