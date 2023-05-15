@@ -9,17 +9,6 @@ import classes from './TableProduct.module.scss';
 function TableProduct({type}) {
     
     const [data, setData] = useState([]);
-    const handleSuccessAction = () => {
-        Swal.fire({
-            title: "Delete",
-            icon: "success",
-            text: "Do you want to delete this item?",
-            button: "Ok",  
-            showCancelButton: true,
-            confirmButtonText: 'Ok',
-        });
-      };
-
     const handleDlt = (id) => {
         axios.delete(`http://localhost:3001/product/${id}`)
         .then(response => {
@@ -29,9 +18,29 @@ function TableProduct({type}) {
         .catch(error => {
         console.error('Error deleting item:', error);
         });
-        handleSuccessAction();
+        
     };
-    
+    const handleSuccessAction = async (id) => {
+        const notification = await Swal.fire({
+            title: "Delete this item",
+            icon: "warning",
+            text: "Do you want to delete this item?",
+            button: "Ok",  
+            showCancelButton: true,
+            confirmButtonText: 'Ok',
+        });
+        if (notification.isConfirmed) {
+            handleDlt(id);
+            Swal.fire({
+                title: "Delete successfully",
+                icon: "success",
+                text: "",
+                button: "Ok",                  
+                confirmButtonText: 'Ok',
+        })
+        GetAllProduct();
+      };
+    }
 
     const GetAllProduct = () => {
         axios.get('http://localhost:3001/product')
@@ -52,7 +61,7 @@ function TableProduct({type}) {
     }
     useEffect(() => {
         GetAllProduct();
-      }, []);
+      }, [data]);
 
       console.log(data);
 
@@ -129,7 +138,7 @@ function TableProduct({type}) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row._id)}
+                        onClick={() => handleSuccessAction(params.row._id)}
                     >
                         Delete
                     </button>

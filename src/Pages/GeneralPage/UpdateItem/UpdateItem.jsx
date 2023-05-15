@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../../../Components/Input/Input';
 import macbook from '../../../Assets/Images/macbook_pro.png';
 import classes from './UpdateItem.module.scss';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 import { useParams } from 'react-router-dom';
 const UpdateNew = ({ inputs, titlee, type}) => {
 	const params = useParams();
@@ -75,6 +76,22 @@ const UpdateNew = ({ inputs, titlee, type}) => {
 		default:
 			break;
 	}
+	const [formInp, setFormInp] = useState(dynamicInpVal);
+	//const [formInp, setFormInp] = useState(dynamicInpVal);
+	const GetItemById = (id) => {
+		axios.get(`http://localhost:3001/product/${id}`)
+			.then(response => {
+				setFormInp(response.data);
+			}
+			)
+          .catch (error => {
+		console.error(error);
+	});
+}
+useEffect(() => {
+	console.log(params.productId);
+	GetItemById(params.productId);
+  }, []);
 	const UpdateItemById = (id) => {
 		console.log("ok");
 		console.log(id);
@@ -87,7 +104,7 @@ const UpdateNew = ({ inputs, titlee, type}) => {
 		});
 
 	}
-	const [formInp, setFormInp] = useState(dynamicInpVal);
+	
 	const handleChange = (e) => {
 		setFormInp({ ...formInp, [e.target.name]: e.target.value });
 	};
@@ -95,6 +112,13 @@ const UpdateNew = ({ inputs, titlee, type}) => {
 		e.preventDefault();
 		console.log(type);
 		UpdateItemById(params.productId);
+		Swal.fire({
+			title: "Delete successfully",
+			icon: "success",
+			text: "",
+			button: "Ok",                  
+			confirmButtonText: 'Ok',
+	})
 		console.log(formInp);
 	};
 
