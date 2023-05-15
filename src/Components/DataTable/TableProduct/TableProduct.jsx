@@ -2,11 +2,23 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 import classes from './TableProduct.module.scss';
+
 
 function TableProduct({type}) {
     
     const [data, setData] = useState([]);
+    const handleSuccessAction = () => {
+        Swal.fire({
+            title: "Delete",
+            icon: "success",
+            text: "Do you want to delete this item?",
+            button: "Ok",  
+            showCancelButton: true,
+            confirmButtonText: 'Ok',
+        });
+      };
 
     const handleDlt = (id) => {
         axios.delete(`http://localhost:3001/product/${id}`)
@@ -17,20 +29,22 @@ function TableProduct({type}) {
         .catch(error => {
         console.error('Error deleting item:', error);
         });
+        handleSuccessAction();
     };
+    
 
     const GetAllProduct = () => {
         axios.get('http://localhost:3001/product')
           .then(response => {
+            let index = 0;
             const fetchedData = response.data.listProducts.map(item => {
+                index = index + 1;
                 return {
                     ...item,
-                    id: 1
+                    id: index
                 }
             });
-            //_id
             setData(fetchedData);
-            console.log(fetchedData);
           })
           .catch(error => {
             console.error(error);
@@ -57,7 +71,7 @@ function TableProduct({type}) {
         },
         {
             field: 'image',
-            headerName: 'Image',
+            headerName: 'Hình ảnh',
             width: 250,
             headerAlign: 'center',
             renderCell:  (param) => (
@@ -66,7 +80,7 @@ function TableProduct({type}) {
         },
         {
             field: 'productName',
-            headerName: 'Product Name',
+            headerName: 'Tên sản phẩm',
             width: 250,
             headerAlign: 'center',
             renderCell:  (param) => (
@@ -75,7 +89,7 @@ function TableProduct({type}) {
         },
         { 
             field: 'typeProduct', 
-            headerName: 'Type', 
+            headerName: 'Loại sản phẩm', 
             width: 250,
             headerAlign: 'center',
             renderCell:  (param) => (
@@ -84,7 +98,7 @@ function TableProduct({type}) {
         },
         {
             field: 'price',
-            headerName: 'Price',
+            headerName: 'Giá',
             width: 150,
             headerAlign: 'center',
             renderCell: (param) => (
@@ -92,12 +106,12 @@ function TableProduct({type}) {
             ),
         },
         { 
-            field: 'age', 
-            headerName: 'Age', 
+            field: 'color', 
+            headerName: 'Màu sắc', 
             width: 120,
             headerAlign: 'center',
             renderCell: (param) => (
-                <div>{param.row.gia}</div>
+                <div>{param.row.mausac}</div>
             ),
         },
         {
@@ -107,7 +121,7 @@ function TableProduct({type}) {
             headerAlign: 'center',
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={params.row.id}>
+                    <Link to={`/products/${params.row._id}`}>
                         <button type="button" className={classes.view_btn}>
                             View
                         </button>
@@ -120,9 +134,10 @@ function TableProduct({type}) {
                         Delete
                     </button>
                     <Link 
-                        to={`/products/updatenew/${params.row.id}`}
+                        to={`/products/updatenew/${params.row._id}`}
                         style={{ textDecoration: 'none' }}  
                     >
+                        
                         <button
                             type="button"
                             className={classes.update_btn}

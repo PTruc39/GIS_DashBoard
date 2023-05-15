@@ -2,26 +2,67 @@ import React, { useState } from 'react';
 import Input from '../../../Components/Input/Input';
 import macbook from '../../../Assets/Images/macbook_pro.png';
 import classes from './UpdateItem.module.scss';
-const UpdateNew = ({ inputs, titlee, type }) => {
-
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+const UpdateNew = ({ inputs, titlee, type}) => {
+	const params = useParams();
+	// console.log(params.productId);
 	let dynamicInpVal;
 	switch (type) {
 		case 'CUSTOMER':
 			dynamicInpVal = {
-				username: '',
-				name: '',
-				email: '',
-				password: '',
-				address: '',
+				tensanpham: '',
+                loaisanpham: '',
+                masp: '',
+                hinh: '',
+                gia: '',
+                rom: '',
+                mausac: '',
+                ram: '',
+                chip: '',
+                baomat: '',
+                chongnuoc: '',
+                sac: '',
+                dophangiai: '',
+                kichthuoc: '',
+                camera: '',
+                khoiluong: '',
+                hedieuhanh: '',
+                nguongoc: '',
+                chatlieu: '',
+                kichthuocmanhinh: '',
+                loaiphukien: '',
+                congnghe: '',
+                congsuat: '',
+                baohanh: ''
 			};
 			break;
 		case 'PRODUCT':
 			dynamicInpVal = {
-				title: '',
-				description: '',
-				category: '',
-				price: '',
-				stock: '',
+				tensanpham: '',
+                loaisanpham: '',
+                masp: '',
+                hinh: '',
+                gia: '',
+                rom: '',
+                mausac: '',
+                ram: '',
+                chip: '',
+                baomat: '',
+                chongnuoc: '',
+                sac: '',
+                dophangiai: '',
+                kichthuoc: '',
+                camera: '',
+                khoiluong: '',
+                hedieuhanh: '',
+                nguongoc: '',
+                chatlieu: '',
+                kichthuocmanhinh: '',
+                loaiphukien: '',
+                congnghe: '',
+                congsuat: '',
+                baohanh: ''
 			};
 			break;
 		case 'BLOG':
@@ -34,13 +75,27 @@ const UpdateNew = ({ inputs, titlee, type }) => {
 		default:
 			break;
 	}
-	const [userInp, setUserInp] = useState(dynamicInpVal);
+	const UpdateItemById = (id) => {
+		console.log("ok");
+		console.log(id);
+		axios.put(`http://localhost:3001/product/${id}`, formInp )
+		.then(response => {
+			console.log("Update successfully!" + response);
+		})
+		.catch(error => {
+			console.error('Update error', error);
+		});
+
+	}
+	const [formInp, setFormInp] = useState(dynamicInpVal);
 	const handleChange = (e) => {
-		setUserInp({ ...userInp, [e.target.name]: e.target.value });
+		setFormInp({ ...formInp, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(userInp);
+		console.log(type);
+		UpdateItemById(params.productId);
+		console.log(formInp);
 	};
 
 	return (
@@ -60,7 +115,7 @@ const UpdateNew = ({ inputs, titlee, type }) => {
 						<Input
 							key={detail.id}
 							{...detail}
-							value={userInp[detail.name]}
+							value={formInp[detail.name]}
 							onChange={handleChange}
 						/>
 					))}
