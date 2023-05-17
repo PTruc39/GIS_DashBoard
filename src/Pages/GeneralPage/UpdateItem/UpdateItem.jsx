@@ -121,36 +121,36 @@ const UpdateNew = ({ inputs, titlee, type }) => {
         console.log(formInp);
     };
 
-    return (
-        <div className={classes.new_page_main}>
-            <div className={classes.add_new_item}>
-                <h1>{titlee}</h1>
-            </div>
-            <div className={classes.new_page_form}>
-                <div className={classes.containerImg}>
-                    <img src={macbook}></img>
-                    <img src={macbook}></img>
-                    <img src={macbook}></img>
-                    <img src={macbook}></img>
-                </div>
-                <form onSubmit={handleSubmit}>
-                    {inputs.map((detail) => (
-                        <Input
-                            key={detail.id}
-                            {...detail}
-                            value={formInp[detail.name]}
-                            onChange={handleChange}
-                        />
-                    ))}
-                    <div className={classes.wrap}>
-                        <button type="submit" className="button">
-                            Update
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+	return (
+		<div className={classes.new_page_main}>
+			<div className={classes.add_new_item}>
+				<h1>{titlee}</h1>
+			</div>
+			<div className={classes.new_page_form}>
+				{/*<div className={classes.containerImg}>
+					<img src={macbook}></img>
+					<img src={macbook}></img>
+					<img src={macbook}></img>
+					<img src={macbook}></img>
+				</div>*/}
+				<form onSubmit={handleSubmit}>
+					{inputs.map((detail) => (
+						<Input
+							key={detail.id}
+							{...detail}
+							value={formInp[detail.name]}
+							onChange={handleChange}
+						/>
+					))}
+					<div className={classes.wrap}>
+						<button type="submit" className={classes.button}>Update</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+	);
 };
 
 export default UpdateNew;
