@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import './input.scss';
+import classes from './input.module.scss';
 
 function Input(inpDetails) {
     const [focus, setFocus] = useState(false);
@@ -11,10 +11,10 @@ function Input(inpDetails) {
     };
 
     return (
-        <div className="input_component">
-            <label className="form__label">{lable}</label>
+        <div className={classes.input_component}>
+            <label className={classes.form__label}>{lable}</label>
             <input
-                className="input_field"
+                className={classes.input_field}
                 {...detail}
                 onChange={onChange}
                 onBlur={handleBlur}

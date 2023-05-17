@@ -1,4 +1,3 @@
-
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import React, { useState } from 'react';
 import Input from '../../../Components/Input/Input';
@@ -6,6 +5,9 @@ import Navbar from '../../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../../Components/Bar/Sidebar/Sidebar';
 import noImage from '../../../Assets/Images/no-results.png';
 import classes from './AddItem.module.scss';
+import axios from 'axios';
+import Swal from 'sweetalert2'
+import { Link, history } from 'react-router-dom';
 
 function AddNew({ inputs, titlee, type }) {
     let dynamicInpVal;
@@ -22,49 +24,97 @@ function AddNew({ inputs, titlee, type }) {
                 age: ''
             };
             break;
-        case 'PROMOTION':
-            dynamicInpVal = {
-                title: '',
-                description: '',
-                category: '',
-                price: '',
-                stock: '',
-            };
-            break;
         case 'PRODUCT':
             dynamicInpVal = {
-                title: '',
-                description: '',
-                category: '',
-                price: '',
-                stock: '',
+                tensanpham: '',
+                loaisanpham: '',
+                masp: '',
+                hinh: '',
+                gia: '',
+                rom: '',
+                mausac: '',
+                ram: '',
+                chip: '',
+                baomat: '',
+                chongnuoc: '',
+                sac: '',
+                dophangiai: '',
+                kichthuoc: '',
+                camera: '',
+                khoiluong: '',
+                hedieuhanh: '',
+                nguongoc: '',
+                chatlieu: '',
+                kichthuocmanhinh: '',
+                loaiphukien: '',
+                congnghe: '',
+                congsuat: '',
+                baohanh: ''
             };
         break;
         case 'BLOG':
             dynamicInpVal = {
-                title: '',
-                description: '',
-                tags: '',
+                
             };
             break;
         default:
             break;
     }
-    const [userInp, setUserInp] = useState(dynamicInpVal);
+    const [formInp, setFormInp] = useState(dynamicInpVal);
 
     const [ file, setFile] = useState('');
 
     const image = false;
 
+    const GetApiPost = (type) => {
+        switch (type) {
+            case "PRODUCT":
+                return "http://localhost:3001/product";
+        }
+    }
+
+    function AddNewItem(type) {
+        console.log(type);
+        axios.post(GetApiPost(type), formInp)
+        .then(response => {
+            console.log(response.data);
+                })
+        .catch(error => {
+            console.error(error);
+        });   
+    }
     
+    const handleSuccessAction = () => {
+        Swal.fire({
+            title: "Success",
+            icon: "success",
+            text: "Update successfully",
+            button: "Ok"    
+        });
+      };
+      
 
     const handleChange = (e) => {
-        setUserInp({ ...userInp, [e.target.name]: e.target.value });
+        setFormInp({ ...formInp, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(userInp);
+        AddNewItem(type);
+        console.log(formInp);
+        Swal.fire({
+            title: "Success",
+            icon: "success",
+            text: "Add successfully",
+            confirmButtonText: 'Ok',  
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                console.log("OKKKKKK");
+              // If user clicks "Yes", navigate to another page using React Router's Link
+              // Replace "/another-page" with the desired URL
+            };
+        })
     };
     return (
         <div className={classes.add_new}>
@@ -99,7 +149,7 @@ function AddNew({ inputs, titlee, type }) {
                                 <Input
                                     key={detail.id}
                                     {...detail}
-                                    value={userInp[detail.name]}
+                                    value={formInp[detail.name]}
                                     onChange={handleChange}
                                 />
                             ))}
