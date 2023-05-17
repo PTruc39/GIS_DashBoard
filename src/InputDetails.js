@@ -57,7 +57,7 @@ export const InputDetails ={
             lable: 'Tên Sản Phẩm',
             type: 'text',
             placeholder: 'Product title',
-            required: true,
+            required: false,
             errorMsg: 'Title is required!',
         },
         {
@@ -66,7 +66,7 @@ export const InputDetails ={
             lable: 'Loại Sản Phẩm',
             type: 'text',
             placeholder: 'Product description',
-            required: true,
+            required: false,
             errorMsg: 'Description is required!',
         },
         {
@@ -75,7 +75,7 @@ export const InputDetails ={
             lable: 'Hình',
             type: 'text',
             placeholder: 'Product category',
-            required: true,
+            required: false,
             errorMsg: 'Category is required!',
         },
         {
@@ -84,7 +84,7 @@ export const InputDetails ={
             lable: 'Giá',
             type: 'number',
             placeholder: 'Product price',
-            required: true,
+            required: false,
             errorMsg: 'Price is required!',
         },
         {
@@ -93,7 +93,7 @@ export const InputDetails ={
             lable: 'ROM',
             type: 'text',
             placeholder: 'ROM',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -102,7 +102,7 @@ export const InputDetails ={
             lable: 'Màu sắc',
             type: 'text',
             placeholder: 'Màu sắc',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -111,7 +111,7 @@ export const InputDetails ={
             lable: 'Ram',
             type: 'number',
             placeholder: 'Ram',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -120,7 +120,7 @@ export const InputDetails ={
             lable: 'Chip',
             type: 'text',
             placeholder: 'Chip',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -129,7 +129,7 @@ export const InputDetails ={
             lable: 'Bảo mật',
             type: 'text',
             placeholder: 'Bảo mật',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -138,7 +138,7 @@ export const InputDetails ={
             lable: 'Chông nước',
             type: 'text',
             placeholder: 'Chống nước',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -147,7 +147,7 @@ export const InputDetails ={
             lable: 'Sạc',
             type: 'text',
             placeholder: 'Sạc',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -156,7 +156,7 @@ export const InputDetails ={
             lable: 'Độ Phân Giải',
             type: 'text',
             placeholder: 'Độ Phân Giải',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -165,7 +165,7 @@ export const InputDetails ={
             lable: 'Kích thước',
             type: 'text',
             placeholder: 'Kích thước',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -174,7 +174,7 @@ export const InputDetails ={
             lable: 'Camera',
             type: 'text',
             placeholder: 'Camera',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -183,7 +183,7 @@ export const InputDetails ={
             lable: 'Khối lượng',
             type: 'text',
             placeholder: 'Khối lượng',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -192,7 +192,7 @@ export const InputDetails ={
             lable: 'Hệ điều hành',
             type: 'text',
             placeholder: 'Hệ điều hành',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -201,7 +201,7 @@ export const InputDetails ={
             lable: 'Nguồn gốc',
             type: 'text',
             placeholder: 'Nguồn gốc',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -210,7 +210,7 @@ export const InputDetails ={
             lable: 'Chất liệu',
             type: 'text',
             placeholder: 'Chất liệu',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -219,7 +219,7 @@ export const InputDetails ={
             lable: 'Kích thước màn hình',
             type: 'text',
             placeholder: 'Kích thước màn hình',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -228,7 +228,7 @@ export const InputDetails ={
             lable: 'Loại phụ kiện',
             type: 'text',
             placeholder: 'Loại phụ kiện',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -237,7 +237,7 @@ export const InputDetails ={
             lable: 'Công Nghệ',
             type: 'text',
             placeholder: 'Công nghệ',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -246,7 +246,7 @@ export const InputDetails ={
             lable: 'Công Suất',
             type: 'text',
             placeholder: 'Công Suất',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
         {
@@ -255,7 +255,7 @@ export const InputDetails ={
             lable: 'Bảo Hành',
             type: 'text',
             placeholder: 'Bảo Hành',
-            required: true,
+            required: false,
             errorMsg: 'This field is required!',
         },
     ],

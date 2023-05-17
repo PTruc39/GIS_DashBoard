@@ -1,133 +1,131 @@
-import { DataGrid } from '@mui/x-data-grid';
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Swal from 'sweetalert2'
-import classes from './TableProduct.module.scss';
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import classes from "./TableProduct.module.scss";
 
-
-function TableProduct({type}) {
-    
+function TableProduct({ type }) {
     const [data, setData] = useState([]);
     const handleDlt = (id) => {
-        axios.delete(`http://localhost:3001/product/${id}`)
-        .then(response => {
-            console.log('Item deleted successfully.');
-            
-        })
-        .catch(error => {
-        console.error('Error deleting item:', error);
-        });
-        
+        axios
+            .delete(`http://localhost:3001/product/${id}`)
+            .then((response) => {
+                console.log("Item deleted successfully.");
+            })
+            .catch((error) => {
+                console.error("Error deleting item:", error);
+            });
     };
     const handleSuccessAction = async (id) => {
         const notification = await Swal.fire({
             title: "Delete this item",
             icon: "warning",
             text: "Do you want to delete this item?",
-            button: "Ok",  
+            button: "Ok",
             showCancelButton: true,
-            confirmButtonText: 'Ok',
+            confirmButtonText: "Ok",
         });
         if (notification.isConfirmed) {
             handleDlt(id);
             Swal.fire({
                 title: "Delete successfully",
                 icon: "success",
-                text: "",
-                button: "Ok",                  
-                confirmButtonText: 'Ok',
-        })
-        GetAllProduct();
-      };
-    }
+                showConfirmButton: false,
+                timer: 800,
+            });
+            GetAllProduct();
+        }
+    };
 
     const GetAllProduct = () => {
-        axios.get('http://localhost:3001/product')
-          .then(response => {
-            let index = 0;
-            const fetchedData = response.data.listProducts.map(item => {
-                index = index + 1;
-                return {
-                    ...item,
-                    id: index
-                }
+        axios
+            .get("http://localhost:3001/product")
+            .then((response) => {
+                let index = 0;
+                const fetchedData = response.data.listProducts.map((item) => {
+                    index = index + 1;
+                    return {
+                        ...item,
+                        id: index,
+                    };
+                });
+                setData(fetchedData);
+            })
+            .catch((error) => {
+                console.error(error);
             });
-            setData(fetchedData);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-    }
+    };
     useEffect(() => {
         GetAllProduct();
-      }, [data]);
+    }, [data]);
 
-      console.log(data);
+    console.log(data);
 
     const columns = [
         {
-            field: 'id',
-            headerName: 'ID',
+            field: "id",
+            headerName: "ID",
             width: 50,
-            headerAlign: 'center',
+            headerAlign: "center",
             renderCell: (param) => (
-
-                <div className={classes.userr}>
-                    {param.row.id}   
+                <div className={classes.userr}>{param.row.id}</div>
+            ),
+        },
+        {
+            field: "image",
+            headerName: "Hình ảnh",
+            width: 250,
+            headerAlign: "center",
+            renderCell: (param) => (
+                <img
+                    src={param.row.hinh}
+                    alt="Product Image"
+                    className={classes.product_image}
+                />
+            ),
+        },
+        {
+            field: "productName",
+            headerName: "Tên sản phẩm",
+            width: 250,
+            headerAlign: "center",
+            renderCell: (param) => (
+                <div className={classes.productName}>
+                    {param.row.tensanpham}
                 </div>
             ),
         },
         {
-            field: 'image',
-            headerName: 'Hình ảnh',
+            field: "typeProduct",
+            headerName: "Loại sản phẩm",
             width: 250,
-            headerAlign: 'center',
-            renderCell:  (param) => (
-                <img src={param.row.hinh} alt="Product Image" className={classes.product_image} />
-            )
+            headerAlign: "center",
+            renderCell: (param) => (
+                <div className={classes.productType}>
+                    {param.row.loaisanpham}
+                </div>
+            ),
         },
         {
-            field: 'productName',
-            headerName: 'Tên sản phẩm',
-            width: 250,
-            headerAlign: 'center',
-            renderCell:  (param) => (
-                <div className={classes.productName}>{param.row.tensanpham}</div>
-            )
-        },
-        { 
-            field: 'typeProduct', 
-            headerName: 'Loại sản phẩm', 
-            width: 250,
-            headerAlign: 'center',
-            renderCell:  (param) => (
-                <div className={classes.productType}>{param.row.loaisanpham}</div>
-            )
-        },
-        {
-            field: 'price',
-            headerName: 'Giá',
+            field: "price",
+            headerName: "Giá",
             width: 150,
-            headerAlign: 'center',
-            renderCell: (param) => (
-                <div>{param.row.gia}</div>
-            ),
-        },
-        { 
-            field: 'color', 
-            headerName: 'Màu sắc', 
-            width: 120,
-            headerAlign: 'center',
-            renderCell: (param) => (
-                <div>{param.row.mausac}</div>
-            ),
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.gia}</div>,
         },
         {
-            field: 'action',
-            headerName: 'Action',
+            field: "color",
+            headerName: "Màu sắc",
+            width: 120,
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.mausac}</div>,
+        },
+        {
+            field: "action",
+            headerName: "Action",
             width: 270,
-            headerAlign: 'center',
+            headerAlign: "center",
             renderCell: (params) => (
                 <div className={classes.actionn}>
                     <Link to={`/products/${params.row._id}`}>
@@ -142,17 +140,14 @@ function TableProduct({type}) {
                     >
                         Delete
                     </button>
-                    <Link 
+                    <Link
                         to={`/products/updatenew/${params.row._id}`}
-                        style={{ textDecoration: 'none' }}  
+                        style={{ textDecoration: "none" }}
                     >
-                        
-                        <button
-                            type="button"
-                            className={classes.update_btn}
-                        >Update</button>
+                        <button type="button" className={classes.update_btn}>
+                            Update
+                        </button>
                     </Link>
-                    
                 </div>
             ),
         },
@@ -170,11 +165,11 @@ function TableProduct({type}) {
                 sx={{
                     boxShadow: 2,
                     border: 2,
-                    borderColor: 'primary.light',
-                    '& .MuiDataGrid-cell:hover': {
-                      color: 'primary.main',
+                    borderColor: "primary.light",
+                    "& .MuiDataGrid-cell:hover": {
+                        color: "primary.main",
                     },
-                  }}
+                }}
             />
         </div>
     );
