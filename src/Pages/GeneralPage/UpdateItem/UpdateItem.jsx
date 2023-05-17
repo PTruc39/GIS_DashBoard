@@ -128,12 +128,12 @@ useEffect(() => {
 				<h1>{titlee}</h1>
 			</div>
 			<div className={classes.new_page_form}>
-				<div className={classes.containerImg}>
+				{/*<div className={classes.containerImg}>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
-				</div>
+				</div>*/}
 				<form onSubmit={handleSubmit}>
 					{inputs.map((detail) => (
 						<Input
@@ -144,7 +144,7 @@ useEffect(() => {
 						/>
 					))}
 					<div className={classes.wrap}>
-						<button type="submit" className='button'>Update</button>
+						<button type="submit" className={classes.button}>Update</button>
 					</div>
 				</form>
 			</div>
