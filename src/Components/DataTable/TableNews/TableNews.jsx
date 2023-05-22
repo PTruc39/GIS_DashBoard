@@ -1,55 +1,17 @@
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './TableNews.module.scss';
-import portrait from '../../../Assets/Images/portrait.png';
-const userData = [
-    {
-        id: '1',
-        title: 'Want to know how to manage multiple projects at once.',
-        author: 'nguyen thanh trung',
-        image: portrait,
-        createdAt: new Date(Date.now()).toLocaleString(),
-    },
-    {
-        id: '2',
-        title: 'How to Choose a right product?',
-        author: 'nguyen thanh trung',
-        image: portrait,
-        createdAt: new Date(Date.now()).toLocaleString(),
-    },
-    {
-        id: '3',
-        title: 'How do you create a compelling  title',
-        author: 'nguyen ngoc nam',
-        image: portrait,
-        createdAt: new Date(Date.now()).toLocaleString(),
-    },
-    {
-        id: '4',
-        title: 'How to cure wanderlust without leaving your home?',
-        author: 'pham thi huyen nhung',
-        image: portrait,
-        createdAt: new Date(Date.now()).toLocaleString(),
-    },
-    {
-        id: '5',
-        title: 'The Seven People You Should Always Meet.',
-        author: 'dang ba linh',
-        image: portrait,
-        createdAt: new Date(Date.now()).toLocaleString(),
-    },
-    {
-        id: '6',
-        title: 'Which search queries drive traffic to my website?',
-        author: 'nguyen quang thang',
-        image: portrait,
-        createdAt: new Date(Date.now()).toLocaleString(),
-    },
-];
+import api from '../../../Api/NewsApi'
 
 function TableNews({ type }) {
-    const [data, setData] = useState(userData);
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        api.getAllNews().then(result => {
+            setData(result.listNews)
+        })
+    }, [])
 
     const handleDlt = (id) => {
         setData(data.filter((item) => item.id !== id));
@@ -57,13 +19,17 @@ function TableNews({ type }) {
 
     const columns = [
         {
-            field: 'id',
+            field: '_id',
             headerName: 'ID',
             width: 50,
+        },
+        {
+            field: 'image',
+            headerName: 'Hinh anh',
+            width: 200,
             renderCell: (param) => (
-                <div className={classes.userr}>
-                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
-                    {param.row.id}
+                <div className={classes.newsImage}>
+                    <img src={param.row.image} alt="User" className={classes.newsImage_image} />
                 </div>
             ),
         },
@@ -73,32 +39,31 @@ function TableNews({ type }) {
             width: 400,
             style: { color: 'red' },
         },
-        { field: 'author', headerName: 'Author', width: 170 },
-        { field: 'createdAt', headerName: 'CreatedAt', width: 200 },
+        { field: 'dateSource', headerName: 'Date source', width: 200 },
         {
             field: 'action',
             headerName: 'Action',
             width: 300,
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={params.row.id}>
+                    <Link to={params.row.slug}>
                         <button type="button" className={classes.view_btn}>
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleDlt(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleDlt(params.row._id)}
                     >
-                        Update
+                        Sửa
                     </button>
                 </div>
             ),
@@ -112,14 +77,16 @@ function TableNews({ type }) {
 
                 <div className={classes.blog_page_table}>
 
-                    <DataGrid
+                    {data && <DataGrid
+                        rowHeight={100}
+                        getRowId={(row) => row._id}
                         className={classes.data_grid}
                         rows={data}
                         columns={columns}
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
-                    />
+                    />}
                 </div>
             </div>
         </div>

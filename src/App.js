@@ -4,7 +4,8 @@ import { ColorContext } from './ColorContext/darkContext';
 import { InputDetails } from './InputDetails';
 import Home from './Pages/Home/Home';
 import AddNew from './Pages/GeneralPage/AddItem/AddItem';
-import BlogDetail from './Pages/NewDetail/NewDetail';
+import NewsDetail from './Pages/NewDetail/NewDetail';
+import NewsAdd from './Pages/NewsAdd'
 //import Blogs from './Pages/News/News';
 import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
@@ -14,7 +15,6 @@ import ViewNew from './Pages/GeneralPage/ViewItem/ViewItem';
 import { useParams } from 'react-router-dom';
 
 import './app.scss';
-
 const userInpDetails = InputDetails.userInpDetails;
 const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
@@ -204,12 +204,12 @@ function App() {
                         {/* new */}
 
                         <Route path="news">
-                            <Route index element={<DefaultLayoutPage type="blog" />} />
-                            <Route path=":blogId" element={<BlogDetail />} />
+                            <Route index element={<DefaultLayoutPage type="news" />} />
+                            <Route path=":slug" element={<NewsDetail />} />
                             <Route
                                 path="addnew"
                                 element={
-                                    <AddNew inputs={blogInputs} titlee="Add New Blog" type="BLOG" />
+                                    <NewsAdd />
                                 }
                             />
                         </Route>
