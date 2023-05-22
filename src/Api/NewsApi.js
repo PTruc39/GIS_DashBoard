@@ -2,9 +2,9 @@
 import axiosInstance from "./axiosInstance";
 
 const getAllNews = async (category = null) => {
-    let query = `/tin-tuc`;
+    let query = `/tin-tuc?pageSize=999`;
     if (category) {
-        query = query.concat(`?category=${category}`)
+        query = query.concat(`&category=${category}`)
     }
     return await axiosInstance.get(query);
 };

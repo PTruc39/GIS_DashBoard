@@ -2,11 +2,9 @@
     display: grid;
     grid-template-columns: 17% 83%;
     justify-content: center;
-    height: 5000px;
 
     .bPopup {
         text-align: left;
-        // width: 100%;
         background: #ffffff;
         border-radius: 8px;
         padding: 52px 52px 40px;
@@ -26,20 +24,23 @@
             margin-bottom: 5px;
         }
 
-        input {
+        textarea, input  {
             height: 48px;
             width: 100%;
             max-width: 90% !important;
             padding: 0 10px;
             border-radius: 8px;
             border: 1.5px solid;
-            /* border-color: red; */
             outline: none;
-            margin: 6px 0 0;
+            margin: 10px 0;
+        }
+
+        .editor {
+            max-width: 90%;
+            margin: 10px 0;
         }
     }
 }
-
 
 .bPopup>input[type="file"] {
     padding-left: 0;

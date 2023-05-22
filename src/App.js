@@ -5,18 +5,19 @@ import { InputDetails } from './InputDetails';
 import Home from './Pages/Home/Home';
 import AddNew from './Pages/GeneralPage/AddItem/AddItem';
 import NewsDetail from './Pages/NewDetail/NewDetail';
-import NewsAdd from './Pages/NewsAdd'
+import NewsAdd from './Pages/NewsManagement/NewsAdd/NewsAdd'
 //import Blogs from './Pages/News/News';
 import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
-import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
+import UpdateItem from './Pages/GeneralPage/UpdateItem/UpdateItem';
 import ViewNew from './Pages/GeneralPage/ViewItem/ViewItem';
 import { useParams } from 'react-router-dom';
 import Guarantee from './Pages/Guarantee/Guarantee';
 import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/TableGuaranteeDetail';
 
 import './app.scss';
+import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
 const userInpDetails = InputDetails.userInpDetails;
 const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
@@ -53,7 +54,7 @@ function App() {
                             />
                             <Route path="updatenew/:productId"
                                 element={
-                                    <UpdateNew inputs={productInpDetails}
+                                    <UpdateItem inputs={productInpDetails}
                                         type="PRODUCT"
                                         titlee="Update Current Product"
                                     />
@@ -75,7 +76,7 @@ function App() {
                             />
                             <Route path="updatenew/:customerId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -101,7 +102,7 @@ function App() {
                             />
                             <Route path="updatenew/:promotionId"
                                 element={
-                                    <UpdateNew inputs={promotionInpDetails}
+                                    <UpdateItem inputs={promotionInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -125,7 +126,7 @@ function App() {
                             />
                             <Route path="updatenew/:orderId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -147,7 +148,7 @@ function App() {
                             />
                             <Route path="updatenew"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="EMPLOYEE"
                                         titlee="Update Current Employee"
                                     />
@@ -171,7 +172,7 @@ function App() {
                             />
                             <Route path="updatenew/:employeeId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -195,7 +196,7 @@ function App() {
                             />
                             <Route path="updatenew/:storeId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
 
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
@@ -217,6 +218,12 @@ function App() {
                                     <NewsAdd />
                                 }
                             />
+                            <Route 
+                                path='updatenews/:slug'
+                                element={
+                                    <UpdateNews />
+                                }
+                             />
                         </Route>
 
                         {/* Guarantee */}

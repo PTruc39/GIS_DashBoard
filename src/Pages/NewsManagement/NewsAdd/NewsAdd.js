@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./NewsAdd.module.scss";
 import './NewsAdd.css'
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
-import { Grid, Button, Select, FormControl, InputLabel, MenuItem } from "@mui/material";
-import api from '../../Api/NewsApi'
+import { Button, Select, FormControl, InputLabel, MenuItem } from "@mui/material";
+import api from '../../../Api/NewsApi'
 import JoditEditor from 'jodit-react';
 import { useMemo } from "react";
-import Sidebar from "../../Components/Bar/Sidebar/Sidebar";
-import Navbar from "../../Components/Bar/Navbar/Navbar";
+import Sidebar from "../../../Components/Bar/Sidebar/Sidebar";
+import Navbar from "../../../Components/Bar/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 
 
@@ -19,7 +19,7 @@ function NewsAdd() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [dateSource, setDateSource] = useState();
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState('');
   const [detail, setDetail] = useState('');
 
   const handleChange = (event) => {
@@ -30,7 +30,7 @@ function NewsAdd() {
     () => ({
       readonly: false,
       uploader: { insertImageAsBase64URI: true },
-      removeButtons: ["brush", "file", "fullsize"],
+      removeButtons: ["brush", "file"],
       showXPathInStatusbar: false,
       showCharsCounter: false,
       showWordsCounter: false,
@@ -41,32 +41,28 @@ function NewsAdd() {
   const inputId = [
     "image",
     "title",
-    "description",
     "dateSource",
   ];
 
   const useStateEvent = [
     setImage,
     setTitle,
-    setDescription,
     setDateSource,
   ];
 
   const placeHolder = [
     "Nhập link ảnh",
     "Nhập tiêu đề",
-    "Nhập mô tả",
     "Nhập ngày đăng",
   ];
 
   const textValue = [
     "Link ảnh",
     "Tiêu đề",
-    "Mô tả",
     "Ngày đăng",
   ];
 
-  const inputType = ["text", "text", "text", "text"]
+  const inputType = ["text", "text", "text"]
 
   // object data
   const data = {
@@ -121,9 +117,8 @@ function NewsAdd() {
             <br />
             <Box sx={{ flexGrow: 1, overflow: "scroll" }}>
               <form onSubmit={handleCreatePost}>
-                <Grid container>
                   {inputId.map((item, index) => (
-                    <Grid key={index} item xs={4} sx={{ height: "93px" }}>
+                    <div key={index}>
                       <label htmlFor={item[index]} className={styles.label}>
                         {textValue[index]}
                       </label>
@@ -141,10 +136,26 @@ function NewsAdd() {
                         }
                         onBlur={handleBlur}
                       />
-                    </Grid>
+                    </div>
                   ))}
-                  <Grid item xs={4} sx={{ height: "93px" }}>
-                    <FormControl fullWidth sx={{ m: 1, minWidth: 120 }} size="small">
+                  <label htmlFor={"description"} className={styles.label}>
+                        Mô tả
+                  </label>
+                  <br />
+                  <textarea
+                        id={"description"}
+                        name={"Mô tả"}
+                        type={"text"}
+                        required
+                        placeholder={"Nhập mô tả"}
+                        onChange={(e) =>
+                          setDescription(
+                            e.target.value
+                          )
+                        }
+                        onBlur={handleBlur}
+                      />
+                    <FormControl fullWidth size="small" >
                       <InputLabel id="demo-simple-select-label">Loại tin tức</InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
@@ -160,22 +171,18 @@ function NewsAdd() {
                         <MenuItem value={"other"}>Tin khác</MenuItem>
                       </Select>
                     </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
                     <label className={styles.label}>Chi tiết</label>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <JoditEditor
-                      ref={editor}
-                      value={detail}
-                      config={config}
-                      tabIndex={999} // tabIndex of textarea
-                      onChange={newContent => {
-                        setDetail(newContent)
-                      }}
-                    />
-                  </Grid>
-                </Grid>
+                    <div className={styles.editor}>
+                      <JoditEditor
+                        ref={editor}
+                        value={detail}
+                        config={config}
+                        tabIndex={999} // tabIndex of textarea
+                        onChange={newContent => {
+                          setDetail(newContent)
+                        }}
+                      />
+                    </div>
                 <div className={styles.btn}>
                   <Button
                     variant="contained"

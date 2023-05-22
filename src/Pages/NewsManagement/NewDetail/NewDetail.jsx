@@ -1,20 +1,20 @@
 /* eslint-disable react/no-array-index-key */
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
-import blogimg from '../../Assets/Images/blog2.jpg';
 import classes from './NewDetail.module.scss';
 import { useParams } from 'react-router-dom'
 import api from '../../Api/NewsApi'
+import parse from "html-react-parser"
+
 
 function NewsDetail() {
     const [news, setNews] = useState();
     const { slug } = useParams();
 
     useEffect(() => {
-        api.getNewsById(slug).then(result => setNews(result))
+        api.getNewsById(slug).then(result => {console.log(result) ;setNews(result)})
     }, [slug])
 
 
@@ -38,9 +38,7 @@ function NewsDetail() {
                         </p>
                     </div>
 
-                    {/* {news.text.map((t) => (
-                        <p className={classes.blog_detail_txt}>{t}</p>
-                    ))} */}
+                    {news && <div className={classes.detail}>{parse(news.detail)}</div>}
 
                     <div className={classes.tags}>
                         <h3>Category:</h3>

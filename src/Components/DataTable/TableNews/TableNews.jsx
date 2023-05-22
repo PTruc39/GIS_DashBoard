@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './TableNews.module.scss';
 import api from '../../../Api/NewsApi'
+import Swal from 'sweetalert2';
 
 function TableNews({ type }) {
     const [data, setData] = useState();
@@ -13,8 +14,25 @@ function TableNews({ type }) {
         })
     }, [])
 
-    const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: 'Bạn muốn xóa bài viết không?',
+            showDenyButton: true,
+            confirmButtonText: 'Có',
+            denyButtonText: 'Không',
+            customClass: {
+                actions: 'my-actions',
+                cancelButton: 'order-1 right-gap',
+                confirmButton: 'order-2',
+                denyButton: 'order-3',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                api.deleteNews(id).then(
+                    Swal.fire('Xóa thành công!', '', 'success')
+                )
+            }
+        })
     };
 
     const columns = [
@@ -54,17 +72,18 @@ function TableNews({ type }) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row._id)}
+                        onClick={() => handleDelete(params.row.slug)}
                     >
                         Xóa
                     </button>
-                    <button
-                        type="button"
-                        className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row._id)}
-                    >
-                        Sửa
-                    </button>
+                    <Link to={`updatenews/${params.row.slug}`}>
+                        <button
+                            type="button"
+                            className={classes.delete_btn}
+                        >
+                            Sửa
+                        </button>
+                    </Link>
                 </div>
             ),
         },
