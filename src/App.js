@@ -4,7 +4,7 @@ import { ColorContext } from './ColorContext/darkContext';
 import { InputDetails } from './InputDetails';
 import Home from './Pages/Home/Home';
 import AddNew from './Pages/GeneralPage/AddItem/AddItem';
-import NewsDetail from './Pages/NewDetail/NewDetail';
+import NewsDetail from './Pages/NewsManagement/NewsDetail/NewsDetail'
 import NewsAdd from './Pages/NewsManagement/NewsAdd/NewsAdd'
 //import Blogs from './Pages/News/News';
 import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';

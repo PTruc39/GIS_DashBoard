@@ -28,9 +28,12 @@ function TableNews({ type }) {
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                api.deleteNews(id).then(
-                    Swal.fire('Xóa thành công!', '', 'success')
-                )
+                api.deleteNews(id).then(async (res) => { 
+                    await Swal.fire('Xóa thành công!', '', 'success');
+                    window.location.reload();
+                }).catch((err) => {
+                    console.log(err);
+                });
             }
         })
     };
@@ -79,7 +82,7 @@ function TableNews({ type }) {
                     <Link to={`updatenews/${params.row.slug}`}>
                         <button
                             type="button"
-                            className={classes.delete_btn}
+                            className={classes.update_btn}
                         >
                             Sửa
                         </button>

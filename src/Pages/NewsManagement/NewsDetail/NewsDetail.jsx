@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../Components/Bar/Navbar/Navbar';
-import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
-import classes from './NewDetail.module.scss';
+import classes from './NewsDetail.module.scss';
 import { useParams } from 'react-router-dom'
-import api from '../../Api/NewsApi'
+import api from '../../../Api/NewsApi'
 import parse from "html-react-parser"
+import Sidebar from '../../../Components/Bar/Sidebar/Sidebar';
+import Navbar from '../../../Components/Bar/Navbar/Navbar';
 
 
 function NewsDetail() {
@@ -14,7 +14,7 @@ function NewsDetail() {
     const { slug } = useParams();
 
     useEffect(() => {
-        api.getNewsById(slug).then(result => {console.log(result) ;setNews(result)})
+        api.getNewsById(slug).then(result => setNews(result))
     }, [slug])
 
 

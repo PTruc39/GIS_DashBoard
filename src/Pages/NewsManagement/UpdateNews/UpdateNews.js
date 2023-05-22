@@ -25,7 +25,6 @@ function UpdateNews() {
 
   useEffect(() => {
     api.getNewsById(slug).then(result => {
-      console.log(result)
       setImage(result.image)
       setTitle(result.title)
       setCategory(result.category)
