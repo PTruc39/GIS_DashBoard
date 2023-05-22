@@ -52,9 +52,14 @@ function AddNew({ inputs, titlee, type }) {
                 baohanh: ''
             };
         break;
-        case 'BLOG':
+        case 'NEWS':
             dynamicInpVal = {
-                
+                title: '',
+                image: '',
+                dateSource: '',
+                description: '',
+                category: '',
+                detail: '',
             };
             break;
         case "PROMOTION":
@@ -85,6 +90,10 @@ function AddNew({ inputs, titlee, type }) {
         switch (type) {
             case "PRODUCT":
                 return "http://localhost:3001/product";
+                break;
+            
+            default:
+                break;
         }
     }
 
