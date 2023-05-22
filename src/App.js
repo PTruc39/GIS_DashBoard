@@ -13,6 +13,8 @@ import Login from './Pages/Login/Login';
 import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
 import ViewNew from './Pages/GeneralPage/ViewItem/ViewItem';
 import { useParams } from 'react-router-dom';
+import Guarantee from './Pages/Guarantee/Guarantee';
+import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/TableGuaranteeDetail';
 
 import './app.scss';
 const userInpDetails = InputDetails.userInpDetails;
@@ -215,6 +217,12 @@ function App() {
                                     <NewsAdd />
                                 }
                             />
+                        </Route>
+
+                        {/* Guarantee */}
+                        <Route path="guarantee">
+                            <Route index element={<Guarantee/>} />
+                            <Route path=":guaranteeId" element={<TableGuaranteeDetail/>}/>
                         </Route>
                     </Route>
                 </Routes>
