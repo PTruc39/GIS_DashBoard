@@ -62,6 +62,21 @@ function AddNew({ inputs, titlee, type }) {
                 detail: '',
             };
             break;
+        case "PROMOTION":
+            dynamicInpVal = {
+                makm: '',
+                apdung: '',
+                phantramkm: '',
+                batdau: '',
+                ketthuc: '',
+                title: '',
+                image: '',
+                description: '',
+                dateSource: '',
+                detail: '',
+                category: ''
+            };
+            break;
         default:
             break;
     }
