@@ -18,6 +18,7 @@ import './app.scss';
 const userInpDetails = InputDetails.userInpDetails;
 const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
+const promotionInpDetails = InputDetails.promotionInputs;
 
 function App() {
     const { darkMode } = useContext(ColorContext);
@@ -83,12 +84,14 @@ function App() {
 
                         <Route path="promotions">
                             <Route index element={<DefaultLayoutPage type="promotion" />} />
-                            <Route path=":promotionId" element={<Detail />} />
+                            <Route path=":promotionId" element={< ViewNew inputs={promotionInpDetails}
+                                        titlee="View Promotion"
+                                        type="PROMOTION"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={userInpDetails}
+                                        inputs={promotionInpDetails}
                                         titlee="Add New Promotion"
                                         type="PROMOTION"
                                     />
@@ -96,7 +99,7 @@ function App() {
                             />
                             <Route path="updatenew/:promotionId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateNew inputs={promotionInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
