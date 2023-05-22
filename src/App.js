@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ColorContext } from './ColorContext/darkContext';
 import { InputDetails } from './InputDetails';
@@ -10,6 +10,9 @@ import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
 import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
+import ViewNew from './Pages/GeneralPage/ViewItem/ViewItem';
+import { useParams } from 'react-router-dom';
+
 import './app.scss';
 
 const userInpDetails = InputDetails.userInpDetails;
@@ -18,7 +21,7 @@ const blogInputs = InputDetails.blogInputs;
 
 function App() {
     const { darkMode } = useContext(ColorContext);
-
+    
     return (
         <div className={darkMode ? 'App dark' : 'App'}>
             <BrowserRouter>
@@ -28,6 +31,31 @@ function App() {
                         <Route path="login" element={<Login />} />
 
                         {/* customer */}
+
+                        <Route path="products">
+                            <Route index element={<DefaultLayoutPage type="product" />} />
+                            <Route path=":productId" element={< ViewNew inputs={productInpDetails}
+                                        titlee="View New Product"
+                                        type="PRODUCT"/>} />
+                            <Route
+                                path="addnew"
+                                element={
+                                    <AddNew
+                                        inputs={productInpDetails}
+                                        titlee="Add New Product"
+                                        type="PRODUCT"
+                                    />
+
+                                }
+                            />
+                            <Route path="updatenew/:productId"
+                                element={
+                                    <UpdateNew inputs={productInpDetails}
+                                        type="PRODUCT"
+                                        titlee="Update Current Product"
+                                    />
+                                }></Route>
+                        </Route>
 
                         <Route path="customers">
                             <Route index element={<DefaultLayoutPage type="customer" />} />
@@ -41,14 +69,14 @@ function App() {
                                         type="CUSTOMER"
                                     />
                                 }
-                        />
-                            <Route  path="updatenew/:customerId"
-                                    element={
+                            />
+                            <Route path="updatenew/:customerId"
+                                element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="CUSTOMER"
-                                     titlee="Update Current Customer"
-                                     />
-                                    }></Route>
+                                        type="CUSTOMER"
+                                        titlee="Update Current Customer"
+                                    />
+                                }></Route>
                         </Route>
 
                         {/* promotion */}
@@ -65,14 +93,14 @@ function App() {
                                         type="PROMOTION"
                                     />
                                 }
-                        />
-                            <Route  path="updatenew/:promotionId"
-                                    element={
+                            />
+                            <Route path="updatenew/:promotionId"
+                                element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="CUSTOMER"
-                                     titlee="Update Current Customer"
-                                     />
-                                    }></Route>
+                                        type="CUSTOMER"
+                                        titlee="Update Current Customer"
+                                    />
+                                }></Route>
                         </Route>
 
                         {/* order */}
@@ -89,16 +117,16 @@ function App() {
                                         type="CUSTOMER"
                                     />
                                 }
-                        />
-                            <Route  path="updatenew/:orderId"
-                                    element={
+                            />
+                            <Route path="updatenew/:orderId"
+                                element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="CUSTOMER"
-                                     titlee="Update Current Customer"
-                                     />
-                                    }></Route>
+                                        type="CUSTOMER"
+                                        titlee="Update Current Customer"
+                                    />
+                                }></Route>
                         </Route>
-                        
+
                         <Route path="employees">
                             <Route index element={<DefaultLayoutPage type="employee" />} />
                             <Route path=":employeeId" element={<Detail />} />
@@ -111,14 +139,14 @@ function App() {
                                         type="EMPLOYEE"
                                     />
                                 }
-                        />
-                            <Route  path="updatenew"
-                                    element={
+                            />
+                            <Route path="updatenew"
+                                element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="EMPLOYEE"
-                                     titlee="Update Current Employee"
-                                     />
-                                    }></Route>
+                                        type="EMPLOYEE"
+                                        titlee="Update Current Employee"
+                                    />
+                                }></Route>
                         </Route>
 
                         {/* employee */}
@@ -135,14 +163,14 @@ function App() {
                                         type="CUSTOMER"
                                     />
                                 }
-                        />
-                            <Route  path="updatenew/:employeeId"
-                                    element={
+                            />
+                            <Route path="updatenew/:employeeId"
+                                element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="CUSTOMER"
-                                     titlee="Update Current Customer"
-                                     />
-                                    }></Route>
+                                        type="CUSTOMER"
+                                        titlee="Update Current Customer"
+                                    />
+                                }></Route>
                         </Route>
 
                         {/* Store */}
@@ -159,39 +187,19 @@ function App() {
                                         type="CUSTOMER"
                                     />
                                 }
-                        />
-                            <Route  path="updatenew/:storeId"
-                                    element={
+                            />
+                            <Route path="updatenew/:storeId"
+                                element={
                                     <UpdateNew inputs={userInpDetails}
-                                     type="CUSTOMER"
-                                     titlee="Update Current Customer"
-                                     />
-                                    }></Route>
+
+                                        type="CUSTOMER"
+                                        titlee="Update Current Customer"
+                                    />
+                                }></Route>
                         </Route>
 
                         {/* product */}
-                        <Route path="products">
-                            <Route index element={<DefaultLayoutPage type="product" />} />
-                            <Route path=":productId" element={<Detail />} />
-                            <Route
-                                path="addnew"
-                                element={ 
-                                    <AddNew
-                                        inputs={productInpDetails}
-                                        titlee="Add New Product"
-                                        type="PRODUCT"
-                                    />
-                                    
-                                }
-                            />
-                            <Route  path="updatenew/:productId"
-                                    element={
-                                    <UpdateNew inputs={productInpDetails}
-                                    type="PRODUCT"
-                                    titlee="Update Current Product"
-                                     />
-                                    }></Route>
-                        </Route>
+                        
 
                         {/* new */}
 
