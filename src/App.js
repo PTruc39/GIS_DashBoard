@@ -16,6 +16,8 @@ import { useParams } from 'react-router-dom';
 import Guarantee from './Pages/Guarantee/Guarantee';
 import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/TableGuaranteeDetail';
 
+import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.jsx/DetailCustomer';
+
 import './app.scss';
 import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
 const userInpDetails = InputDetails.userInpDetails;
@@ -63,7 +65,7 @@ function App() {
 
                         <Route path="customers">
                             <Route index element={<DefaultLayoutPage type="customer" />} />
-                            <Route path=":customerId" element={<Detail />} />
+                            <Route path=":customerId" element={<DetailCustomer />} />
                             <Route
                                 path="addnew"
                                 element={
@@ -76,7 +78,7 @@ function App() {
                             />
                             <Route path="updatenew/:customerId"
                                 element={
-                                    <UpdateNew inputs={InputDetails.userUpDetails}
+                                    <UpdateItem inputs={InputDetails.userUpDetails}
                                         type="CUSTOMER"
                                         titlee="Cập nhật khách hàng"
                                     />
