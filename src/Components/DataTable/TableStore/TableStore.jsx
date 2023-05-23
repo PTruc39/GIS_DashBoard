@@ -1,186 +1,116 @@
-import { DataGrid } from '@mui/x-data-grid';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import man from '../../../Assets/Images/portrait.png';
-import classes from './TableStore.module.scss';
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import classes from "./TableStore.module.scss";
+import api from "../../../Api/StoreApi";
+import Swal from "sweetalert2";
 
-const userData = [
-    {
-        id: '1',
-        username: 'Store',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '24',
-    },
-    {
-        id: '2',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Ha Noi City',
-        age: '29',
-    },
-    {
-        id: '3',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '20',
-    },
-    {
-        id: '4',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '5',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '6',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '7',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '29',
-    },
-    {
-        id: '8',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '20',
-    },
-    {
-        id: '9',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '10',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '11',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '30',
-    },
-    {
-        id: '12',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '29',
-    },
-];
+function TableStore({ type }) {
+    const [data, setData] = useState();
 
-function TableStore({type}) {
-    const [data, setData] = useState(userData);
+    useEffect(() => {
+        api.getAllStore().then((result) => {
+            setData(result.listStores);
+        });
+    }, []);
 
-    const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Bạn muốn xóa cửa hàng không?",
+            showDenyButton: true,
+            confirmButtonText: "Có",
+            denyButtonText: "Không",
+            customClass: {
+                actions: "my-actions",
+                cancelButton: "order-1 right-gap",
+                confirmButton: "order-2",
+                denyButton: "order-3",
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                api.deleteStoreById(id)
+                    .then(async (res) => {
+                        await Swal.fire("Xóa thành công!", "", "success");
+                        window.location.reload();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        });
     };
 
     const columns = [
         {
-            field: 'id',
-            headerName: 'ID',
-            width: 310,
-            renderCell: (param) => (
-                <div className={classes.userr}>
-                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
-                    {param.row.id}
-                </div>
-            ),
+            field: "id",
+            headerName: "ID",
+            width: 100,
+            renderCell: (param) => <div>{param.row.id}</div>,
         },
         {
-            field: 'username',
-            headerName: 'Username',
+            field: "name",
+            headerName: "Tên cửa hàng",
+            width: 400,
+        },
+        {
+            field: "provinceCode",
+            headerName: "Mã tỉnh/thành phố",
             width: 180,
         },
-        { field: 'email', headerName: 'Email', width: 280 },
         {
-            field: 'address',
-            headerName: 'Address',
-            width: 150,
-            renderCell: (param) => (
-                <div className={`status ${param.row.address}`}>{param.row.address}</div>
-            ),
+            field: "districtCode",
+            headerName: "Mã quận/huyện",
+            width: 180,
         },
-        { field: 'age', headerName: 'Age', width: 120 },
         {
-            field: 'action',
-            headerName: 'Action',
-            width: 270,
+            field: "action",
+            headerName: "Action",
+            width: 300,
             renderCell: (params) => (
-                <div className="actionn">
-                    <Link to={params.row.id}>
-                        <button type="button" className="view_btn">
-                            View
+                <div className={classes.actionn}>
+                    {/* <Link to={params.row._id}>
+                        <button type="button" className={classes.view_btn}>
+                            Xem
                         </button>
-                    </Link>
+                    </Link> */}
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleDelete(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
-                    <Link 
-                        to={`/stores/updatenew/${params.row.id}`}
-                        style={{ textDecoration: 'none' }}
-                        
+                    <Link
+                        to={`/stores/updatenew/${params.row._id}`}
+                        style={{ textDecoration: "none" }}
                     >
-                        <button
-                            type="button"
-                            className={classes.update_btn}
-                        >Update</button>
+                        <button type="button" className={classes.update_btn}>
+                            Sửa
+                        </button>
                     </Link>
-                    
                 </div>
             ),
         },
     ];
 
     return (
-        <div className={classes.data_table}>
-            <DataGrid
-                className={classes.data_grid}
-                rows={data}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                checkboxSelection
-            />
+        <div className={classes.blog_page}>
+            <div className={classes.blog_page_main}>
+                <div className={classes.blog_page_table}>
+                    {data && (
+                        <DataGrid
+                            rowHeight={100}
+                            getRowId={(row) => row._id}
+                            className={classes.data_grid}
+                            rows={data}
+                            columns={columns}
+                            pageSize={10}
+                            rowsPerPageOptions={[10]}
+                            checkboxSelection
+                        />
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

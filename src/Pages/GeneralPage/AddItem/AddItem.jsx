@@ -77,6 +77,13 @@ function AddNew({ inputs, titlee, type }) {
                 category: ''
             };
             break;
+        case "STORE":
+            dynamicInpVal = {
+                name: '',
+                provinceCode: '',
+                districtCode: '',
+            };
+            break;
         default:
             break;
     }
@@ -91,7 +98,9 @@ function AddNew({ inputs, titlee, type }) {
             case "PRODUCT":
                 return "http://localhost:3001/product";
             case "CUSTOMER":
-                return "http://localhost:3001/api/auth/"        
+                return "http://localhost:3001/api/auth/"    
+            case "STORE":
+                return "http://localhost:3001/api/store/"       
             default:
                 break;
         }
