@@ -45,7 +45,7 @@ function TableStore({ type }) {
             field: "id",
             headerName: "ID",
             width: 100,
-            renderCell: (param) => <div>{param.row.id}</div>,
+            renderCell: (param) => <div>{param.row._id}</div>,
         },
         {
             field: "name",
