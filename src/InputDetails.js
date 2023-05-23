@@ -437,5 +437,34 @@ export const InputDetails ={
             required: true,
             errorMsg: 'Title is required!',
         },
-    ]
+    ],
+    storeInputs: [
+        {
+            id: 2,
+            name: 'name',
+            lable: 'Tên cửa hàng',
+            type: 'text',
+            placeholder: 'Tên cửa hàng',
+            required: true,
+            errorMsg: 'Title is required!',
+        },
+        {
+            id: 3,
+            name: 'provinceCode',
+            lable: 'Mã tỉnh',
+            type: 'number',
+            placeholder: 'Mã tỉnh',
+            required: true,
+            errorMsg: 'Title is required!',
+        },
+        {
+            id: 4,
+            name: 'districtCode',
+            lable: 'Mã quận/huyện',
+            type: 'number',
+            placeholder: 'Mã quận/huyện',
+            required: true,
+            errorMsg: 'Title is required!',
+        },
+    ],
 }

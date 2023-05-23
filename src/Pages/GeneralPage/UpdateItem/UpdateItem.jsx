@@ -35,16 +35,15 @@ const UpdateItem = ({ inputs, titlee, type }) => {
             });
     };
 
-    
     const UpdateCustomerById = (id) => {
         console.log("ok");
         console.log(id);
         axios
             .put(`http://localhost:3001/api/auth/${id}`, {
-                hoten:formInp.hoten,
-                diachi:formInp.diachi,
-                ngaysinh:formInp.ngaysinh,
-                sdt:formInp.sdt
+                hoten: formInp.hoten,
+                diachi: formInp.diachi,
+                ngaysinh: formInp.ngaysinh,
+                sdt: formInp.sdt,
             })
             .then((response) => {
                 console.log("Update successfully!" + response);
@@ -56,13 +55,47 @@ const UpdateItem = ({ inputs, titlee, type }) => {
 
     //END OF CUSTOMER
 
+    //STORE
+    const GetStoreById = (id) => {
+        axios
+            .get(`http://localhost:3001/api/store/${id}`)
+            .then((response) => {
+                setFormInp(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const UpdateStoreById = (id) => {
+        console.log(id);
+        axios
+            .put(`http://localhost:3001/api/store/${id}`, {
+                name: formInp.name,
+                provinceCode: Number(formInp.provinceCode),
+                districtCode: Number(formInp.districtCode),
+            })
+            .then(() => {
+                Swal.fire({
+                    title: "Cập nhật thành công!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 800,
+                });
+                console.log(formInp);
+            })
+            .catch((err) => console.log(err));
+    };
+    //END OF STORE
 
     useEffect(() => {
         //console.log(params.productId);
-        if(type!=="CUSTOMER"){
-        GetItemById(params.productId);}
-        else{
-        GetCustomerById(params.customerId);
+        if (type === "CUSTOMER") {
+            GetCustomerById(params.customerId);
+        } else if (type === "STORE") {
+            GetStoreById(params.storeId);
+        } else {
+            GetItemById(params.productId);
         }
     }, []);
     const UpdateItemById = (id) => {
@@ -84,59 +117,60 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(type);
-        if(type=="PRODUCT")
-        {
-        UpdateItemById(params.productId);
-        Swal.fire({
-            title: "Update successfully",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 800,
-        });
+        if (type === "PRODUCT") {
+            UpdateItemById(params.productId);
+            Swal.fire({
+                title: "Update successfully",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
         }
-        if(type=="CUSTOMER")
-        {
+        if (type === "CUSTOMER") {
             UpdateCustomerById(params.customerId);
-        Swal.fire({
-            title: "Update successfully",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 800,
-        });
-        console.log(formInp);
+            Swal.fire({
+                title: "Update successfully",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
+            console.log(formInp);
+        }
+        if (type === "STORE") {
+            UpdateStoreById(params.storeId);
         }
     };
 
-	return (
-		<div className={classes.new_page_main}>
-			<div className={classes.add_new_item}>
-				<h1>{titlee}</h1>
-			</div>
-			<div className={classes.new_page_form}>
-				{/*<div className={classes.containerImg}>
+    return (
+        <div className={classes.new_page_main}>
+            <div className={classes.add_new_item}>
+                <h1>{titlee}</h1>
+            </div>
+            <div className={classes.new_page_form}>
+                {/*<div className={classes.containerImg}>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
 					<img src={macbook}></img>
 				</div>*/}
-				<form onSubmit={handleSubmit}>
-					{inputs.map((detail) => (
-						<Input
-							key={detail.id}
-							{...detail}
-							value={formInp?formInp[detail.name]:""}
-							onChange={handleChange}
-						/>
-					))}
-					<div className={classes.wrap}>
-						<button type="submit" className={classes.button}>Update</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
-
-	);
+                <form onSubmit={handleSubmit}>
+                    {inputs.map((detail) => (
+                        <Input
+                            key={detail.id}
+                            {...detail}
+                            value={formInp ? formInp[detail.name] : ""}
+                            onChange={handleChange}
+                        />
+                    ))}
+                    <div className={classes.wrap}>
+                        <button type="submit" className={classes.button}>
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default UpdateItem;

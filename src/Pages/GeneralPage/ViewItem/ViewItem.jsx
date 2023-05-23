@@ -89,6 +89,13 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				category: ''
 			};
 			break;
+		case "STORE":
+			dynamicInpVal = {
+				name: '',
+				provinceCode: '',
+				districtCode: '',
+			};
+			break;
 		default:
 			break;
 	}
