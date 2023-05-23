@@ -90,8 +90,8 @@ function AddNew({ inputs, titlee, type }) {
         switch (type) {
             case "PRODUCT":
                 return "http://localhost:3001/product";
-                break;
-            
+            case "CUSTOMER":
+                return "http://localhost:3001/api/auth/"        
             default:
                 break;
         }

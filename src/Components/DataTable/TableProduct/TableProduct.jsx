@@ -40,7 +40,7 @@ function TableProduct({ type }) {
 
     const GetAllProduct = () => {
         axios
-            .get("http://localhost:3001/product")
+            .get("http://localhost:3001/api/product")
             .then((response) => {
                 let index = 0;
                 const fetchedData = response.data.listProducts.map((item) => {

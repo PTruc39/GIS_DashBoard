@@ -7,93 +7,8 @@ import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 const UpdateItem = ({ inputs, titlee, type }) => {
     const params = useParams();
-    // console.log(params.productId);
+    console.log(type);
     let dynamicInpVal;
-    switch (type) {
-        case "CUSTOMER":
-            dynamicInpVal = {
-                tensanpham: "",
-                loaisanpham: "",
-                masp: "",
-                hinh: "",
-                gia: "",
-                rom: "",
-                mausac: "",
-                ram: "",
-                chip: "",
-                baomat: "",
-                chongnuoc: "",
-                sac: "",
-                dophangiai: "",
-                kichthuoc: "",
-                camera: "",
-                khoiluong: "",
-                hedieuhanh: "",
-                nguongoc: "",
-                chatlieu: "",
-                kichthuocmanhinh: "",
-                loaiphukien: "",
-                congnghe: "",
-                congsuat: "",
-                baohanh: "",
-            };
-            break;
-        case "PRODUCT":
-            dynamicInpVal = {
-                tensanpham: "",
-                loaisanpham: "",
-                masp: "",
-                hinh: "",
-                gia: "",
-                rom: "",
-                mausac: "",
-                ram: "",
-                chip: "",
-                baomat: "",
-                chongnuoc: "",
-                sac: "",
-                dophangiai: "",
-                kichthuoc: "",
-                camera: "",
-                khoiluong: "",
-                hedieuhanh: "",
-                nguongoc: "",
-                chatlieu: "",
-                kichthuocmanhinh: "",
-                loaiphukien: "",
-                congnghe: "",
-                congsuat: "",
-                baohanh: "",
-            };
-            break;
-        case "BLOG":
-            dynamicInpVal = {
-                image: "",
-                title: "",
-                dateSource: "",
-                category: "",
-                description: "",
-                detail: "",
-            };
-            break;
-        case "PROMOTION":
-            dynamicInpVal = {
-                makm: '',
-                apdung: '',
-                phantramkm: '',
-                batdau: '',
-                ketthuc: '',
-                title: '',
-                image: '',
-                description: '',
-                dateSource: '',
-                detail: '',
-                category: ''
-            };
-            break;
-        default:
-            break;
-    }
     const [formInp, setFormInp] = useState(dynamicInpVal);
     //const [formInp, setFormInp] = useState(dynamicInpVal);
     const GetItemById = (id) => {
@@ -106,9 +21,49 @@ const UpdateItem = ({ inputs, titlee, type }) => {
                 console.error(error);
             });
     };
+
+    //CUSTOMER
+    const GetCustomerById = (id) => {
+        axios
+            .get(`http://localhost:3001/api/auth/${id}`)
+            .then((response) => {
+                setFormInp(response.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    
+    const UpdateCustomerById = (id) => {
+        console.log("ok");
+        console.log(id);
+        axios
+            .put(`http://localhost:3001/api/auth/${id}`, {
+                hoten:formInp.hoten,
+                diachi:formInp.diachi,
+                ngaysinh:formInp.ngaysinh,
+                sdt:formInp.sdt
+            })
+            .then((response) => {
+                console.log("Update successfully!" + response);
+            })
+            .catch((error) => {
+                console.error("Update error", error);
+            });
+    };
+
+    //END OF CUSTOMER
+
+
     useEffect(() => {
-        console.log(params.productId);
-        GetItemById(params.productId);
+        //console.log(params.productId);
+        if(type!=="CUSTOMER"){
+        GetItemById(params.productId);}
+        else{
+        GetCustomerById(params.customerId);
+        }
     }, []);
     const UpdateItemById = (id) => {
         console.log("ok");
@@ -129,6 +84,8 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(type);
+        if(type=="PRODUCT")
+        {
         UpdateItemById(params.productId);
         Swal.fire({
             title: "Update successfully",
@@ -136,7 +93,18 @@ const UpdateItem = ({ inputs, titlee, type }) => {
             showConfirmButton: false,
             timer: 800,
         });
+        }
+        if(type=="CUSTOMER")
+        {
+            UpdateCustomerById(params.customerId);
+        Swal.fire({
+            title: "Update successfully",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 800,
+        });
         console.log(formInp);
+        }
     };
 
 	return (
@@ -156,7 +124,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
 						<Input
 							key={detail.id}
 							{...detail}
-							value={formInp[detail.name]}
+							value={formInp?formInp[detail.name]:""}
 							onChange={handleChange}
 						/>
 					))}
