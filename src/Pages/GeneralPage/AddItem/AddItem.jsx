@@ -24,6 +24,16 @@ function AddNew({ inputs, titlee, type }) {
                 age: ''
             };
             break;
+        case 'EMPLOYEE':
+                dynamicInpVal = {
+                    username: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    address: '',
+                    age: ''
+                };
+                break;    
         case 'PRODUCT':
             dynamicInpVal = {
                 tensanpham: '',
@@ -100,7 +110,9 @@ function AddNew({ inputs, titlee, type }) {
             case "CUSTOMER":
                 return "http://localhost:3001/api/auth/"    
             case "STORE":
-                return "http://localhost:3001/api/store/"       
+                return "http://localhost:3001/api/store/"   
+            case "EMPLOYEE":
+                return "http://localhost:3001/api/nhanvien"
             default:
                 break;
         }

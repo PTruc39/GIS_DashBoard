@@ -1,9 +1,12 @@
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import EmployeeApi from '../../../Api/EmployeeApi.js';
 import { Link } from 'react-router-dom';
 import man from '../../../Assets/Images/portrait.png';
 import classes from './TableEmployee.module.scss';
 import { update } from 'immutable';
+import Swal from 'sweetalert2';
+
 
 const userData = [
     {
@@ -37,127 +40,107 @@ const userData = [
         image: man,
         address: 'HCMC City',
         age: '23',
-    },
-    {
-        id: '5',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '6',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '7',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '29',
-    },
-    {
-        id: '8',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '20',
-    },
-    {
-        id: '9',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '10',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '11',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '30',
-    },
-    {
-        id: '12',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '29',
-    },
+    }
 ];
 
 function TableEmployee({type}) {
     const [data, setData] = useState(userData);
 
+
+    const GetAllProduct = () => {
+        EmployeeApi.getAllNV()
+            .then((response) => {
+                let index = 0;
+                const fetchedData = response.map((item) => {
+                    index = index + 1;
+                    return {
+                        ...item,
+                        id: index,
+                    };
+                });
+                setData(fetchedData);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+    useEffect(() => {
+        GetAllProduct();
+    }, []);
+
     const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+        EmployeeApi.deleteNV(id)
+            .then((response) => {
+                console.log("Item deleted successfully.");
+            })
+            .catch((error) => {
+                console.error("Error deleting item:", error);
+            });
+    };
+
+    const handleSuccessAction = async (id) => {
+        const notification = await Swal.fire({
+            title: "Delete this item",
+            icon: "warning",
+            text: "Do you want to delete this item?",
+            button: "Ok",
+            showCancelButton: true,
+            confirmButtonText: "Ok",
+        });
+        if (notification.isConfirmed) {
+            handleDlt(id);
+            Swal.fire({
+                title: "Delete successfully",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
+            GetAllProduct();
+        }
     };
 
     const columns = [
         {
             field: 'id',
             headerName: 'ID',
-            width: 310,
+            width: 110,
             renderCell: (param) => (
                 <div className={classes.userr}>
-                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
-                    {param.row.id}
+                    {param.row.manv}
                 </div>
             ),
         },
         {
-            field: 'username',
-            headerName: 'Username',
+            field: 'hoten',
+            headerName: 'Tên',
             width: 180,
         },
+        { field: 'role', headerName: 'Chức vụ', width: 120 },
         { field: 'email', headerName: 'Email', width: 280 },
         {
-            field: 'address',
-            headerName: 'Address',
+            field: 'sdt',
+            headerName: 'SDT',
             width: 150,
             renderCell: (param) => (
-                <div className={`status ${param.row.address}`}>{param.row.address}</div>
+                <div className={`status ${param.row.address}`}>{param.row.sdt}</div>
             ),
         },
-        { field: 'age', headerName: 'Age', width: 120 },
         {
             field: 'action',
             headerName: 'Action',
             width: 270,
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={params.row.id}>
-                        <button type="button" className={classes.view_btn}>
-                            View
-                        </button>
-                    </Link>
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleSuccessAction(params.row._id)}
                     >
                         Delete
                     </button>
                     <Link 
-                        to={`/employees/updatenew/${params.row.id}`}
+                        to={`/employees/updatenew/${params.row._id}`}
                         style={{ textDecoration: 'none' }}
                         
                     >
