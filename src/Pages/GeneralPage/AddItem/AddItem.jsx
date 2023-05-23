@@ -70,6 +70,8 @@ function AddNew({ inputs, titlee, type }) {
         switch (type) {
             case "PRODUCT":
                 return "http://localhost:3001/product";
+            case "CUSTOMER":
+                return "http://localhost:3001/api/auth/"
         }
     }
 
