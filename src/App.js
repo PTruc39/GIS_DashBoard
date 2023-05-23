@@ -76,7 +76,7 @@ function App() {
                             />
                             <Route path="updatenew/:customerId"
                                 element={
-                                    <UpdateNew inputs={InputDetails.userUpDetails}
+                                    <UpdateItem inputs={InputDetails.userUpDetails}
                                         type="CUSTOMER"
                                         titlee="Cập nhật khách hàng"
                                     />
