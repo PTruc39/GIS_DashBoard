@@ -143,44 +143,22 @@ function App() {
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={userInpDetails}
+                                        inputs={InputDetails.employeeInpDetails}
                                         titlee="Add New Employee"
                                         type="EMPLOYEE"
                                     />
                                 }
                             />
-                            <Route path="updatenew"
-                                element={
-                                    <UpdateItem inputs={userInpDetails}
-                                        type="EMPLOYEE"
-                                        titlee="Update Current Employee"
-                                    />
-                                }></Route>
-                        </Route>
-
-                        {/* employee */}
-
-                        <Route path="employees">
-                            <Route index element={<DefaultLayoutPage type="employee" />} />
-                            <Route path=":employeeId" element={<Detail />} />
-                            <Route
-                                path="addnew"
-                                element={
-                                    <AddNew
-                                        inputs={userInpDetails}
-                                        titlee="Add New Customer"
-                                        type="CUSTOMER"
-                                    />
-                                }
-                            />
                             <Route path="updatenew/:employeeId"
                                 element={
-                                    <UpdateItem inputs={userInpDetails}
-                                        type="CUSTOMER"
-                                        titlee="Update Current Customer"
+                                    <UpdateItem inputs={InputDetails.employeeUpDetails}
+                                        type="EMPLOYEE"
+                                        titlee="Cập nhật nhân viên"
                                     />
                                 }></Route>
                         </Route>
+
+                       
 
                         {/* Store */}
                         <Route path="stores">

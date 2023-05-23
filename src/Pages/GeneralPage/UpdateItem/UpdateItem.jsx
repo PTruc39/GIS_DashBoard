@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../../../Components/Input/Input";
 import macbook from "../../../Assets/Images/macbook_pro.png";
 import classes from "./UpdateItem.module.scss";
+import EmployeeApi from "../../../Api/EmployeeApi";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
@@ -55,6 +56,37 @@ const UpdateItem = ({ inputs, titlee, type }) => {
 
     //END OF CUSTOMER
 
+    // EMPLOYEE
+    const GetNVById = (id) => {
+        EmployeeApi.getNVById(id)
+            .then((response) => {
+                setFormInp(response);
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const UpdateNVById = (id) => {
+        console.log("ok");
+        console.log(id);
+        EmployeeApi.updateNV(id, {
+                hoten: formInp.hoten,
+                role: formInp.role,
+                email: formInp.email,
+                sdt: formInp.sdt,
+            })
+            .then((response) => {
+                console.log("Update successfully!" + response);
+            })
+            .catch((error) => {
+                console.error("Update error", error);
+            });
+    };
+
+    //END OF EMPLOYY
+
     //STORE
     const GetStoreById = (id) => {
         axios
@@ -94,9 +126,15 @@ const UpdateItem = ({ inputs, titlee, type }) => {
             GetCustomerById(params.customerId);
         } else if (type === "STORE") {
             GetStoreById(params.storeId);
-        } else {
+        } else if(type==="EMPLOYEE")
+        {
+            GetNVById(params.employeeId)
+        }else{
             GetItemById(params.productId);
         }
+
+       
+
     }, []);
     const UpdateItemById = (id) => {
         console.log("ok");
@@ -138,6 +176,9 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         }
         if (type === "STORE") {
             UpdateStoreById(params.storeId);
+        }
+        if (type === "EMPLOYEE") {
+            UpdateNVById(params.employeeId);
         }
     };
 
