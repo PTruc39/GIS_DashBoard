@@ -5,7 +5,7 @@ import classes from "./UpdateItem.module.scss";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
-const UpdateNew = ({ inputs, titlee, type }) => {
+const UpdateItem = ({ inputs, titlee, type }) => {
     const params = useParams();
     console.log(type);
     let dynamicInpVal;
@@ -139,4 +139,4 @@ const UpdateNew = ({ inputs, titlee, type }) => {
 	);
 };
 
-export default UpdateNew;
+export default UpdateItem;

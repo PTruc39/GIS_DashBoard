@@ -4,20 +4,24 @@ import { ColorContext } from './ColorContext/darkContext';
 import { InputDetails } from './InputDetails';
 import Home from './Pages/Home/Home';
 import AddNew from './Pages/GeneralPage/AddItem/AddItem';
-import BlogDetail from './Pages/NewDetail/NewDetail';
+import NewsDetail from './Pages/NewsManagement/NewsDetail/NewsDetail'
+import NewsAdd from './Pages/NewsManagement/NewsAdd/NewsAdd'
 //import Blogs from './Pages/News/News';
 import DefaultLayoutPage from './Pages/DefaultLayoutPage/DefaultLayoutPage';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
-import UpdateNew from './Pages/GeneralPage/UpdateItem/UpdateItem';
+import UpdateItem from './Pages/GeneralPage/UpdateItem/UpdateItem';
 import ViewNew from './Pages/GeneralPage/ViewItem/ViewItem';
 import { useParams } from 'react-router-dom';
+import Guarantee from './Pages/Guarantee/Guarantee';
+import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/TableGuaranteeDetail';
 
 import './app.scss';
-
+import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
 const userInpDetails = InputDetails.userInpDetails;
 const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
+const promotionInpDetails = InputDetails.promotionInputs;
 
 function App() {
     const { darkMode } = useContext(ColorContext);
@@ -50,7 +54,7 @@ function App() {
                             />
                             <Route path="updatenew/:productId"
                                 element={
-                                    <UpdateNew inputs={productInpDetails}
+                                    <UpdateItem inputs={productInpDetails}
                                         type="PRODUCT"
                                         titlee="Update Current Product"
                                     />
@@ -83,12 +87,14 @@ function App() {
 
                         <Route path="promotions">
                             <Route index element={<DefaultLayoutPage type="promotion" />} />
-                            <Route path=":promotionId" element={<Detail />} />
+                            <Route path=":promotionId" element={< ViewNew inputs={promotionInpDetails}
+                                        titlee="View Promotion"
+                                        type="PROMOTION"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={userInpDetails}
+                                        inputs={promotionInpDetails}
                                         titlee="Add New Promotion"
                                         type="PROMOTION"
                                     />
@@ -96,7 +102,7 @@ function App() {
                             />
                             <Route path="updatenew/:promotionId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={promotionInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -120,7 +126,7 @@ function App() {
                             />
                             <Route path="updatenew/:orderId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -142,7 +148,7 @@ function App() {
                             />
                             <Route path="updatenew"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="EMPLOYEE"
                                         titlee="Update Current Employee"
                                     />
@@ -166,7 +172,7 @@ function App() {
                             />
                             <Route path="updatenew/:employeeId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />
@@ -190,7 +196,7 @@ function App() {
                             />
                             <Route path="updatenew/:storeId"
                                 element={
-                                    <UpdateNew inputs={userInpDetails}
+                                    <UpdateItem inputs={userInpDetails}
 
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
@@ -204,14 +210,26 @@ function App() {
                         {/* new */}
 
                         <Route path="news">
-                            <Route index element={<DefaultLayoutPage type="blog" />} />
-                            <Route path=":blogId" element={<BlogDetail />} />
+                            <Route index element={<DefaultLayoutPage type="news" />} />
+                            <Route path=":slug" element={<NewsDetail />} />
                             <Route
                                 path="addnew"
                                 element={
-                                    <AddNew inputs={blogInputs} titlee="Add New Blog" type="BLOG" />
+                                    <NewsAdd />
                                 }
                             />
+                            <Route 
+                                path='updatenews/:slug'
+                                element={
+                                    <UpdateNews />
+                                }
+                             />
+                        </Route>
+
+                        {/* Guarantee */}
+                        <Route path="guarantee">
+                            <Route index element={<Guarantee/>} />
+                            <Route path=":guaranteeId" element={<TableGuaranteeDetail/>}/>
                         </Route>
                     </Route>
                 </Routes>

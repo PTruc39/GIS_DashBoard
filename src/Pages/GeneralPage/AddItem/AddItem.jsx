@@ -52,9 +52,29 @@ function AddNew({ inputs, titlee, type }) {
                 baohanh: ''
             };
         break;
-        case 'BLOG':
+        case 'NEWS':
             dynamicInpVal = {
-                
+                title: '',
+                image: '',
+                dateSource: '',
+                description: '',
+                category: '',
+                detail: '',
+            };
+            break;
+        case "PROMOTION":
+            dynamicInpVal = {
+                makm: '',
+                apdung: '',
+                phantramkm: '',
+                batdau: '',
+                ketthuc: '',
+                title: '',
+                image: '',
+                description: '',
+                dateSource: '',
+                detail: '',
+                category: ''
             };
             break;
         default:
@@ -71,7 +91,9 @@ function AddNew({ inputs, titlee, type }) {
             case "PRODUCT":
                 return "http://localhost:3001/product";
             case "CUSTOMER":
-                return "http://localhost:3001/api/auth/"
+                return "http://localhost:3001/api/auth/"        
+            default:
+                break;
         }
     }
 
