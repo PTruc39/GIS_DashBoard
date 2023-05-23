@@ -52,7 +52,7 @@ const data = [
     },
     {
         name: 'December',
-        total: 1250,
+        total: 0,
     },
 ];
 

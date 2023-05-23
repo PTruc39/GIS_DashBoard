@@ -5,6 +5,7 @@ import man from '../../../Assets/Images/portrait.png';
 import classes from './TableCustomer.module.scss';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import CustomerApi from '../../../Api/CustomerApi';
 
 const userData = [
     {
@@ -30,79 +31,7 @@ const userData = [
         image: man,
         address: 'HCMC City',
         age: '20',
-    },
-    {
-        id: '4',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '5',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '6',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '7',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '29',
-    },
-    {
-        id: '8',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '20',
-    },
-    {
-        id: '9',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Thanh Hoa',
-        age: '30',
-    },
-    {
-        id: '10',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '23',
-    },
-    {
-        id: '11',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '30',
-    },
-    {
-        id: '12',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '29',
-    },
+    }
 ];
 
 function TableCustomer({type}) {
@@ -112,11 +41,10 @@ function TableCustomer({type}) {
         setData(data.filter((item) => item.id !== id));
     };*/
     const GetAllProduct = () => {
-        axios
-            .get("http://localhost:3001/api/auth?pageSize=190")
+        CustomerApi.getAllKH()
             .then((response) => {
                 let index = 0;
-                const fetchedData = response.data.listKH.map((item) => {
+                const fetchedData = response.listKH.map((item) => {
                     index = index + 1;
                     return {
                         ...item,
@@ -136,8 +64,7 @@ function TableCustomer({type}) {
 
 
     const handleDlt = (id) => {
-        axios
-            .delete(`http://localhost:3001/api/auth/${id}`)
+        CustomerApi.deleteKH(id)
             .then((response) => {
                 console.log("Item deleted successfully.");
             })
@@ -224,8 +151,10 @@ function TableCustomer({type}) {
             width: 270,
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={params.row.id}>
-                        <button type="button" className={classes.view_btn}>
+                    <Link to={`/customers/${params.row._id}`}>
+                        <button type="button" className={classes.view_btn}
+                        onClick={()=>{console.log("BAM VIEW")}}
+                        >
                             View
                         </button>
                     </Link>
