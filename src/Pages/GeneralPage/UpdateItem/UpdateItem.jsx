@@ -120,6 +120,46 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     };
     //END OF STORE
 
+    //PROMOTION
+    const GetKMById = (id) => {
+        axios
+            .get(`http://localhost:3001/api/khuyenmai/${id}`)
+            .then((response) => {
+                setFormInp(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const UpdateKMById = (id) => {
+        console.log(id);
+        axios
+            .put(`http://localhost:3001/api/khuyenmai/${id}`, {
+				apdung: formInp.apdung,
+				phantramkm: formInp.phantramkm,
+				batdau: formInp.batdau,
+				ketthuc: formInp.ketthuc,
+				title: formInp.title,
+				image: formInp.image,
+				description: formInp.description,
+				dateSource: formInp.dateSource,
+				detail: formInp.detail,
+				category: formInp.category
+            })
+            .then(() => {
+                Swal.fire({
+                    title: "Cập nhật thành công!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 800,
+                });
+                console.log(formInp);
+            })
+            .catch((err) => console.log(err));
+    };
+    //END PROMOTION 
+
     useEffect(() => {
         //console.log(params.productId);
         if (type === "CUSTOMER") {
@@ -129,7 +169,9 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         } else if(type==="EMPLOYEE")
         {
             GetNVById(params.employeeId)
-        }else{
+        } else if(type==="PROMOTION"){
+            GetKMById(params.promotionId)
+        } else {
             GetItemById(params.productId);
         }
 
@@ -179,6 +221,15 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         }
         if (type === "EMPLOYEE") {
             UpdateNVById(params.employeeId);
+        }
+        if(type === "PROMOTION"){
+            UpdateKMById(params.promotionId);
+            Swal.fire({
+                title: "Update successfully",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
         }
     };
 

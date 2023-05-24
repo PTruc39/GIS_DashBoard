@@ -113,6 +113,8 @@ function AddNew({ inputs, titlee, type }) {
                 return "http://localhost:3001/api/store/"   
             case "EMPLOYEE":
                 return "http://localhost:3001/api/nhanvien"
+            case "PROMOTION":
+                return "http://localhost:3001/api/khuyenmai"
             default:
                 break;
         }

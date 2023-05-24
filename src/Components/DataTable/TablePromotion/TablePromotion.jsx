@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import man from '../../../Assets/Images/portrait.png';
 import classes from './TablePromotion.module.scss';
-import axios from 'axios';
+import Swal from 'sweetalert2';
+import HandleApiKM from '../../../Api/Promotion';
 
 const userData = [
     {
@@ -107,15 +108,38 @@ const userData = [
 function TablePromotion({type}) {
     const [data, setData] = useState([]);
 
-    const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+    const handleDlt = async(id) => {
+        //xác nhận xóa
+        const notification = await Swal.fire({
+            title: "Delete this item",
+            icon: "warning",
+            text: "Do you want to delete this item?",
+            button: "Ok",
+            showCancelButton: true,
+            confirmButtonText: "Ok",
+        });
+        //nếu chọn yes
+        if (notification.isConfirmed) {
+            HandleApiKM.deleteKM(id)
+            .then((response) => {
+                Swal.fire({
+                    title: "Delete successfully",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 800,
+                });
+            })
+            .catch((error) => {
+                console.error("Error deleting item:", error);
+            });
+        }
     };
 
+    //lấy tất cả khuyến mãi
     useEffect(() => {
-        axios
-          .get("https://applestore213.onrender.com/api/khuyenmai")
+        HandleApiKM.getAllKM()
           .then((response) => {
-            const newData = response.data.map(item => ({
+            const newData = response.map(item => ({
                 ...item,
                 id: item.makm // Thêm trường dữ liệu mới
                 }));
@@ -177,7 +201,7 @@ function TablePromotion({type}) {
             width: 270,
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={params.row.id}>
+                    <Link to={params.row._id}>
                         <button type="button" className={classes.view_btn}>
                             View
                         </button>
@@ -185,12 +209,12 @@ function TablePromotion({type}) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleDlt(params.row._id)}
                     >
                         Delete
                     </button>
                     <Link 
-                        to={`/promotions/updatenew/${params.row.id}`}
+                        to={`/promotions/updatenew/${params.row._id}`}
                         style={{ textDecoration: 'none' }}
                         
                     >

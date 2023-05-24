@@ -4,23 +4,24 @@ import Navbar from '../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
 import classes from './Guarantee.module.scss';
 import TableGuarantee from '../../Components/DataTable/TableGuarantee/TableGuarantee';
-import axios from 'axios';
+import HandleApiGuarantee from '../../Api/Guarantee';
 
 function Guarantee(){
     const [sdt,setSdt] = useState("09877763123");
 
     const handleChangeSDT = (e)=>{
-        setSdt(e.target.value);
+        //nếu là số thì cho lưu
+        if (!isNaN(e.target.value))
+            setSdt(e.target.value);
     }
 
     const [data, setData] = useState([]);
 
     const handleSearchGuarantee = () => {
         if(sdt!=""){
-            axios
-            .get(`https://applestore213.onrender.com/api/baohanh/sdt/${sdt}`)
+            HandleApiGuarantee.getBHBySDT(sdt)
             .then((response) => {
-              const newData = response.data.map(item => ({
+              const newData = response.map(item => ({
                   ...item,
                   id: item.mabh // Thêm trường dữ liệu mới
                   }));
@@ -39,8 +40,8 @@ function Guarantee(){
                 <Navbar />
                 <div className={classes.data_table}>
                     <div className={classes.btnn}>
-                        <span>Nhập số điện thoại khách hàng:</span>
-                        <input type="text" value={sdt} onChange={handleChangeSDT} />
+                        <label htmlFor='sdt'>Nhập số điện thoại khách hàng:</label>
+                        <input type="tel" value={sdt} onChange={handleChangeSDT} name='sdt'/>
                         <button type="button" onClick={handleSearchGuarantee}>Tìm</button>
                     </div>
 
@@ -50,7 +51,7 @@ function Guarantee(){
                         return (
                             <>
                             <div>
-                                Khách hàng: {data[0].hoten}
+                                <b>Khách hàng:</b> {data[0].hoten}
                             </div>
                             <div style={{marginTop:30}}>
                                 <TableGuarantee data={data} />

@@ -106,8 +106,8 @@ function App() {
                             <Route path="updatenew/:promotionId"
                                 element={
                                     <UpdateItem inputs={promotionInpDetails}
-                                        type="CUSTOMER"
-                                        titlee="Update Current Customer"
+                                        type="PROMOTION"
+                                        titlee="Update Current Promotion"
                                     />
                                 }></Route>
                         </Route>
