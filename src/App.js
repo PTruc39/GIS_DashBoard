@@ -206,6 +206,12 @@ function App() {
                             <Route index element={<Guarantee/>} />
                             <Route path=":guaranteeId" element={<TableGuaranteeDetail/>}/>
                         </Route>
+
+                        {/* invoice */}
+                        <Route path="invoices">
+                            <Route index element={<DefaultLayoutPage type="invoice" />} />
+                            <Route path=":invoiceId" element={<BlogDetail />} />
+                        </Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

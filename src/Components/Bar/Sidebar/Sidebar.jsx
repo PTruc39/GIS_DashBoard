@@ -4,6 +4,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import TableChartIcon from '@mui/icons-material/TableChart';
+import DiscountIcon from '@mui/icons-material/Discount';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../../ColorContext/darkContext';
@@ -66,6 +67,11 @@ function Sidebar() {
                             <CreditCardIcon className="icon" /> Stores Management
                         </li>
                     </Link>
+                    <Link to="/invoices" style={{ textDecoration: 'none' }}>
+                        <li>
+                            <DiscountIcon className="icon" /> Quản Lý Hóa Đơn
+                        </li>
+                    </Link>    
                     <Link to="/guarantee" style={{ textDecoration: 'none' }}>
                         <li>
                             <CreditCardIcon className="icon" /> Guarantee Management
