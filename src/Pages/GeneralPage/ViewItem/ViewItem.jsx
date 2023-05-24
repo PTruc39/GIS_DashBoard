@@ -74,6 +74,28 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				tags: '',
 			};
 			break;
+		case "PROMOTION":
+			dynamicInpVal = {
+				makm: '',
+				apdung: '',
+				phantramkm: '',
+				batdau: '',
+				ketthuc: '',
+				title: '',
+				image: '',
+				description: '',
+				dateSource: '',
+				detail: '',
+				category: ''
+			};
+			break;
+		case "STORE":
+			dynamicInpVal = {
+				name: '',
+				provinceCode: '',
+				districtCode: '',
+			};
+			break;
 		default:
 			break;
 	}
@@ -86,12 +108,27 @@ const ViewNew = ({ inputs, titlee, type }) => {
 			)
           .catch (error => {
 		console.error(error);
-});
+	});
+	}
 
-}
+	//PROMOTION
+	const GetKMById = (id) => {
+		axios
+			.get(`http://localhost:3001/api/khuyenmai/${id}`)
+			.then((response) => {
+				setFormInp(response.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
 useEffect(() => {
-	console.log(params.productId);
-	GetItemById(params.productId);
+	//console.log(params.productId);
+	if(type==="PROMOTION"){
+		GetKMById(params.promotionId);
+	} else {
+		GetItemById(params.productId);
+	}
   }, []);
 
 

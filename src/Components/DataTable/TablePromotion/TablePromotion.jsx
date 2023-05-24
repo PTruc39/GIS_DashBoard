@@ -1,8 +1,10 @@
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import man from '../../../Assets/Images/portrait.png';
 import classes from './TablePromotion.module.scss';
+import Swal from 'sweetalert2';
+import HandleApiKM from '../../../Api/Promotion';
 
 const userData = [
     {
@@ -104,46 +106,102 @@ const userData = [
 ];
 
 function TablePromotion({type}) {
-    const [data, setData] = useState(userData);
+    const [data, setData] = useState([]);
 
-    const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+    const handleDlt = async(id) => {
+        //xác nhận xóa
+        const notification = await Swal.fire({
+            title: "Delete this item",
+            icon: "warning",
+            text: "Do you want to delete this item?",
+            button: "Ok",
+            showCancelButton: true,
+            confirmButtonText: "Ok",
+        });
+        //nếu chọn yes
+        if (notification.isConfirmed) {
+            HandleApiKM.deleteKM(id)
+            .then((response) => {
+                Swal.fire({
+                    title: "Delete successfully",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 800,
+                });
+            })
+            .catch((error) => {
+                console.error("Error deleting item:", error);
+            });
+        }
     };
+
+    //lấy tất cả khuyến mãi
+    useEffect(() => {
+        HandleApiKM.getAllKM()
+          .then((response) => {
+            const newData = response.map(item => ({
+                ...item,
+                id: item.makm // Thêm trường dữ liệu mới
+                }));
+            setData(newData)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
 
     const columns = [
         {
             field: 'id',
-            headerName: 'ID',
-            width: 310,
+            headerName: 'MaKM',
+            width: 150,
             renderCell: (param) => (
                 <div className={classes.userr}>
-                    <img src={param.row.image} alt="User Image" className={classes.userr_image} />
+                    <img src={param.row.image} alt="Promotion Image" className={classes.userr_image} />
                     {param.row.id}
                 </div>
             ),
         },
         {
-            field: 'username',
-            headerName: 'Username',
-            width: 180,
-        },
-        { field: 'email', headerName: 'Email', width: 280 },
-        {
-            field: 'address',
-            headerName: 'Address',
-            width: 150,
+            field: 'apdung',
+            headerName: 'Áp dụng',
+            width: 120,
             renderCell: (param) => (
-                <div className={`status ${param.row.address}`}>{param.row.address}</div>
+                <div className={`status ${param.row.apdung}`}>{param.row.apdung} vnđ</div>
             ),
         },
-        { field: 'age', headerName: 'Age', width: 120 },
+        { 
+            field: 'phantramkm', 
+            headerName: 'Khuyến mãi',
+            width: 100 ,
+            renderCell: (param) => (
+                <div className={`status ${param.row.phantramkm}`}>{param.row.phantramkm} %</div>
+            ),
+        },
+        {
+            field: 'batdau',
+            headerName: 'Bắt đầu',
+            width: 100,
+            renderCell: (param) => (
+                <div className={`status ${param.row.batdau}`}>{param.row.batdau}</div>
+            ),
+        },
+        { field: 'ketthuc', headerName: 'Kết thúc', width: 100 },
+        { 
+            field: 'title',
+            headerName: 'Tiêu đề', 
+            width: 500,
+            renderCell: (param) => (
+                <div className={`status ${param.row.title}`}>{param.row.title}</div>
+            ),
+        },
         {
             field: 'action',
-            headerName: 'Action',
+            headerName: 'Hoạt động',
             width: 270,
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={params.row.id}>
+                    <Link to={params.row._id}>
                         <button type="button" className={classes.view_btn}>
                             View
                         </button>
@@ -151,12 +209,12 @@ function TablePromotion({type}) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDlt(params.row.id)}
+                        onClick={() => handleDlt(params.row._id)}
                     >
                         Delete
                     </button>
                     <Link 
-                        to={`/promotions/updatenew/${params.row.id}`}
+                        to={`/promotions/updatenew/${params.row._id}`}
                         style={{ textDecoration: 'none' }}
                         
                     >
@@ -172,9 +230,9 @@ function TablePromotion({type}) {
     ];
 
     return (
-        <div className="data_table">
+        <div className={classes.data_table}>
             <DataGrid
-                className="data_grid"
+                className={classes.data_grid}
                 rows={data}
                 columns={columns}
                 pageSize={10}

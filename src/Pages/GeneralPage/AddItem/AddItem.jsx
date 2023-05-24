@@ -24,6 +24,16 @@ function AddNew({ inputs, titlee, type }) {
                 age: ''
             };
             break;
+        case 'EMPLOYEE':
+                dynamicInpVal = {
+                    username: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    address: '',
+                    age: ''
+                };
+                break;    
         case 'PRODUCT':
             dynamicInpVal = {
                 tensanpham: '',
@@ -52,9 +62,36 @@ function AddNew({ inputs, titlee, type }) {
                 baohanh: ''
             };
         break;
-        case 'BLOG':
+        case 'NEWS':
             dynamicInpVal = {
-                
+                title: '',
+                image: '',
+                dateSource: '',
+                description: '',
+                category: '',
+                detail: '',
+            };
+            break;
+        case "PROMOTION":
+            dynamicInpVal = {
+                makm: '',
+                apdung: '',
+                phantramkm: '',
+                batdau: '',
+                ketthuc: '',
+                title: '',
+                image: '',
+                description: '',
+                dateSource: '',
+                detail: '',
+                category: ''
+            };
+            break;
+        case "STORE":
+            dynamicInpVal = {
+                name: '',
+                provinceCode: '',
+                districtCode: '',
             };
             break;
         default:
@@ -70,6 +107,16 @@ function AddNew({ inputs, titlee, type }) {
         switch (type) {
             case "PRODUCT":
                 return "http://localhost:3001/product";
+            case "CUSTOMER":
+                return "http://localhost:3001/api/auth/"    
+            case "STORE":
+                return "http://localhost:3001/api/store/"   
+            case "EMPLOYEE":
+                return "http://localhost:3001/api/nhanvien"
+            case "PROMOTION":
+                return "http://localhost:3001/api/khuyenmai"
+            default:
+                break;
         }
     }
 
