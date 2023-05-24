@@ -33,12 +33,15 @@
               border: 1px solid #7451f8;
             }
           }
-          span {
+          label {
             margin-right: 10px;
           }
           input {
             margin-right: 20px;
             height: 36px;
+            border-radius: 5px;
+            border-color: #7451f8;
+            padding:5px;
           }
         }
       }
