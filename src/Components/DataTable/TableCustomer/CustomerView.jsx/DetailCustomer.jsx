@@ -58,12 +58,29 @@ const columns = [
     }
 ];
 
+
+
 function DetailCustomer() {
+    const datachart = [
+        { name: 'January', total: 0 },
+        { name: 'February', total: 0 },
+        { name: 'March', total: 0 },
+        { name: 'April', total: 0 },
+        { name: 'May', total: 0 },
+        { name: 'June', total: 0 },
+        { name: 'July', total: 0 },
+        { name: 'August', total: 0 },
+        { name: 'September', total: 0 },
+        { name: 'October', total: 0 },
+        { name: 'November', total: 0 },
+        { name: 'December', total: 0 },
+      ];
     // const { userId, productId } = useParams();
     let dynamicInpVal;
     const params = useParams();
     const [formInp, setFormInp] = useState(dynamicInpVal);
     const [data, setData]=useState([]);
+    const [chartData, setChartData]=useState();
     const GetCustomerById = (id) => {
         CustomerApi.getKHById(id)
             .then((response) => {
@@ -74,6 +91,17 @@ function DetailCustomer() {
                 console.error(error);
             });
     };
+
+    
+
+    const formatDataChart = (orders)=>{
+        orders.forEach(order => {
+            const month = new Date(order.createdAt).getMonth();
+            datachart[month].total += order.tongtrigia;
+          });
+        console.log(datachart);
+    }
+
     const GetOrderById = (id) => {
         CustomerApi.getOrderByMaKH(id)
             .then((response) => {
@@ -100,6 +128,13 @@ function DetailCustomer() {
         
     }, []);
 
+    let i=0;
+    if(data&&i==0)
+    {   i++;
+        formatDataChart(data);
+    }
+
+
     return (
         <div className={classes.details}>
             <Sidebar />
@@ -122,7 +157,7 @@ function DetailCustomer() {
                     </div>
 
                     <div className={classes.user_chart}>
-                        <Chart height={390} title="User spending" />
+                        <Chart height={390} title="Chi tiêu của khách hàng" chartdata={datachart} />
                     </div>
                 </div>
 

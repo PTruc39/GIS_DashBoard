@@ -56,7 +56,7 @@ const data = [
     },
 ];
 
-function Chart({ height, title }) {
+function Chart({ height, title, chartdata }) {
     return (
         <div className={classes.chart_sec}>
             <div>
@@ -66,7 +66,7 @@ function Chart({ height, title }) {
                 <AreaChart
                     width={850}
                     height={height}
-                    data={data}
+                    data={chartdata?chartdata:data}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                 >
                     <defs>
