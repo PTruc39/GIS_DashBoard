@@ -9,6 +9,7 @@ import TableOrder from '../../Components/DataTable/TableOrder/TableOrder';
 import TableEmployee from '../../Components/DataTable/TableEmployee/TableEmployee';
 import TableStore from '../../Components/DataTable/TableStore/TableStore';
 import TableNews from '../../Components/DataTable/TableNews/TableNews';
+import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
 import classes from './DefaultLayoutPage.module.scss';
 
 function  DefaultLayoutPage({ type }) {
@@ -27,6 +28,8 @@ function  DefaultLayoutPage({ type }) {
             return <TableEmployee/>; 
             case 'store':
             return <TableStore/>; 
+        case 'invoice':
+            return <TableInvoice/>;
           default:
             return <TableNews/>; 
         }
@@ -51,6 +54,9 @@ function  DefaultLayoutPage({ type }) {
         break;
         case 'store':
             linkPath = 'stores';
+            break;
+        case 'invoice':
+            linkPath = 'invoices';
             break;
       default:
         linkPath = 'news';
