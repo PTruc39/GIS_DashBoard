@@ -73,7 +73,7 @@ function App() {
                                 element={
                                     <AddNew
                                         inputs={userInpDetails}
-                                        titlee="Add New Customer"
+                                        titlee="Thêm khách hàng mới"
                                         type="CUSTOMER"
                                     />
                                 }
@@ -144,7 +144,7 @@ function App() {
                                 element={
                                     <AddNew
                                         inputs={InputDetails.employeeInpDetails}
-                                        titlee="Add New Employee"
+                                        titlee="Thêm nhân viên mới"
                                         type="EMPLOYEE"
                                     />
                                 }

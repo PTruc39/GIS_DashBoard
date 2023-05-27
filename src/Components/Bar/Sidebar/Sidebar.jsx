@@ -33,12 +33,12 @@ function Sidebar() {
                     <p className="spann">lists</p>
                     <Link to="/customers" style={{ textDecoration: 'none' }}>
                         <li>
-                            <PersonIcon className="icon" /> Customers management
+                            <PersonIcon className="icon" /> Khách hàng
                         </li>
                     </Link>
                     <Link to="/employees" style={{ textDecoration: 'none' }}>
                         <li>
-                            <PersonIcon className="icon" /> Employee management
+                            <PersonIcon className="icon" /> Nhân viên
                         </li>
                     </Link>
                     <Link to="/promotions" style={{ textDecoration: 'none' }}>
