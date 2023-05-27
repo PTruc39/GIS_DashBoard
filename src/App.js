@@ -210,7 +210,7 @@ function App() {
                         {/* invoice */}
                         <Route path="invoices">
                             <Route index element={<DefaultLayoutPage type="invoice" />} />
-                            <Route path=":invoiceId" element={<BlogDetail />} />
+                            {/* <Route path=":invoiceId" element={<BlogDetail />} /> */}
                         </Route>
                     </Route>
                 </Routes>
