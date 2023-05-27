@@ -106,8 +106,8 @@ function App() {
                             <Route path="updatenew/:promotionId"
                                 element={
                                     <UpdateItem inputs={promotionInpDetails}
-                                        type="CUSTOMER"
-                                        titlee="Update Current Customer"
+                                        type="PROMOTION"
+                                        titlee="Update Current Promotion"
                                     />
                                 }></Route>
                         </Route>
@@ -205,6 +205,12 @@ function App() {
                         <Route path="guarantee">
                             <Route index element={<Guarantee/>} />
                             <Route path=":guaranteeId" element={<TableGuaranteeDetail/>}/>
+                        </Route>
+
+                        {/* invoice */}
+                        <Route path="invoices">
+                            <Route index element={<DefaultLayoutPage type="invoice" />} />
+                            <Route path=":invoiceId" element={<BlogDetail />} />
                         </Route>
                     </Route>
                 </Routes>

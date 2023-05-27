@@ -108,12 +108,27 @@ const ViewNew = ({ inputs, titlee, type }) => {
 			)
           .catch (error => {
 		console.error(error);
-});
+	});
+	}
 
-}
+	//PROMOTION
+	const GetKMById = (id) => {
+		axios
+			.get(`http://localhost:3001/api/khuyenmai/${id}`)
+			.then((response) => {
+				setFormInp(response.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
 useEffect(() => {
-	console.log(params.productId);
-	GetItemById(params.productId);
+	//console.log(params.productId);
+	if(type==="PROMOTION"){
+		GetKMById(params.promotionId);
+	} else {
+		GetItemById(params.productId);
+	}
   }, []);
 
 

@@ -4,7 +4,7 @@ import classes from './TableGuaranteeDetail.module.scss';
 import Navbar from '../../Bar/Navbar/Navbar';
 import Sidebar from '../../Bar/Sidebar/Sidebar';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import HandleApiGuarantee from '../../../Api/Guarantee';
 
 const columns = [
     {
@@ -46,10 +46,9 @@ function TableGuaranteeDetail(){
     const params = useParams();
 
     useEffect(() => {
-        axios
-          .get(`https://applestore213.onrender.com/api/baohanh/${params.guaranteeId}`)
+        HandleApiGuarantee.getBHByID(params.guaranteeId)
           .then((response) => {
-            const newData = response.data.chitietbaohanh.map(item => ({
+            const newData = response.chitietbaohanh.map(item => ({
                 ...item,
                 id: item.lanthu // Thêm trường dữ liệu mới
                 }));
