@@ -3,9 +3,9 @@ import Input from '../../../Components/Input/Input';
 import macbook from '../../../Assets/Images/macbook_pro.png';
 import classes from './ViewItem.module.scss';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate  } from 'react-router-dom';
 const ViewNew = ({ inputs, titlee, type }) => {
-	
+	const navigate = useNavigate();
 	
 	const params = useParams();
 	// console.log(params.productId);
@@ -141,12 +141,12 @@ return (
 			<h1>{titlee}</h1>
 		</div>
 		<div className={classes.new_page_form}>
-			<div className={classes.containerImg}>
+			{/*<div className={classes.containerImg}>
 				<img src={macbook}></img>
 				<img src={macbook}></img>
 				<img src={macbook}></img>
 				<img src={macbook}></img>
-			</div>
+</div>*/}
 			<form>
 				{inputs.map((detail) => (
 					<Input
@@ -156,7 +156,12 @@ return (
 						
 					/>
 				))}
-				
+				<div className={classes.wrap}>
+                        
+                        <button onClick={()=>navigate(-1)} className={classes.button} >
+                            Quay lại
+                        </button>
+                    </div>
 			</form>
 		</div>
 	</div>
