@@ -1,23 +1,28 @@
 import { DataGrid } from "@mui/x-data-grid";
+// import Dropzone from 'react-dropzone';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import classes from "./TableProduct.module.scss";
 
-function TableProduct({ type }) {
+
+function TableProduct() {
     const [data, setData] = useState([]);
+    
+
     const handleDlt = (id) => {
         axios
             .delete(`http://localhost:3001/product/${id}`)
             .then((response) => {
-                console.log("Item deleted successfully.");
+                GetAllProduct();
+                console.log("Item deleted successfully.", response);
             })
             .catch((error) => {
                 console.error("Error deleting item:", error);
             });
     };
-    const handleSuccessAction = async (id) => {
+    const handleDeleteAction = async (id) => {
         const notification = await Swal.fire({
             title: "Delete this item",
             icon: "warning",
@@ -50,6 +55,7 @@ function TableProduct({ type }) {
                         id: index,
                     };
                 });
+                console.log("Rerender");
                 setData(fetchedData);
             })
             .catch((error) => {
@@ -58,9 +64,7 @@ function TableProduct({ type }) {
     };
     useEffect(() => {
         GetAllProduct();
-    }, [data]);
-
-    console.log(data);
+    }, []);
 
     const columns = [
         {
@@ -130,22 +134,22 @@ function TableProduct({ type }) {
                 <div className={classes.actionn}>
                     <Link to={`/products/${params.row._id}`}>
                         <button type="button" className={classes.view_btn}>
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleSuccessAction(params.row._id)}
+                        onClick={() => handleDeleteAction(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link
                         to={`/products/updatenew/${params.row._id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>
-                            Update
+                            Sửa
                         </button>
                     </Link>
                 </div>

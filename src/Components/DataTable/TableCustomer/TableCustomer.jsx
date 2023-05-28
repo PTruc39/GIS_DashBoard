@@ -173,7 +173,9 @@ function TableCustomer({type}) {
                         <button
                             type="button"
                             className={classes.update_btn}
-                        >Cập nhật</button>
+
+                        >Sửa</button>
+
                     </Link>
                     
                 </div>

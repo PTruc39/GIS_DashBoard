@@ -46,7 +46,7 @@ const columns = [
             <div className={classes.actionn}>
                 <Link to={params.row._id}>
                     <button type="button" className={classes.view_btn}>
-                        View
+                        Xem
                     </button>
                 </Link>
             </div>

@@ -51,7 +51,7 @@ const columns = [
                     <button type="button" className={classes.view_btn}
                     onClick={()=>{console.log("BAM VIEW")}}
                     >
-                        View
+                        Xem
                     </button>
                 </Link>
         </div>)

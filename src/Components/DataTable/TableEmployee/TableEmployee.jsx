@@ -147,7 +147,9 @@ function TableEmployee({type}) {
                         <button
                             type="button"
                             className={classes.update_btn}
+
                         >Cập Nhật</button>
+
                     </Link>
                     
                 </div>

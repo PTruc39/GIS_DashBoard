@@ -261,9 +261,11 @@ const UpdateItem = ({ inputs, titlee, type }) => {
                     <div className={classes.wrap}>
                         <button type="submit" className={classes.button}>
                             Cập nhật
+
                         </button>
                         <button onClick={()=>navigate(-1)} className={classes.button} style={{marginLeft:"100px"}}>
                             Quay lại
+
                         </button>
                     </div>
                 </form>
