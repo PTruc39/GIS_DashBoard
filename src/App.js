@@ -27,6 +27,7 @@ const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
 const promotionInpDetails = InputDetails.promotionInputs;
 const storeInpDetails = InputDetails.storeInputs;
+const invoiceInputDetails = InputDetails.invoiceInputs;
 
 function App() {
     const { darkMode } = useContext(ColorContext);
@@ -211,9 +212,17 @@ function App() {
                         {/* invoice */}
                         <Route path="invoices">
                             <Route index element={<DefaultLayoutPage type="invoice" />} />
+<<<<<<< HEAD
+                            {/* <Route path=":invoiceId" element={<BlogDetail />} /> */}
+                            <Route path=":invoiceId" element={< ViewNew inputs={invoiceInputDetails}
+                                        titlee="View New Invoice"
+                                        type="INVOICE"/>} />
+                          
+=======
 
                             {/*<Route path=":invoiceId" element={<BlogDetail />} />*/}
 
+>>>>>>> 8b4050be66010d2a49b64651f7c7ba90c343cdf9
                         </Route>
                     </Route>
                 </Routes>

@@ -145,7 +145,7 @@ function TableInvoice({ type }) {
             headerAlign: "center",
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={`/products/${params.row._id}`}>
+                    <Link to={`/invoices/${params.row._id}`}>
                         <button type="button" className={classes.view_btn}>
                             Xem
                         </button>
@@ -157,8 +157,8 @@ function TableInvoice({ type }) {
                     >
                         Xóa
                     </button>
-                    <Link
-                        to={`/products/updatenew/${params.row._id}`}
+                    <Link 
+                        // to={`/invoices/updatenew/${params.row._id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>
