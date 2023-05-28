@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
@@ -13,6 +13,7 @@ import TableNews from '../../Components/DataTable/TableNews/TableNews';
 import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
 import axios from 'axios';
 import classes from './DefaultLayoutPage.module.scss';
+import { Margin } from '@mui/icons-material';
 
 function DefaultLayoutPage({ type }) {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -21,25 +22,61 @@ function DefaultLayoutPage({ type }) {
         const file = acceptedFiles[0];
         setSelectedFile(acceptedFiles[0]);
         const formData = new FormData();
-        formData.append('file',file);
+        formData.append('file', file);
         axios.post('http://localhost:3001/importExcel', formData)
-        .then(response => {
-            console.log("Upload file successfully!");
-            console.log(response);
-        })
-        .catch(error => {
-            console.log("Error", error);
-        })
+            .then(response => {
+                console.log("Upload file successfully!");
+                console.log(response);
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
     };
     //
+
     function Table({ type }) {
+        const mystyle = {
+            marginRight: '20px',
+            cursor: 'pointer',
+            color: "white",
+            marginBottom: "20px",
+            backgroundColor: "#FF46BE",
+            padding: "10px",
+            fontSize: "16px",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            borderRadius: '4px',
+            border: 'none'
+        };
         switch (type) {
             case 'customer':
                 return <TableCustomer />;
             case 'product':
-                return <TableProduct />;
+
+                return (
+                    <div >
+                        <div style={{ display: 'flex'}}>
+                            <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
+                                {({ getRootProps, getInputProps }) => (
+                                    <div {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        <button style={mystyle}>Import Excel Product</button>
+                                    </div>
+                                )}
+                            </Dropzone>
+                            <button style={mystyle}>Export Product Excel</button>
+                        </div>
+
+                        <TableProduct />
+                    </div>
+                );
             case 'promotion':
-                return <TablePromotion />;
+                return(
+                    <div>
+                        <button style={mystyle}>Export Excel Promotion</button>
+                        <TablePromotion />
+                    </div> 
+                );
             case 'order':
                 return <TableOrder />;
             case 'employee':
@@ -95,14 +132,6 @@ function DefaultLayoutPage({ type }) {
                         >
                             <button type="button">Add New {type}</button>
                         </Link>
-                        <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
-                            {({ getRootProps, getInputProps }) => (
-                                <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    <button>Import Excel Product</button>
-                                </div>
-                            )}
-                        </Dropzone>
                     </div>
 
                     {/* select the content of the table  */}
