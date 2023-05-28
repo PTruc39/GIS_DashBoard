@@ -1,5 +1,6 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { Link } from 'react-router-dom';
+import Dropzone from 'react-dropzone';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
 import Navbar from '../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
@@ -10,28 +11,45 @@ import TableEmployee from '../../Components/DataTable/TableEmployee/TableEmploye
 import TableStore from '../../Components/DataTable/TableStore/TableStore';
 import TableNews from '../../Components/DataTable/TableNews/TableNews';
 import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
+import axios from 'axios';
 import classes from './DefaultLayoutPage.module.scss';
 
 function DefaultLayoutPage({ type }) {
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileDrop = (acceptedFiles) => {
+        const file = acceptedFiles[0];
+        setSelectedFile(acceptedFiles[0]);
+        const formData = new FormData();
+        formData.append('file',file);
+        axios.post('http://localhost:3001/importExcel', formData)
+        .then(response => {
+            console.log("Upload file successfully!");
+            console.log(response);
+        })
+        .catch(error => {
+            console.log("Error", error);
+        })
+    };
     //
     function Table({ type }) {
-        switch(type) {
-          case 'customer':
-            return <TableCustomer/>;
-          case 'product':
-            return <TableProduct/>;
-          case 'promotion':
-            return <TablePromotion/>;  
-        case 'order':
-            return <TableOrder/>;  
-        case 'employee':
-            return <TableEmployee/>; 
+        switch (type) {
+            case 'customer':
+                return <TableCustomer />;
+            case 'product':
+                return <TableProduct />;
+            case 'promotion':
+                return <TablePromotion />;
+            case 'order':
+                return <TableOrder />;
+            case 'employee':
+                return <TableEmployee />;
             case 'store':
-            return <TableStore/>; 
-        case 'invoice':
-            return <TableInvoice/>;
-          default:
-            return <TableNews/>; 
+                return <TableStore />;
+            case 'invoice':
+                return <TableInvoice />;
+            default:
+                return <TableNews />;
         }
     }
 
@@ -58,9 +76,9 @@ function DefaultLayoutPage({ type }) {
         case 'invoice':
             linkPath = 'invoices';
             break;
-      default:
-        linkPath = 'news';
-        break;
+        default:
+            linkPath = 'news';
+            break;
     }
     return (
         <div className={classes.list_page}>
@@ -77,6 +95,14 @@ function DefaultLayoutPage({ type }) {
                         >
                             <button type="button">Add New {type}</button>
                         </Link>
+                        <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
+                            {({ getRootProps, getInputProps }) => (
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <button>Import Excel Product</button>
+                                </div>
+                            )}
+                        </Dropzone>
                     </div>
 
                     {/* select the content of the table  */}

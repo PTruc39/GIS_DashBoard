@@ -139,8 +139,6 @@ function AddNew({ inputs, titlee, type }) {
             button: "Ok"    
         });
       };
-      
-
     const handleChange = (e) => {
         setFormInp({ ...formInp, [e.target.name]: e.target.value });
     };
