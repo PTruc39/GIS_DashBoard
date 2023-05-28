@@ -145,7 +145,7 @@ function TableOrder({type}) {
                 <div className={classes.actionn}>
                     <Link to={params.row.id}>
                         <button type="button" className={classes.view_btn}>
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
@@ -153,7 +153,7 @@ function TableOrder({type}) {
                         className="delete_btn"
                         onClick={() => handleDlt(params.row.id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link 
                         to={`/orders/updatenew/${params.row.id}`}
@@ -163,7 +163,7 @@ function TableOrder({type}) {
                         <button
                             type="button"
                             className="update_btn"
-                        >Update</button>
+                        >Sửa</button>
                     </Link>
                     
                 </div>

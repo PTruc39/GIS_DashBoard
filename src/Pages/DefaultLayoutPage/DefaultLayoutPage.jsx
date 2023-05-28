@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Dropzone from 'react-dropzone';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
 import Navbar from '../../Components/Bar/Navbar/Navbar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
@@ -10,33 +11,142 @@ import TableEmployee from '../../Components/DataTable/TableEmployee/TableEmploye
 import TableStore from '../../Components/DataTable/TableStore/TableStore';
 import TableNews from '../../Components/DataTable/TableNews/TableNews';
 import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
+import axios from 'axios';
 import classes from './DefaultLayoutPage.module.scss';
+import { Margin } from '@mui/icons-material';
+import {saveAs} from 'file-saver';
 
+<<<<<<< HEAD
 function  DefaultLayoutPage({ type }) {
+=======
+function DefaultLayoutPage({ type }) {
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileDrop = (acceptedFiles) => {
+        const file = acceptedFiles[0];
+        setSelectedFile(acceptedFiles[0]);
+        const formData = new FormData();
+        formData.append('file', file);
+        axios.post('http://localhost:3001/api/importProductExcel', formData)
+            .then(response => {
+                console.log("Upload file successfully!");
+                console.log(response);
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+>>>>>>> 8b4050be66010d2a49b64651f7c7ba90c343cdf9
     //
+    function DownloadProductExcel() {
+        axios.get('http://localhost:3001/api/exportProductExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'ProductData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+    function DownloadInvoiceExcel() {
+        axios.get('http://localhost:3001/api/exportInvoiceExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'InvoiceData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+    function DownloadPromotionExcel() {
+        axios.get('http://localhost:3001/api/exportPromotionExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'PromotionData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+
     function Table({ type }) {
-        switch(type) {
-          case 'customer':
-            return <TableCustomer/>;
-          case 'product':
-            return <TableProduct/>;
-          case 'promotion':
-            return <TablePromotion/>;  
-        case 'order':
-            return <TableOrder/>;  
-        case 'employee':
-            return <TableEmployee/>; 
+        const mystyle = {
+            marginRight: '20px',
+            cursor: 'pointer',
+            color: "white",
+            marginBottom: "20px",
+            backgroundColor: "#FF46BE",
+            padding: "10px",
+            fontSize: "16px",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            borderRadius: '4px',
+            border: 'none'
+        };
+        switch (type) {
+            case 'customer':
+                return <TableCustomer />;
+            case 'product':
+
+                return (
+                    <div >
+                        <div style={{ display: 'flex' }}>
+                            <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
+                                {({ getRootProps, getInputProps }) => (
+                                    <div {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        <button style={mystyle}>Import Excel Product</button>
+                                    </div>
+                                )}
+                            </Dropzone>
+                            <button style={mystyle} onClick={DownloadProductExcel}>Export Product Excel</button>
+                        </div>
+
+                        <TableProduct />
+                    </div>
+                );
+            case 'promotion':
+                return (
+                    <div>
+                        <button style={mystyle} onClick={DownloadPromotionExcel}>Export Excel Promotion</button>
+                        <TablePromotion />
+                    </div>
+                );
+            case 'order':
+                return <TableOrder />;
+            case 'employee':
+                return <TableEmployee />;
             case 'store':
-            return <TableStore/>; 
-        case 'invoice':
-            return <TableInvoice/>;
-          default:
-            return <TableNews/>; 
+                return <TableStore />;
+            case 'invoice':
+                    
+                return(
+                    <div>
+                        <button style={mystyle} onClick={DownloadInvoiceExcel}>Export Invoice Excel</button>
+                        <TableInvoice />;
+                    </div>
+                );
+            default:
+                return <TableNews />;
         }
     }
 
     let linkPath;
+    let title;
     switch (type) {
+<<<<<<< HEAD
       case 'product':
         linkPath = 'products';
         break;
@@ -54,12 +164,39 @@ function  DefaultLayoutPage({ type }) {
         break;
         case 'store':
             linkPath = 'stores';
+=======
+        case "product":
+            linkPath = "products";
+            title = "sản phẩm";
+            break;
+        case "customer":
+            linkPath = "customers";
+            title = "khách hàng";
+            break;
+        case "order":
+            linkPath = "orders";
+            title = "đơn hàng";
+            break;
+        case "employee":
+            linkPath = "employees";
+            title = "nhân viên";
+            break;
+        case "promotion":
+            linkPath = "promotions";
+            title = "khuyến mãi";
+            break;
+        case "store":
+            linkPath = "stores";
+            title = "cửa hàng";
+>>>>>>> 8b4050be66010d2a49b64651f7c7ba90c343cdf9
             break;
         case 'invoice':
             linkPath = 'invoices';
+            title = "hóa đơn";
             break;
       default:
         linkPath = 'news';
+        title = "";
         break;
     }
     return (
@@ -78,7 +215,7 @@ function  DefaultLayoutPage({ type }) {
                             to={`/${linkPath}/addnew`}
                             style={{ textDecoration: 'none' }}
                         >
-                            <button type="button">Add New {type}</button>
+                            <button type="button">Thêm {title} mới</button>
                         </Link>
                     </div>
 

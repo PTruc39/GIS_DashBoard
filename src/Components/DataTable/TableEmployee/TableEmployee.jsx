@@ -81,9 +81,9 @@ function TableEmployee({type}) {
 
     const handleSuccessAction = async (id) => {
         const notification = await Swal.fire({
-            title: "Delete this item",
+            title: "Xóa nhân viên này?",
             icon: "warning",
-            text: "Do you want to delete this item?",
+            text: "Bạn có muốn xóa nhân viên này?",
             button: "Ok",
             showCancelButton: true,
             confirmButtonText: "Ok",
@@ -91,7 +91,7 @@ function TableEmployee({type}) {
         if (notification.isConfirmed) {
             handleDlt(id);
             Swal.fire({
-                title: "Delete successfully",
+                title: "Xóa thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -128,7 +128,7 @@ function TableEmployee({type}) {
         },
         {
             field: 'action',
-            headerName: 'Action',
+            headerName: 'Hành động',
             width: 270,
             renderCell: (params) => (
                 <div className={classes.actionn}>
@@ -137,7 +137,7 @@ function TableEmployee({type}) {
                         className={classes.delete_btn}
                         onClick={() => handleSuccessAction(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link 
                         to={`/employees/updatenew/${params.row._id}`}
@@ -147,7 +147,9 @@ function TableEmployee({type}) {
                         <button
                             type="button"
                             className={classes.update_btn}
-                        >Update</button>
+
+                        >Cập Nhật</button>
+
                     </Link>
                     
                 </div>

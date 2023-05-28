@@ -147,7 +147,7 @@ function TableInvoice({ type }) {
                 <div className={classes.actionn}>
                     <Link to={`/invoices/${params.row._id}`}>
                         <button type="button" className={classes.view_btn}>
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
@@ -155,16 +155,17 @@ function TableInvoice({ type }) {
                         className={classes.delete_btn}
                         onClick={() => handleSuccessAction(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link 
                         // to={`/invoices/updatenew/${params.row._id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>
-                            Update
+                            Sửa
                         </button>
                     </Link>
+                    <button>Export PDF File</button>
                 </div>
             ),
         },

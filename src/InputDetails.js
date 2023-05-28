@@ -92,7 +92,7 @@ export const InputDetails ={
         {
             id: 6,
             name: 'diachi',
-            lable: 'Address',
+            lable: 'Địa chỉ',
             type: 'text',
             placeholder: 'Address',
             //required: true,

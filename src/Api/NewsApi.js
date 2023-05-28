@@ -2,7 +2,7 @@
 import axiosInstance from "./axiosInstance";
 
 const getAllNews = async (category = null) => {
-    let query = `/tin-tuc?pageSize=999`;
+    let query = `/api/tin-tuc?pageSize=999`;
     if (category) {
         query = query.concat(`&category=${category}`)
     }
@@ -10,20 +10,20 @@ const getAllNews = async (category = null) => {
 };
 
 const getNewsById = async (id) => {
-    let query = `/tin-tuc/${id}`;
+    let query = `/api/tin-tuc/${id}`;
     return await axiosInstance.get(query);
 };
 
 const createNews = async (data) => {
-    return await axiosInstance.post("/tin-tuc", data);
+    return await axiosInstance.post("/api/tin-tuc", data);
 };
 
 const updateNews = async (id, data) => {
-    return await axiosInstance.put(`/tin-tuc/${id}`, data);
+    return await axiosInstance.put(`/api/tin-tuc/${id}`, data);
 };
 
 const deleteNews = async (id) => {
-    return await axiosInstance.delete(`/tin-tuc/${id}`);
+    return await axiosInstance.delete(`/api/tin-tuc/${id}`);
 };
 
 

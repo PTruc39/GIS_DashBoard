@@ -203,7 +203,7 @@ function TablePromotion({type}) {
                 <div className={classes.actionn}>
                     <Link to={params.row._id}>
                         <button type="button" className={classes.view_btn}>
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
@@ -211,7 +211,7 @@ function TablePromotion({type}) {
                         className={classes.delete_btn}
                         onClick={() => handleDlt(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link 
                         to={`/promotions/updatenew/${params.row._id}`}
@@ -221,7 +221,7 @@ function TablePromotion({type}) {
                         <button
                             type="button"
                             className={classes.update_btn}
-                        >Update</button>
+                        >Sửa</button>
                     </Link>
                     
                 </div>
