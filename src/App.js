@@ -19,6 +19,7 @@ import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/Ta
 import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.jsx/DetailCustomer';
 
 import './app.scss';
+
 import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
 
 const userInpDetails = InputDetails.userInpDetails;
@@ -73,7 +74,7 @@ function App() {
                                 element={
                                     <AddNew
                                         inputs={userInpDetails}
-                                        titlee="Add New Customer"
+                                        titlee="Thêm khách hàng mới"
                                         type="CUSTOMER"
                                     />
                                 }
@@ -144,7 +145,7 @@ function App() {
                                 element={
                                     <AddNew
                                         inputs={InputDetails.employeeInpDetails}
-                                        titlee="Add New Employee"
+                                        titlee="Thêm nhân viên mới"
                                         type="EMPLOYEE"
                                     />
                                 }
@@ -210,7 +211,9 @@ function App() {
                         {/* invoice */}
                         <Route path="invoices">
                             <Route index element={<DefaultLayoutPage type="invoice" />} />
-                            {/* <Route path=":invoiceId" element={<BlogDetail />} /> */}
+
+                            {/*<Route path=":invoiceId" element={<BlogDetail />} />*/}
+
                         </Route>
                     </Route>
                 </Routes>

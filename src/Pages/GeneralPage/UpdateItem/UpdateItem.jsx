@@ -5,8 +5,11 @@ import classes from "./UpdateItem.module.scss";
 import EmployeeApi from "../../../Api/EmployeeApi";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useParams,useNavigate } from "react-router-dom";
+
 const UpdateItem = ({ inputs, titlee, type }) => {
+    const navigate = useNavigate();
     const params = useParams();
     console.log(type);
     let dynamicInpVal;
@@ -235,6 +238,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
 
     return (
         <div className={classes.new_page_main}>
+             
             <div className={classes.add_new_item}>
                 <h1>{titlee}</h1>
             </div>
@@ -256,7 +260,12 @@ const UpdateItem = ({ inputs, titlee, type }) => {
                     ))}
                     <div className={classes.wrap}>
                         <button type="submit" className={classes.button}>
-                            Update
+                            Cập nhật
+
+                        </button>
+                        <button onClick={()=>navigate(-1)} className={classes.button} style={{marginLeft:"100px"}}>
+                            Quay lại
+
                         </button>
                     </div>
                 </form>

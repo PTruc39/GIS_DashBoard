@@ -140,31 +140,40 @@ function DefaultLayoutPage({ type }) {
     }
 
     let linkPath;
+    let title;
     switch (type) {
         case "product":
             linkPath = "products";
+            title = "sản phẩm";
             break;
         case "customer":
             linkPath = "customers";
+            title = "khách hàng";
             break;
         case "order":
             linkPath = "orders";
+            title = "đơn hàng";
             break;
         case "employee":
             linkPath = "employees";
+            title = "nhân viên";
             break;
         case "promotion":
             linkPath = "promotions";
+            title = "khuyến mãi";
             break;
         case "store":
             linkPath = "stores";
+            title = "cửa hàng";
             break;
         case 'invoice':
             linkPath = 'invoices';
+            title = "hóa đơn";
             break;
-        default:
-            linkPath = 'news';
-            break;
+      default:
+        linkPath = 'news';
+        title = "";
+        break;
     }
     return (
         <div className={classes.list_page}>
@@ -179,7 +188,7 @@ function DefaultLayoutPage({ type }) {
                             to={`/${linkPath}/addnew`}
                             style={{ textDecoration: "none" }}
                         >
-                            <button type="button">Add New {type}</button>
+                            <button type="button">Thêm {title} mới</button>
                         </Link>
                     </div>
 
