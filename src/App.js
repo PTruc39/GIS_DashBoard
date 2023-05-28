@@ -19,6 +19,7 @@ import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/Ta
 import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.jsx/DetailCustomer';
 
 import './app.scss';
+
 import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
 
 const userInpDetails = InputDetails.userInpDetails;
@@ -210,7 +211,7 @@ function App() {
                         {/* invoice */}
                         <Route path="invoices">
                             <Route index element={<DefaultLayoutPage type="invoice" />} />
-                            <Route path=":invoiceId" element={<BlogDetail />} />
+                            {/*<Route path=":invoiceId" element={<BlogDetail />} />*/}
                         </Route>
                     </Route>
                 </Routes>

@@ -77,9 +77,9 @@ function TableCustomer({type}) {
 
     const handleSuccessAction = async (id) => {
         const notification = await Swal.fire({
-            title: "Delete this item",
+            title: "Xóa khách hàng này?",
             icon: "warning",
-            text: "Do you want to delete this item?",
+            text: "Bạn có muốn xóa khách hàng này không?",
             button: "Ok",
             showCancelButton: true,
             confirmButtonText: "Ok",
@@ -87,7 +87,7 @@ function TableCustomer({type}) {
         if (notification.isConfirmed) {
             handleDlt(id);
             Swal.fire({
-                title: "Delete successfully",
+                title: "Xóa thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -126,7 +126,7 @@ function TableCustomer({type}) {
         },
         {
             field: 'username',
-            headerName: 'Username',
+            headerName: 'Tên',
             width: 180,
             renderCell: (param) => (
                 <div className={`status ${param.row.address}`}>{param.row.hoten}</div>
@@ -147,7 +147,7 @@ function TableCustomer({type}) {
      },
         {
             field: 'action',
-            headerName: 'Action',
+            headerName: 'Hành Động',
             width: 270,
             renderCell: (params) => (
                 <div className={classes.actionn}>
@@ -155,7 +155,7 @@ function TableCustomer({type}) {
                         <button type="button" className={classes.view_btn}
                         onClick={()=>{console.log("BAM VIEW")}}
                         >
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
@@ -163,7 +163,7 @@ function TableCustomer({type}) {
                         className={classes.delete_btn}
                         onClick={() =>  handleSuccessAction(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link 
                         to={`/customers/updatenew/${params.row._id}`}
@@ -173,7 +173,7 @@ function TableCustomer({type}) {
                         <button
                             type="button"
                             className={classes.update_btn}
-                        >Update</button>
+                        >Cập nhật</button>
                     </Link>
                     
                 </div>

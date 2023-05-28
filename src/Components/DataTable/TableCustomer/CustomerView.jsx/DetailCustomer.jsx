@@ -151,7 +151,7 @@ function DetailCustomer() {
                             <p >Mã KH: {formInp?formInp.makh:""}</p>
                             <p >Giới tính: {formInp?formInp.gioitinh:""}</p>
                             <p>Email: {formInp?formInp.email:""}</p>
-                            <p>Address: {formInp?formInp.diachia:""}</p>
+                            <p>Địa chỉ: {formInp?formInp.diachia:""}</p>
                             <p>Ngày sinh:{formInp?formInp.ngaysinh:""}</p>
                         </div>
                     </div>
@@ -162,7 +162,7 @@ function DetailCustomer() {
                 </div>
 
                 <div className={classes.table}>
-                    <div className={classes.title}>Last Orders</div>
+                    <div className={classes.title}>Đơn hàng gần đây</div>
                     {/*<TableList />*/}
                     <div className={classes2.data_table}>
                          <DataGrid
