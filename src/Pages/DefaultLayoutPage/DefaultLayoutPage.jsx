@@ -14,6 +14,7 @@ import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
 import axios from 'axios';
 import classes from './DefaultLayoutPage.module.scss';
 import { Margin } from '@mui/icons-material';
+import {saveAs} from 'file-saver';
 
 function DefaultLayoutPage({ type }) {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -23,7 +24,7 @@ function DefaultLayoutPage({ type }) {
         setSelectedFile(acceptedFiles[0]);
         const formData = new FormData();
         formData.append('file', file);
-        axios.post('http://localhost:3001/importExcel', formData)
+        axios.post('http://localhost:3001/api/importProductExcel', formData)
             .then(response => {
                 console.log("Upload file successfully!");
                 console.log(response);
@@ -33,6 +34,48 @@ function DefaultLayoutPage({ type }) {
             })
     };
     //
+    function DownloadProductExcel() {
+        axios.get('http://localhost:3001/api/exportProductExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'ProductData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+    function DownloadInvoiceExcel() {
+        axios.get('http://localhost:3001/api/exportInvoiceExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'InvoiceData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+    function DownloadPromotionExcel() {
+        axios.get('http://localhost:3001/api/exportPromotionExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'PromotionData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
 
     function Table({ type }) {
         const mystyle = {
@@ -55,7 +98,7 @@ function DefaultLayoutPage({ type }) {
 
                 return (
                     <div >
-                        <div style={{ display: 'flex'}}>
+                        <div style={{ display: 'flex' }}>
                             <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
                                 {({ getRootProps, getInputProps }) => (
                                     <div {...getRootProps()}>
@@ -64,18 +107,18 @@ function DefaultLayoutPage({ type }) {
                                     </div>
                                 )}
                             </Dropzone>
-                            <button style={mystyle}>Export Product Excel</button>
+                            <button style={mystyle} onClick={DownloadProductExcel}>Export Product Excel</button>
                         </div>
 
                         <TableProduct />
                     </div>
                 );
             case 'promotion':
-                return(
+                return (
                     <div>
-                        <button style={mystyle}>Export Excel Promotion</button>
+                        <button style={mystyle} onClick={DownloadPromotionExcel}>Export Excel Promotion</button>
                         <TablePromotion />
-                    </div> 
+                    </div>
                 );
             case 'order':
                 return <TableOrder />;
@@ -84,7 +127,13 @@ function DefaultLayoutPage({ type }) {
             case 'store':
                 return <TableStore />;
             case 'invoice':
-                return <TableInvoice />;
+                    
+                return(
+                    <div>
+                        <button style={mystyle} onClick={DownloadInvoiceExcel}>Export Invoice Excel</button>
+                        <TableInvoice />;
+                    </div>
+                );
             default:
                 return <TableNews />;
         }
