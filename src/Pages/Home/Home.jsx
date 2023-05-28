@@ -31,7 +31,7 @@ function Home() {
                 </div>
 
                 <div className={classes.table}>
-                    <div className="title">Lates Orders</div>
+                    <div className="title">Đơn hàng mới nhất</div>
                     <TableCustomer />
                 </div>
             </div>

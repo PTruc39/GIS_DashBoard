@@ -256,7 +256,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
                     ))}
                     <div className={classes.wrap}>
                         <button type="submit" className={classes.button}>
-                            Update
+                            Cập nhật
                         </button>
                     </div>
                 </form>

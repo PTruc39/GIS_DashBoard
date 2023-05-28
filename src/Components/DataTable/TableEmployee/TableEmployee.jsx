@@ -137,7 +137,7 @@ function TableEmployee({type}) {
                         className={classes.delete_btn}
                         onClick={() => handleSuccessAction(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link 
                         to={`/employees/updatenew/${params.row._id}`}
@@ -147,7 +147,7 @@ function TableEmployee({type}) {
                         <button
                             type="button"
                             className={classes.update_btn}
-                        >Update</button>
+                        >Sửa</button>
                     </Link>
                     
                 </div>
