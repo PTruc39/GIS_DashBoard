@@ -165,6 +165,7 @@ function TableInvoice({ type }) {
                             Sửa
                         </button>
                     </Link>
+                    <button>Export PDF File</button>
                 </div>
             ),
         },
