@@ -46,6 +46,7 @@ function Home() {
                     <Chart height={450} title="Revenue" />
                 </div>
 
+
                 <div style={{display: 'flex'}}>
                     <BarChart width={500} height={300} data={data}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -63,6 +64,8 @@ function Home() {
                         <Legend />
                         <Line type="monotone" dataKey="value" stroke="#8884d8" />
                     </LineChart>
+
+
                 </div>
 
 

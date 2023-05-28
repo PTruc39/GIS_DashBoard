@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import Dropzone from 'react-dropzone';
+// import Dropzone from 'react-dropzone';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -134,7 +134,7 @@ function TableProduct() {
                 <div className={classes.actionn}>
                     <Link to={`/products/${params.row._id}`}>
                         <button type="button" className={classes.view_btn}>
-                            View
+                            Xem
                         </button>
                     </Link>
                     <button
@@ -142,14 +142,14 @@ function TableProduct() {
                         className={classes.delete_btn}
                         onClick={() => handleDeleteAction(params.row._id)}
                     >
-                        Delete
+                        Xóa
                     </button>
                     <Link
                         to={`/products/updatenew/${params.row._id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>
-                            Update
+                            Sửa
                         </button>
                     </Link>
                 </div>

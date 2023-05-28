@@ -18,16 +18,16 @@ function Sidebar() {
         <div className="sidebar">
             <div className="logo">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <h3 className="text_none">Dashboard</h3>
+                    <h3 className="text_none">AppleDunk</h3>
                 </Link>
             </div>
 
             <div className="links">
                 <ul>
-                    <p className="spann">HOME</p>
+                    <p className="spann">Trang chủ</p>
                     <Link to="/" style={{ textDecoration: 'none' }}>
                         <li>
-                            <DashboardIcon className="icon" /> Dashboard
+                            <DashboardIcon className="icon" /> Doanh Thu
                         </li>
                     </Link>
 
@@ -77,7 +77,7 @@ function Sidebar() {
                             <CreditCardIcon className="icon" /> Quản lý bảo hành
                         </li>
                     </Link>
-                    <p className="spann">Settings</p>
+                    <p className="spann">Cài đặt</p>
                     <Link to="/login" >
                         <li>
                             <LogoutIcon className="icon" /> Đăng Xuất
