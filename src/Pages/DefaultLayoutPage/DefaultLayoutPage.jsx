@@ -12,7 +12,7 @@ import TableNews from '../../Components/DataTable/TableNews/TableNews';
 import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
 import classes from './DefaultLayoutPage.module.scss';
 
-function DefaultLayoutPage({ type }) {
+function  DefaultLayoutPage({ type }) {
     //
     function Table({ type }) {
         switch(type) {
@@ -37,23 +37,23 @@ function DefaultLayoutPage({ type }) {
 
     let linkPath;
     switch (type) {
-        case "product":
-            linkPath = "products";
-            break;
-        case "customer":
-            linkPath = "customers";
-            break;
-        case "order":
-            linkPath = "orders";
-            break;
-        case "employee":
-            linkPath = "employees";
-            break;
-        case "promotion":
-            linkPath = "promotions";
-            break;
-        case "store":
-            linkPath = "stores";
+      case 'product':
+        linkPath = 'products';
+        break;
+      case 'customer':
+        linkPath = 'customers';
+        break;
+        case 'order':
+        linkPath = 'orders';
+        break;
+        case 'employee':
+        linkPath = 'employees';
+        break;
+        case 'promotion':
+        linkPath = 'promotions';
+        break;
+        case 'store':
+            linkPath = 'stores';
             break;
         case 'invoice':
             linkPath = 'invoices';
@@ -69,11 +69,14 @@ function DefaultLayoutPage({ type }) {
             <div className={classes.list_page_main}>
                 <Navbar />
 
+                
+
                 <div className={classes.data_table}>
                     <div className={classes.btnn}>
+
                         <Link
                             to={`/${linkPath}/addnew`}
-                            style={{ textDecoration: "none" }}
+                            style={{ textDecoration: 'none' }}
                         >
                             <button type="button">Add New {type}</button>
                         </Link>
