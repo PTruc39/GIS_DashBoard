@@ -560,6 +560,35 @@ export const InputDetails ={
             errorMsg: 'Title is required!',
         },
     ],
+    guaranteeInputs: [
+        {
+            id: 2,
+            name: 'mota',
+            lable: 'Mô tả',
+            type: 'text',
+            placeholder: 'Mô tả',
+            required: true,
+            errorMsg: 'Title is required!',
+        },
+        {
+            id: 3,
+            name: 'tinhtrangbaohanh',
+            lable: 'Tình trạng bảo hành',
+            type: 'text',
+            placeholder: 'Tình trạng bảo hành',
+            required: true,
+            errorMsg: 'Title is required!',
+        },
+        {
+            id: 4,
+            name: 'ngbaohanh',
+            lable: 'Ngày bảo hành',
+            type: 'text',
+            placeholder: 'Ngày bảo hành',
+            required: true,
+            errorMsg: 'Title is required!',
+        }
+    ],
     invoiceInputs: [
         {
             id: 2,

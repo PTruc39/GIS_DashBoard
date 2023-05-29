@@ -8,6 +8,7 @@ import classes from './AddItem.module.scss';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import { Link, history } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function AddNew({ inputs, titlee, type }) {
     let dynamicInpVal;
@@ -94,6 +95,12 @@ function AddNew({ inputs, titlee, type }) {
                 districtCode: '',
             };
             break;
+        case "GUARANTEE":
+            dynamicInpVal = {
+                mota: '',
+                tinhtrangbaohanh: '',
+                ngbaohanh: '',
+            };
         default:
             break;
     }
@@ -102,6 +109,8 @@ function AddNew({ inputs, titlee, type }) {
     const [ file, setFile] = useState('');
 
     const image = false;
+    
+    const {id} = useParams();
 
     const GetApiPost = (type) => {
         switch (type) {
@@ -115,6 +124,8 @@ function AddNew({ inputs, titlee, type }) {
                 return "http://localhost:3001/api/nhanvien"
             case "PROMOTION":
                 return "http://localhost:3001/api/khuyenmai"
+            case "GUARANTEE":
+                return `http://localhost:3001/api/baohanh/ctbh/${id}`
             default:
                 break;
         }

@@ -27,7 +27,10 @@ const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
 const promotionInpDetails = InputDetails.promotionInputs;
 const storeInpDetails = InputDetails.storeInputs;
+
+const guaranteeInpDetails = InputDetails.guaranteeInputs;
 const invoiceInputDetails = InputDetails.invoiceInputs;
+
 
 function App() {
     const { darkMode } = useContext(ColorContext);
@@ -93,14 +96,14 @@ function App() {
                         <Route path="promotions">
                             <Route index element={<DefaultLayoutPage type="promotion" />} />
                             <Route path=":promotionId" element={< ViewNew inputs={promotionInpDetails}
-                                        titlee="View Promotion"
+                                        titlee="Xem khuyến mãi"
                                         type="PROMOTION"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
                                         inputs={promotionInpDetails}
-                                        titlee="Add New Promotion"
+                                        titlee="Thêm khuyến mãi"
                                         type="PROMOTION"
                                     />
                                 }
@@ -109,7 +112,7 @@ function App() {
                                 element={
                                     <UpdateItem inputs={promotionInpDetails}
                                         type="PROMOTION"
-                                        titlee="Update Current Promotion"
+                                        titlee="Cập nhật khuyến mãi"
                                     />
                                 }></Route>
                         </Route>
@@ -207,22 +210,33 @@ function App() {
                         <Route path="guarantee">
                             <Route index element={<Guarantee/>} />
                             <Route path=":guaranteeId" element={<TableGuaranteeDetail/>}/>
+                            <Route
+                                path="addnew/:id"
+                                element={
+                                    <AddNew
+                                        inputs={guaranteeInpDetails}
+                                        titlee="Thêm chi tiết bảo hành"
+                                        type="GUARANTEE"
+                                    />
+                                }
+                            />
+                            <Route path="updatenews/:guaranteeId/:ctbhId"
+                                element={
+                                    <UpdateItem inputs={guaranteeInpDetails}
+                                        type="GUARANTEE"
+                                        titlee="Cập nhật chi tiết bảo hành"
+                                    />
+                                }></Route>
                         </Route>
 
                         {/* invoice */}
                         <Route path="invoices">
                             <Route index element={<DefaultLayoutPage type="invoice" />} />
-<<<<<<< HEAD
                             {/* <Route path=":invoiceId" element={<BlogDetail />} /> */}
                             <Route path=":invoiceId" element={< ViewNew inputs={invoiceInputDetails}
                                         titlee="View New Invoice"
                                         type="INVOICE"/>} />
                           
-=======
-
-                            {/*<Route path=":invoiceId" element={<BlogDetail />} />*/}
-
->>>>>>> 8b4050be66010d2a49b64651f7c7ba90c343cdf9
                         </Route>
                     </Route>
                 </Routes>
