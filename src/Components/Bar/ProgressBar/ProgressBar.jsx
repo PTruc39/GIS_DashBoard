@@ -2,7 +2,7 @@ import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import { Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
-import { Pie, PieChart, ResponsiveContainer, Cell } from 'recharts';
+import { Pie, PieChart, ResponsiveContainer, Cell, Legend } from 'recharts';
 
 // import css filr
 import classes from './progressBar.module.scss';
@@ -11,7 +11,7 @@ import axios from 'axios';
 function ProgressBar() {
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(0);
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
 
 
     useEffect(() => {
@@ -25,6 +25,7 @@ function ProgressBar() {
             })
     }, [])
     console.log(data);
+    const color = "red";
 
     return (
         <div className={classes.progress_bar}>
@@ -38,26 +39,27 @@ function ProgressBar() {
                         <PieChart width={400} height={400}>
                             <Pie
                                 dataKey="quantity"
-                                nameKey="Type"
+                                nameKey="name"
                                 isAnimationActive={true}
                                 data={data}
                                 cx="50%"
                                 cy="50%"
                                 outerRadius={80}
-                                fill="#4665fdce"
+                                fill="#8884d8"
                                 label
-                            />
-                            {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill="red" />
-                            ))}
-                            <Tooltip />
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Legend />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
                 <p>Tổng sản phẩm hiện có</p>
                 <p className={classes.price}>
-                    <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
                     {total}
+                    <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
                 </p>
             </div>
 
