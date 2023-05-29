@@ -96,6 +96,18 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				districtCode: '',
 			};
 			break;
+		case "INVOICE":
+			dynamicInpVal = {
+				mahd: '',
+				makh: '',
+				manv: '',
+				ngayxuathd: '',
+				tinhtrang: '',
+				trigia: '',
+				diachigiaohang: '',
+				phuongthucthanhtoan: ''
+			};
+			break;
 		default:
 			break;
 	}
@@ -122,15 +134,30 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				console.error(error);
 			});
 	};
+
+	// INVOICE
+	const GetHoaDonById = (id) => {
+	  axios
+		  .get(`http://localhost:3001/api/hoa-don/${id}`)
+		  .then((response) => {
+			  setFormInp(response.data);
+		  })
+		  .catch((error) => {
+			  console.error(error);
+		  });
+	};
+
 useEffect(() => {
 	//console.log(params.productId);
 	if(type==="PROMOTION"){
 		GetKMById(params.promotionId);
-	} else {
+	} else if(type === "INVOICE") {
+		GetHoaDonById(params.invoiceId)
+	}
+	else {
 		GetItemById(params.productId);
 	}
   }, []);
-
 
 
 

@@ -16,6 +16,9 @@ import classes from './DefaultLayoutPage.module.scss';
 import { Margin } from '@mui/icons-material';
 import {saveAs} from 'file-saver';
 
+<<<<<<< HEAD
+function  DefaultLayoutPage({ type }) {
+=======
 function DefaultLayoutPage({ type }) {
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -33,6 +36,7 @@ function DefaultLayoutPage({ type }) {
                 console.log("Error", error);
             })
     };
+>>>>>>> 8b4050be66010d2a49b64651f7c7ba90c343cdf9
     //
     function DownloadProductExcel() {
         axios.get('http://localhost:3001/api/exportProductExcel',{
@@ -142,6 +146,25 @@ function DefaultLayoutPage({ type }) {
     let linkPath;
     let title;
     switch (type) {
+<<<<<<< HEAD
+      case 'product':
+        linkPath = 'products';
+        break;
+      case 'customer':
+        linkPath = 'customers';
+        break;
+        case 'order':
+        linkPath = 'orders';
+        break;
+        case 'employee':
+        linkPath = 'employees';
+        break;
+        case 'promotion':
+        linkPath = 'promotions';
+        break;
+        case 'store':
+            linkPath = 'stores';
+=======
         case "product":
             linkPath = "products";
             title = "sản phẩm";
@@ -165,6 +188,7 @@ function DefaultLayoutPage({ type }) {
         case "store":
             linkPath = "stores";
             title = "cửa hàng";
+>>>>>>> 8b4050be66010d2a49b64651f7c7ba90c343cdf9
             break;
         case 'invoice':
             linkPath = 'invoices';
@@ -182,11 +206,14 @@ function DefaultLayoutPage({ type }) {
             <div className={classes.list_page_main}>
                 <Navbar />
 
+                
+
                 <div className={classes.data_table}>
                     <div className={classes.btnn}>
+
                         <Link
                             to={`/${linkPath}/addnew`}
-                            style={{ textDecoration: "none" }}
+                            style={{ textDecoration: 'none' }}
                         >
                             <button type="button">Thêm {title} mới</button>
                         </Link>
