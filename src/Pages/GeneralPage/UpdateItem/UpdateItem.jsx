@@ -17,7 +17,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     //const [formInp, setFormInp] = useState(dynamicInpVal);
     const GetItemById = (id) => {
         axios
-            .get(`http://localhost:3001/product/${id}`)
+            .get(`http://localhost:3001/api/product/${id}`)
             .then((response) => {
                 setFormInp(response.data);
             })
