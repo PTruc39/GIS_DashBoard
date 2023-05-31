@@ -232,6 +232,10 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     const handleChange = (e) => {
         setFormInp({ ...formInp, [e.target.name]: e.target.value });
     };
+    const goBack = (e) => {
+        e.preventDefault();
+        navigate(-1);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(type);
@@ -259,11 +263,18 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         }
         if (type === "EMPLOYEE") {
             UpdateNVById(params.employeeId);
+            Swal.fire({
+                title: "Cập nhật thành công",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
+            navigate(-1);
         }
         if(type === "PROMOTION"){
             UpdateKMById(params.promotionId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -272,7 +283,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         if(type === "GUARANTEE"){
             UpdateCTBHById(params.guaranteeId, params.ctbhId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -307,7 +318,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
                             Cập nhật
 
                         </button>
-                        <button onClick={()=>navigate(-1)} className={classes.button} style={{marginLeft:"100px"}}>
+                        <button onClick={(e)=>goBack(e)} className={classes.button} style={{marginLeft:"100px"}}>
                             Quay lại
 
                         </button>

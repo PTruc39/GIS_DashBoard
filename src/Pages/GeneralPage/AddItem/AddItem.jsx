@@ -8,7 +8,7 @@ import classes from './AddItem.module.scss';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import { Link, history } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function AddNew({ inputs, titlee, type }) {
     let dynamicInpVal;
@@ -130,6 +130,7 @@ function AddNew({ inputs, titlee, type }) {
                 break;
         }
     }
+    const navigate = useNavigate();
 
     function AddNewItem(type) {
         console.log(type);
@@ -137,6 +138,7 @@ function AddNew({ inputs, titlee, type }) {
         .then(response => {
             console.log(response.data);
                 })
+        .then(()=>navigate(-1))
         .catch(error => {
             console.error(error);
         });   

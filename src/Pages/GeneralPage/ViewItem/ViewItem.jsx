@@ -122,6 +122,10 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				console.error(error);
 			});
 	}
+	const goBack = (e) => {
+        e.preventDefault();
+        navigate(-1);
+    };
 
 	//PROMOTION
 	const GetKMById = (id) => {
@@ -185,7 +189,7 @@ const ViewNew = ({ inputs, titlee, type }) => {
 					))}
 					<div className={classes.wrap}>
 
-						<button onClick={() => navigate(-1)} className={classes.button} >
+						<button onClick={(e) => goBack(e)} className={classes.button} >
 							Quay lại
 						</button>
 					</div>
