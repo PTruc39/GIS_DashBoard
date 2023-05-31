@@ -59,27 +59,5 @@
     p {
       color: gray;
     }
-
-    .botom_nested {
-      margin-top: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .nested_nested {
-        .pricee {
-          margin-top: 10px;
-          display: flex;
-          align-items: center;
-          font-size: 17px;
-          color: green;
-          //   font-family: "Roboto", sans-serif;
-
-          .price_decrease {
-            color: red;
-          }
-        }
-      }
-    }
   }
 }

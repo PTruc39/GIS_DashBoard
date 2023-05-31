@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
 import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
@@ -13,6 +13,8 @@ import TableNews from '../../Components/DataTable/TableNews/TableNews';
 import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
 import axios from 'axios';
 import classes from './DefaultLayoutPage.module.scss';
+import { Margin } from '@mui/icons-material';
+import {saveAs} from 'file-saver';
 
 function DefaultLayoutPage({ type }) {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -21,25 +23,103 @@ function DefaultLayoutPage({ type }) {
         const file = acceptedFiles[0];
         setSelectedFile(acceptedFiles[0]);
         const formData = new FormData();
-        formData.append('file',file);
-        axios.post('http://localhost:3001/importExcel', formData)
-        .then(response => {
-            console.log("Upload file successfully!");
-            console.log(response);
-        })
-        .catch(error => {
-            console.log("Error", error);
-        })
+        formData.append('file', file);
+        axios.post('http://localhost:3001/api/importProductExcel', formData)
+            .then(response => {
+                console.log("Upload file successfully!");
+                console.log(response);
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
     };
     //
+    function DownloadProductExcel() {
+        axios.get('http://localhost:3001/api/exportProductExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'ProductData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+    function DownloadInvoiceExcel() {
+        axios.get('http://localhost:3001/api/exportInvoiceExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'InvoiceData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+    function DownloadPromotionExcel() {
+        axios.get('http://localhost:3001/api/exportPromotionExcel',{
+			responseType: 'blob',
+		  })
+            .then(response => {
+                console.log("Download file successfully!");
+                console.log(response);
+                const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+      			saveAs(blob, 'PromotionData.xlsx');
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
+    };
+
     function Table({ type }) {
+        const mystyle = {
+            marginRight: '20px',
+            cursor: 'pointer',
+            color: "white",
+            marginBottom: "20px",
+            backgroundColor: "#FF46BE",
+            padding: "10px",
+            fontSize: "16px",
+            fontFamily: "Arial",
+            fontWeight: "bold",
+            borderRadius: '4px',
+            border: 'none'
+        };
         switch (type) {
             case 'customer':
                 return <TableCustomer />;
             case 'product':
-                return <TableProduct />;
+
+                return (
+                    <div >
+                        <div style={{ display: 'flex' }}>
+                            <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
+                                {({ getRootProps, getInputProps }) => (
+                                    <div {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        <button style={mystyle}>Import Excel Product</button>
+                                    </div>
+                                )}
+                            </Dropzone>
+                            <button style={mystyle} onClick={DownloadProductExcel}>Export Product Excel</button>
+                        </div>
+
+                        <TableProduct />
+                    </div>
+                );
             case 'promotion':
-                return <TablePromotion />;
+                return (
+                    <div>
+                        <button style={mystyle} onClick={DownloadPromotionExcel}>Export Excel Promotion</button>
+                        <TablePromotion />
+                    </div>
+                );
             case 'order':
                 return <TableOrder />;
             case 'employee':
@@ -47,7 +127,13 @@ function DefaultLayoutPage({ type }) {
             case 'store':
                 return <TableStore />;
             case 'invoice':
-                return <TableInvoice />;
+                    
+                return(
+                    <div>
+                        <button style={mystyle} onClick={DownloadInvoiceExcel}>Export Invoice Excel</button>
+                        <TableInvoice />;
+                    </div>
+                );
             default:
                 return <TableNews />;
         }
@@ -104,14 +190,6 @@ function DefaultLayoutPage({ type }) {
                         >
                             <button type="button">Thêm {title} mới</button>
                         </Link>
-                        <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
-                            {({ getRootProps, getInputProps }) => (
-                                <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    <button>Import Excel Product</button>
-                                </div>
-                            )}
-                        </Dropzone>
                     </div>
 
                     {/* select the content of the table  */}

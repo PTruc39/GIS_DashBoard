@@ -34,37 +34,37 @@ function Sidebar() {
                     <p className="spann">lists</p>
                     <Link to="/customers" style={{ textDecoration: 'none' }}>
                         <li>
-                            <PersonIcon className="icon" /> Quản Lý Khách Hàng
+                            <PersonIcon className="icon" /> Quản lý khách hàng
                         </li>
                     </Link>
                     <Link to="/employees" style={{ textDecoration: 'none' }}>
                         <li>
-                            <PersonIcon className="icon" /> Quản Lý Nhân Viên
+                            <PersonIcon className="icon" /> Quản lý nhân viên
                         </li>
                     </Link>
                     <Link to="/promotions" style={{ textDecoration: 'none' }}>
                         <li>
-                            <PersonIcon className="icon" /> Quản Lý Khuyến Mãi
+                            <PersonIcon className="icon" /> Quản lý khuyến mãi
                         </li>
                     </Link>
                     <Link to="/products" style={{ textDecoration: 'none' }}>
                         <li>
-                            <TableChartIcon className="icon" /> Quản Lý Sản Phẩm
+                            <TableChartIcon className="icon" /> Quản lý sản phẩm
                         </li>
                     </Link>
                     <Link to="/news" style={{ textDecoration: 'none' }}>
                         <li>
-                            <LibraryBooksIcon className="icon" /> Quản Lý Tin Tức
+                            <LibraryBooksIcon className="icon" /> Quản lý tin tức
                         </li>
                     </Link>
                     <Link to="/orders" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Quản Lý Đơn Hàng
+                            <CreditCardIcon className="icon" /> Quản lý Order
                         </li>
                     </Link>
                     <Link to="/stores" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Quản Lý Cửa Hàng
+                            <CreditCardIcon className="icon" /> Quản lý Store
                         </li>
                     </Link>
                     <Link to="/invoices" style={{ textDecoration: 'none' }}>
@@ -74,13 +74,13 @@ function Sidebar() {
                     </Link>    
                     <Link to="/guarantee" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Quản Lý Bảo Hành
+                            <CreditCardIcon className="icon" /> Quản lý bảo hành
                         </li>
                     </Link>
                     <p className="spann">Cài đặt</p>
                     <Link to="/login" >
                         <li>
-                            <LogoutIcon className="icon" /> Đăng xuất
+                            <LogoutIcon className="icon" /> Đăng Xuất
                         </li>
                     </Link>
                 </ul>

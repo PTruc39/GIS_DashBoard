@@ -3,10 +3,10 @@ import Input from '../../../Components/Input/Input';
 import macbook from '../../../Assets/Images/macbook_pro.png';
 import classes from './ViewItem.module.scss';
 import axios from 'axios';
-import { useParams,useNavigate  } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 const ViewNew = ({ inputs, titlee, type }) => {
 	const navigate = useNavigate();
-	
+
 	const params = useParams();
 	// console.log(params.productId);
 	let dynamicInpVal;
@@ -96,19 +96,31 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				districtCode: '',
 			};
 			break;
+		case "INVOICE":
+			dynamicInpVal = {
+				mahd: '',
+				makh: '',
+				manv: '',
+				ngayxuathd: '',
+				tinhtrang: '',
+				trigia: '',
+				diachigiaohang: '',
+				phuongthucthanhtoan: ''
+			};
+			break;
 		default:
 			break;
 	}
 	const [formInp, setFormInp] = useState(dynamicInpVal);
 	const GetItemById = (id) => {
-		axios.get(`http://localhost:3001/product/${id}`)
+		axios.get(`http://localhost:3001/api/product/${id}`)
 			.then(response => {
 				setFormInp(response.data);
 			}
 			)
-          .catch (error => {
-		console.error(error);
-	});
+			.catch(error => {
+				console.error(error);
+			});
 	}
 
 	//PROMOTION
@@ -122,52 +134,67 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				console.error(error);
 			});
 	};
-useEffect(() => {
-	//console.log(params.productId);
-	if(type==="PROMOTION"){
-		GetKMById(params.promotionId);
-	} else {
-		GetItemById(params.productId);
-	}
-  }, []);
+
+	// INVOICE
+	const GetHoaDonById = (id) => {
+		axios
+			.get(`http://localhost:3001/api/hoa-don/${id}`)
+			.then((response) => {
+				setFormInp(response.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+
+	useEffect(() => {
+		//console.log(params.productId);
+		if (type === "PROMOTION") {
+			GetKMById(params.promotionId);
+		} else if (type === "INVOICE") {
+			GetHoaDonById(params.invoiceId)
+		}
+		else {
+			GetItemById(params.productId);
+		}
+	}, []);
 
 
 
 
-
-return (
-	<div className={classes.new_page_main}>
-		<div className={classes.add_new_item}>
-			<h1>{titlee}</h1>
-		</div>
-		<div className={classes.new_page_form}>
-			{/*<div className={classes.containerImg}>
+	return (
+		<div className={classes.new_page_main}>
+			<div className={classes.add_new_item}>
+				<h1>{titlee}</h1>
+			</div>
+			<div className={classes.new_page_form}>
+				{/*<div className={classes.containerImg}>
 				<img src={macbook}></img>
 				<img src={macbook}></img>
 				<img src={macbook}></img>
 				<img src={macbook}></img>
 </div>*/}
-			<form>
-				{inputs.map((detail) => (
-					<Input
-						key={detail.id}
-						{...detail}
-						value={formInp[detail.name]}
-						
-					/>
-				))}
-				<div className={classes.wrap}>
-                        
-                        <button onClick={()=>navigate(-1)} className={classes.button} >
-                            Quay lại
-                        </button>
-                    </div>
-			</form>
+				<form>
+					{inputs.map((detail) => (
+						<Input
+							key={detail.id}
+							{...detail}
+							value={formInp[detail.name]}
+
+						/>
+					))}
+					<div className={classes.wrap}>
+
+						<button onClick={() => navigate(-1)} className={classes.button} >
+							Quay lại
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
 
 
-);
+	);
 };
 
 export default ViewNew;
