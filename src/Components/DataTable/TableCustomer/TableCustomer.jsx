@@ -93,6 +93,7 @@ function TableCustomer({type}) {
                 timer: 800,
             });
             GetAllProduct();
+            window.location.reload()
         }
     };
 
