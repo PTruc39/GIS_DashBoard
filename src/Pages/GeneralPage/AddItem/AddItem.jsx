@@ -161,9 +161,9 @@ function AddNew({ inputs, titlee, type }) {
         AddNewItem(type);
         console.log(formInp);
         Swal.fire({
-            title: "Success",
+            title: "Thành công",
             icon: "success",
-            text: "Add successfully",
+            text: "Thêm thành công",
             confirmButtonText: 'Ok',  
         })
         .then((result) => {
