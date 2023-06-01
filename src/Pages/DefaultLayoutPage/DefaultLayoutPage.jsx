@@ -103,11 +103,11 @@ function DefaultLayoutPage({ type }) {
                                 {({ getRootProps, getInputProps }) => (
                                     <div {...getRootProps()}>
                                         <input {...getInputProps()} />
-                                        <button style={mystyle}>Import Excel Product</button>
+                                        <button style={mystyle}>Nhập sản phẩm từ Excel</button>
                                     </div>
                                 )}
                             </Dropzone>
-                            <button style={mystyle} onClick={DownloadProductExcel}>Export Product Excel</button>
+                            <button style={mystyle} onClick={DownloadProductExcel}>Xuất danh sách sản phẩm</button>
                         </div>
 
                         <TableProduct />
