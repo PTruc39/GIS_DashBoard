@@ -14,7 +14,7 @@ function ItemLists({ type }) {
     switch (type) {
         case 'customer':
             data = {
-                title: 'CUSTOMERS',
+                title: 'Khách hàng',
                 isMoney: false,
                 count: 232,
                 icon: (
@@ -26,13 +26,13 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all users',
+                link: 'Xem tất cả khách hàng',
                 linkto: '/customers',
             };
             break;
         case 'order':
             data = {
-                title: 'ORDERS',
+                title: 'Đơn hàng',
                 isMoney: false,
                 count: 34,
 
@@ -45,13 +45,13 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'View all orders',
+                link: 'Xem tất cả đơn hàng',
                 linkto: '/',
             };
             break;
         case 'earning':
             data = {
-                title: 'NEWS',
+                title: 'Tin tức',
                 isMoney: true,
                 count: 67,
                 icon: (
@@ -63,13 +63,13 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all news',
+                link: 'Xem tất cả tin tức',
                 linkto: '/',
             };
             break;
         case 'balance':
             data = {
-                title: 'EMPLOYEE',
+                title: 'Nhân viên',
                 count: 444,
                 isMoney: true,
                 icon: (
@@ -81,7 +81,7 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all employees',
+                link: 'Xem tất cả nhân viên',
                 linkto: '/',
             };
             break;

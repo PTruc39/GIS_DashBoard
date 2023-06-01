@@ -127,7 +127,7 @@ function TableProduct() {
         },
         {
             field: "action",
-            headerName: "Action",
+            headerName: "Hành động",
             width: 270,
             headerAlign: "center",
             renderCell: (params) => (

@@ -242,7 +242,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         if (type === "PRODUCT") {
             UpdateItemById(params.productId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -251,7 +251,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         if (type === "CUSTOMER") {
             UpdateCustomerById(params.customerId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
