@@ -20,19 +20,20 @@
 
     .chart_sec {
       display: flex;
-      padding: 20px 25px;
+      margin-top: 50px;
       box-sizing: border-box;
     }
-
-    .table {
-      margin-top: 20px;
-
-      padding: 20px 25px;
-      box-shadow: 2px 4px 10px 1px rgba(255, 0, 191, 0.47);
-
-      .title {
-        padding: 0px 0px 15px;
-        color: rgb(255, 1, 1);
+    .column {
+        margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      
+      .chart{
+        margin: auto;
+      }
+      label {
+        margin: auto;
+        font-size: large;
       }
     }
   }
