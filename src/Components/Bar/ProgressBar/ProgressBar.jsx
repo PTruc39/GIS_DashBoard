@@ -1,4 +1,5 @@
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import { Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
@@ -24,8 +25,8 @@ function ProgressBar() {
                 console.log(error);
             })
     }, [])
-    console.log(data);
-    const color = "red";
+    
+    
 
     return (
         <div className={classes.progress_bar}>
@@ -58,8 +59,8 @@ function ProgressBar() {
                 </div>
                 <p>Tổng sản phẩm hiện có</p>
                 <p className={classes.price}>
-                    {total}
-                    <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
+                    {total} 
+                    <DevicesOtherIcon style={{ fontSize: '40px' }} />
                 </p>
             </div>
 
