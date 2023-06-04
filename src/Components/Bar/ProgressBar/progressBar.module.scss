@@ -10,15 +10,18 @@
   border-radius: 6px;
   text-align: center;
   height: fit-content;
+  background-image: url('../../../Assets/Images/chart.jpg');
 
   .top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    color: gray;
+    // justify-content: space-between;
+    color: rgb(1, 87, 185);
 
     p {
       font-size: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
     }
   }
 
@@ -38,7 +41,8 @@
     }
 
     p {
-      color: gray;
+      color: rgb(11, 11, 11);
+      text-transform: uppercase;
       margin: 15px 0px;
       font-size: 20px;
     }
@@ -50,7 +54,7 @@
       
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: center;
       font-family: "Roboto", sans-serif;
       margin: 20px 0px 15px;
     }

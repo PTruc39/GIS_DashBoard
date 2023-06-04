@@ -1,13 +1,48 @@
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import React from 'react';
+import FeedIcon from '@mui/icons-material/Feed';
+import BadgeIcon from '@mui/icons-material/Badge';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './itemlists.module.scss';
+import axios from 'axios';
 
 function ItemLists({ type }) {
+    const [customer,setCustomer] = useState(0);
+    const [order,setOrder] = useState(0);
+    const [news , setNews] = useState(0);
+    const [employee,setEmployee] = useState(0);
+    const GetAllCustomer = () => {
+        axios.get('http://localhost:3001/api/auth')
+        .then(response => {
+            setCustomer(response.data.totalKH);
+        })
+    }
+    const GetAllOrders = () => {
+        axios.get('http://localhost:3001/don-hang')
+        .then(response => {
+            setOrder(response.data.totalOrder);
+        })
+    }
+    const GetAllNews = () => {
+        axios.get('http://localhost:3001/api/tin-tuc')
+        .then(response => {
+            setNews(response.data.totalNews);
+        })
+    }
+    const GetAllEmployees = () => {
+        axios.get('http://localhost:3001/api/nhanvien')
+        .then(response => {
+            setEmployee(response.data.length);
+        })
+    }
+    useEffect(() => {
+        GetAllCustomer();
+        GetAllOrders();
+        GetAllNews();
+        GetAllEmployees();
+    },[]);
+
     let data;
 
     
@@ -15,8 +50,7 @@ function ItemLists({ type }) {
         case 'customer':
             data = {
                 title: 'Khách hàng',
-                isMoney: false,
-                count: 232,
+                count: customer,
                 icon: (
                     <PermIdentityIcon
                         style={{
@@ -33,8 +67,7 @@ function ItemLists({ type }) {
         case 'order':
             data = {
                 title: 'Đơn hàng',
-                isMoney: false,
-                count: 34,
+                count: order,
 
                 icon: (
                     <LocalGroceryStoreOutlinedIcon
@@ -46,16 +79,15 @@ function ItemLists({ type }) {
                     />
                 ),
                 link: 'Xem tất cả đơn hàng',
-                linkto: '/',
+                linkto: '/orders',
             };
             break;
-        case 'earning':
+        case 'new':
             data = {
                 title: 'Tin tức',
-                isMoney: true,
-                count: 67,
+                count: news,
                 icon: (
-                    <AttachMoneyOutlinedIcon
+                    <FeedIcon
                         style={{
                             color: '#367E18',
                             backgroundColor: '#A7FFE4',
@@ -64,25 +96,24 @@ function ItemLists({ type }) {
                     />
                 ),
                 link: 'Xem tất cả tin tức',
-                linkto: '/',
+                linkto: '/news'
             };
             break;
-        case 'balance':
+        case 'employee':
             data = {
                 title: 'Nhân viên',
-                count: 444,
-                isMoney: true,
+                count: employee,
                 icon: (
-                    <PaidOutlinedIcon
+                    <BadgeIcon
                         style={{
                             color: '#AC7088',
-                            backgroundColor: '#B1B2FF',
+                            backgroundColor: '#C0C0C0',
                         }}
                         className="icon"
                     />
                 ),
                 link: 'Xem tất cả nhân viên',
-                linkto: '/',
+                linkto: '/employees',
             };
             break;
         default:
@@ -93,15 +124,10 @@ function ItemLists({ type }) {
         <div className={classes.item_listss}>
             <div className={classes.name}>
                 <p>{data.title}</p>
-                <span className={classes.persentage_positive}>
-                    <KeyboardArrowUpIcon />
-                    20 %
-                </span>
             </div>
             {/* Note right there */}
 
             <div className={classes.counts}>
-                {data.isMoney && <AttachMoneyOutlinedIcon />}
                 {data.count}
             </div>
 
