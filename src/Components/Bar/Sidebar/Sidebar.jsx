@@ -5,6 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import DiscountIcon from '@mui/icons-material/Discount';
+import StoreIcon from '@mui/icons-material/Store';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../../ColorContext/darkContext';
@@ -59,17 +60,17 @@ function Sidebar() {
                     </Link>
                     <Link to="/orders" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Quản lý Order
+                            <CreditCardIcon className="icon" /> Quản lý đơn hàng
                         </li>
                     </Link>
                     <Link to="/stores" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Quản lý Store
+                            <StoreIcon className="icon" /> Quản lý cửa hàng
                         </li>
                     </Link>
                     <Link to="/invoices" style={{ textDecoration: 'none' }}>
                         <li>
-                            <DiscountIcon className="icon" /> Quản Lý Hóa Đơn
+                            <DiscountIcon className="icon" /> Quản Lý hóa đơn
                         </li>
                     </Link>    
                     <Link to="/guarantee" style={{ textDecoration: 'none' }}>
