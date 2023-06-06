@@ -3,6 +3,7 @@ import Input from "../../../Components/Input/Input";
 import macbook from "../../../Assets/Images/macbook_pro.png";
 import classes from "./UpdateItem.module.scss";
 import EmployeeApi from "../../../Api/EmployeeApi";
+import Promotion from "../../../Api/Promotion"
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Button } from "@mui/material";
@@ -124,32 +125,46 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     //END OF STORE
 
     //PROMOTION
+    const batdauFormat = (value) =>{
+        const datebd = new Date(value);
+        return `${datebd.getDate()}/${datebd.getMonth() + 1}/${datebd.getFullYear()}`;
+    }
+
+    const ketthucFormat = (value)=>{
+        const datekt = new Date(value);
+        return `${datekt.getDate()}/${datekt.getMonth() + 1}/${datekt.getFullYear()}`;
+    }
     const GetKMById = (id) => {
-        axios
-            .get(`http://localhost:3001/api/khuyenmai/${id}`)
-            .then((response) => {
-                setFormInp(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        Promotion.getKMByID(id)
+        .then((response) => {
+            response.batdau = batdauFormat(response.batdau);
+            response.ketthuc = ketthucFormat(response.ketthuc);
+            setFormInp(response);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     };
 
     const UpdateKMById = (id) => {
-        console.log(id);
-        axios
-            .put(`http://localhost:3001/api/khuyenmai/${id}`, {
-				apdung: formInp.apdung,
-				phantramkm: formInp.phantramkm,
-				batdau: formInp.batdau,
-				ketthuc: formInp.ketthuc,
-				title: formInp.title,
-				image: formInp.image,
-				description: formInp.description,
-				dateSource: formInp.dateSource,
-				detail: formInp.detail,
-				category: formInp.category
-            })
+        //đổi lại cho đúng định dạng ngày tháng để update
+        const bd = formInp.batdau.split("/");
+        formInp.batdau = `${parseInt(bd[1])}/${parseInt(bd[0])}/${parseInt(bd[2])}`;
+        const kt = formInp.ketthuc.split("/");
+        formInp.ketthuc =  `${parseInt(kt[1])}/${parseInt(kt[0])}/${parseInt(kt[2])}`;
+
+        Promotion.updateKM(id, {
+            apdung: formInp.apdung,
+            phantramkm: formInp.phantramkm,
+            batdau: formInp.batdau,
+            ketthuc: formInp.ketthuc,
+            title: formInp.title,
+            image: formInp.image,
+            description: formInp.description,
+            dateSource: formInp.dateSource,
+            detail: formInp.detail,
+            category: formInp.category
+        })
             .then(() => {
                 Swal.fire({
                     title: "Cập nhật thành công!",

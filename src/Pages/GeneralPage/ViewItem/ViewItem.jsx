@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Input from '../../../Components/Input/Input';
 import macbook from '../../../Assets/Images/macbook_pro.png';
+import Promotion from "../../../Api/Promotion"
 import classes from './ViewItem.module.scss';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -128,15 +129,26 @@ const ViewNew = ({ inputs, titlee, type }) => {
     };
 
 	//PROMOTION
+	const batdauFormat = (value) =>{
+        const datebd = new Date(value);
+        return `${datebd.getDate()}/${datebd.getMonth() + 1}/${datebd.getFullYear()}`;
+    }
+
+    const ketthucFormat = (value)=>{
+        const datekt = new Date(value);
+        return `${datekt.getDate()}/${datekt.getMonth() + 1}/${datekt.getFullYear()}`;
+    }
 	const GetKMById = (id) => {
-		axios
-			.get(`http://localhost:3001/api/khuyenmai/${id}`)
-			.then((response) => {
-				setFormInp(response.data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		Promotion.getKMByID(id)
+		.then((response) => {
+			console.log(response)
+			response.batdau = batdauFormat(response.batdau);
+			response.ketthuc = ketthucFormat(response.ketthuc);
+			setFormInp(response);
+		})
+		.catch((error) => {
+			console.error(error);
+		});
 	};
 
 	// INVOICE
