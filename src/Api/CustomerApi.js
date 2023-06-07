@@ -9,6 +9,11 @@ const getKHById = async (id) => {
     return await axiosInstance.get(query);
 };
 
+const getHDByMaKH = async (id) => {
+    let query = `/api/hoa-don?makh=${id}`;
+    return await axiosInstance.get(query);
+};
+
 const getOrderByMaKH = async (id) => {
     let query = `/don-hang?makh=${id}`;
     return await axiosInstance.get(query);
@@ -27,5 +32,6 @@ export default {
     getOrderByMaKH,
     deleteKH,
     createKH,
+    getHDByMaKH
     
 };
