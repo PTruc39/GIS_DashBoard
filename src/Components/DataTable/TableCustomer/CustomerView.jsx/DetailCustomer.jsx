@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import CustomerApi from "../../../../Api/CustomerApi";
 import { DataGrid } from '@mui/x-data-grid';
 import Chart from '../../../Chart/Chart';
@@ -11,7 +11,7 @@ import classes from './Detail.module.scss';
 import classes2 from '../TableCustomer.module.scss'
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 
 
 const columns = [
@@ -27,10 +27,10 @@ const columns = [
     },
     {
         field: 'username',
-        headerName: 'Mã đơn hàng',
+        headerName: 'Mã hóa đơn',
         width: 280,
         renderCell: (param) => (
-            <div className={classes.userr}>{param.row.madh}</div>
+            <div className={classes.userr}>{param.row.mahd}</div>
         )
     },
     {
@@ -38,7 +38,15 @@ const columns = [
         headerName: 'Tổng trị giá',
         width: 250,
         renderCell: (param) => (
-            <div >{param.row.tongtrigia}</div>
+            <div >{param.row.trigia}</div>
+        ),
+    },
+    {
+        field: 'state',
+        headerName: 'Tình trạng',
+        width: 250,
+        renderCell: (param) => (
+            <div >{param.row.tinhtrang}</div>
         ),
     },
     {
@@ -47,9 +55,9 @@ const columns = [
         width: 270,
         renderCell: (params) => (
             <div className={classes.actionn}>
-                <Link to={`/orders/${params.row._id}`}>
+                <Link to={`/invoices/${params.row._id}`}>
                     <button type="button" className={classes.view_btn}
-                    onClick={()=>{console.log("BAM VIEW")}}
+                    
                     >
                         Xem
                     </button>
@@ -86,7 +94,9 @@ function DetailCustomer() {
             .then((response) => {
                 setFormInp(response);
                 console.log(response);
+                GetOrderById(response.makh);
             })
+            
             .catch((error) => {
                 console.error(error);
             });
@@ -97,16 +107,16 @@ function DetailCustomer() {
     const formatDataChart = (orders)=>{
         orders.forEach(order => {
             const month = new Date(order.createdAt).getMonth();
-            datachart[month].total += order.tongtrigia;
+            datachart[month].total += order.trigia;
           });
         console.log(datachart);
     }
 
     const GetOrderById = (id) => {
-        CustomerApi.getOrderByMaKH(id)
+        CustomerApi.getHDByMaKH(id)
             .then((response) => {
                 let index = 0;
-                const fetchedData = response.orders.map((item) => {
+                const fetchedData = response.listHoaDon.map((item) => {
                     index = index + 1;
                     return {
                         ...item,
@@ -124,9 +134,10 @@ function DetailCustomer() {
     useEffect(() => {
 
         GetCustomerById(params.customerId);
-        GetOrderById("KH02");
+        //GetOrderById(formInp?formInp.makh:"KH14");
         
     }, []);
+    
 
     let i=0;
     if(data&&i==0)
@@ -162,7 +173,7 @@ function DetailCustomer() {
                 </div>
 
                 <div className={classes.table}>
-                    <div className={classes.title}>Đơn hàng gần đây</div>
+                    <div className={classes.title}>Hóa đơn gần đây</div>
                     {/*<TableList />*/}
                     <div className={classes2.data_table}>
                          <DataGrid
