@@ -26,14 +26,26 @@ function ProgressBar() {
             })
     }, [])
     
-    
+    const mystyle = {
+        marginRight: '20px',
+        cursor: 'pointer',
+        color: "white",
+        backgroundColor: "#FF46BE",
+        padding: "10px",
+        fontSize: "16px",
+        fontFamily: "Arial",
+        borderRadius: '4px',
+        border: 'none',
+        marginLeft: '30px'
+        
+    };
 
     return (
         <div className={classes.progress_bar}>
             <div className={classes.top}>
                 <p>Tổng sản phẩm</p>
+                <button style={mystyle}>Export Excel File</button>
             </div>
-
             <div className={classes.middle}>
                 <div className={classes.progress}>
                     <ResponsiveContainer width="100%" height="100%">
@@ -57,7 +69,7 @@ function ProgressBar() {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <p>Tổng sản phẩm hiện có</p>
+                <p>Tổng sản phẩm hiện tại</p>
                 <p className={classes.price}>
                     {total} 
                     <DevicesOtherIcon style={{ fontSize: '40px' }} />

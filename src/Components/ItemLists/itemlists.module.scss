@@ -8,7 +8,8 @@
   justify-content: space-between;
   padding: 10px;
   border-radius: 6px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(15px);
 
   .name {
     display: flex;
@@ -17,23 +18,15 @@
 
     p {
       color: gray;
-    }
-
-    .persentage {
-      display: flex;
-      align-items: center;
-
-      &.negetive {
-        color: red;
-      }
-      &.positive {
-        color: green;
-      }
+      text-transform: uppercase;
+      font-size: 28px;
+      font-weight: bold;
     }
   }
 
   .counts {
     font-size: 25px;
+    font-weight: bold;
     margin: 20px 0px;
     display: flex;
     align-items: center;
@@ -46,6 +39,7 @@
     align-items: center;
 
     p {
+      font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
       color: gray;
       cursor: pointer;
       transition: all 0.3s ease;

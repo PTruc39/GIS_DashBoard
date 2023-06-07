@@ -19,7 +19,7 @@ function Sidebar() {
         <div className="sidebar">
             <div className="logo">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <h3 className="text_none">AppleDunk</h3>
+                    <h3 className="text_none">APPLEDUNK</h3>
                 </Link>
             </div>
 

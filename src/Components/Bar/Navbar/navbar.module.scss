@@ -1,23 +1,36 @@
 .navbar {
-  // height: 60px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 25px;
   border-bottom: 1px solid #eee;
+  
 
   .search {
     display: flex;
     align-items: center;
-    border-radius: 3px;
-    border: 1px solid gray;
-
+    // border-radius: 3px;
+    // border: 1px solid gray;
     input {
-      border: none;
-      outline: none;
       font-size: 14px;
       padding: 6px 10px;
-      // color: rgba(255, 255, 255, 0.925);
+      color: rgba(15, 15, 15, 0.925);
+      
+    }
+    button {
+      width: 100px;
+      margin-left: 30px;
+      background-color: #ff74b1;
+      font-size: 20px;
+      border: none;
+      border-radius: 20px;
+      padding: 7px;
+      color: #ffffff;
+      transition: 4s;
+    }
+    button:hover {
+      height: 40px;
     }
 
     .search_icon {
