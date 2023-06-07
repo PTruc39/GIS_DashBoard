@@ -108,6 +108,16 @@ const userData = [
 function TablePromotion({type}) {
     const [data, setData] = useState([]);
 
+    const batdauFormat = (value) =>{
+        const datebd = new Date(value);
+        return `${datebd.getDate()}/${datebd.getMonth() + 1}/${datebd.getFullYear()}`;
+    }
+
+    const ketthucFormat = (value)=>{
+        const datekt = new Date(value);
+        return `${datekt.getDate()}/${datekt.getMonth() + 1}/${datekt.getFullYear()}`;
+    }
+
     const handleDlt = async(id) => {
         //xác nhận xóa
         const notification = await Swal.fire({
@@ -183,10 +193,17 @@ function TablePromotion({type}) {
             headerName: 'Bắt đầu',
             width: 100,
             renderCell: (param) => (
-                <div className={`status ${param.row.batdau}`}>{param.row.batdau}</div>
+                <div className={`status ${param.row.batdau}`}>{batdauFormat(param.row.batdau)}</div>
             ),
         },
-        { field: 'ketthuc', headerName: 'Kết thúc', width: 100 },
+        { 
+            field: 'ketthuc', 
+            headerName: 'Kết thúc', 
+            width: 100 ,
+            renderCell: (param) => (
+                <div className={`status ${param.row.ketthuc}`}>{ketthucFormat(param.row.ketthuc)}</div>
+            ),
+        },
         { 
             field: 'title',
             headerName: 'Tiêu đề', 
