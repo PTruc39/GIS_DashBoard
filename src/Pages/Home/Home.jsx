@@ -4,25 +4,26 @@ import ItemLists from '../../Components/ItemLists/ItemLists';
 import Navbar from '../../Components/Bar/Navbar/Navbar';
 import ProgressBar from '../../Components/Bar/ProgressBar/ProgressBar';
 import Sidebar from '../../Components/Bar/Sidebar/Sidebar';
-import TableCustomer from '../../Components/DataTable/TableCustomer/TableCustomer';
 import classes from './Home.module.scss';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 function Home() {
-    const data = [
-        { name: 'A', value: 10 },
-        { name: 'B', value: 20 },
-        { name: 'C', value: 15 },
-        { name: 'D', value: 5 },
-    ];
-    const dataX = [
-        { name: 'Jan', value: 10 },
-        { name: 'Feb', value: 20 },
-        { name: 'Mar', value: 15 },
-        { name: 'Apr', value: 5 },
-        { name: 'May', value: 25 },
-        { name: 'Jun', value: 12 },
-    ];
+    const [data, setData] = useState([]);
+    const [total, setTotal] = useState(0);
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/totalRevenueByMonth')
+            .then(response => {
+                setData(response.data.monthAndRevenue);
+                setTotal(response.data.totalRevenue);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }, [])
+    
+   
 
     //
     return (
@@ -43,28 +44,18 @@ function Home() {
 
                 <div className={classes.chart_sec}>
                     <ProgressBar />
-                    <Chart height={450} title="Revenue" />
                 </div>
 
-
-                <div style={{display: 'flex'}}>
-                    <BarChart width={500} height={300} data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
+                <div className={classes.column}>
+                    <BarChart width={1100} height={600} data={data} className={classes.chart}>
+                        <CartesianGrid strokeDasharray="4 5" />
+                        <XAxis dataKey="month" />
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="value" fill="#8884d8" />
+                        <Bar dataKey="revenue" fill="#FFBB28" />
                     </BarChart>
-                    <LineChart width={500} height={300} data={dataX}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="value" stroke="#8884d8" />
-                    </LineChart>
-
+                    <label>Biểu đồ doanh thu từng tháng</label>
 
                 </div>
 

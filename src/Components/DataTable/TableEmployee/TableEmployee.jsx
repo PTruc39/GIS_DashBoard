@@ -72,7 +72,7 @@ function TableEmployee({type}) {
     const handleDlt = (id) => {
         EmployeeApi.deleteNV(id)
             .then((response) => {
-                console.log("Item deleted successfully.");
+                console.log("Xóa thành công.");
             })
             .catch((error) => {
                 console.error("Error deleting item:", error);
@@ -97,6 +97,7 @@ function TableEmployee({type}) {
                 timer: 800,
             });
             GetAllProduct();
+            window.location.reload();
         }
     };
 

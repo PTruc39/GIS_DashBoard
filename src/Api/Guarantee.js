@@ -16,9 +16,14 @@ const getBHByMakh = async(makh)=>{
     return await axiosInstance.get(`api/baohanh/kh/${makh}`);
 }
 
+const DeleteCTBH = async(id, ctbhId)=>{
+    return await axiosInstance.delete(`/api/baohanh/ctbh/${id}/${ctbhId}`);
+}
+
 export default {
     getAllBH,
     getBHByID,
     getBHBySDT,
-    getBHByMakh
+    getBHByMakh,
+    DeleteCTBH
 }

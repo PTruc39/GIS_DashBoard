@@ -44,11 +44,13 @@
     }
 
     .price {
-      color: rgb(15, 15, 15);
+      color: rgb(194, 19, 19);
       font-size: 35px;
+      font-weight: bold;
+      
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
       font-family: "Roboto", sans-serif;
       margin: 20px 0px 15px;
     }
@@ -58,28 +60,6 @@
     padding: 0px 20px 20px;
     p {
       color: gray;
-    }
-
-    .botom_nested {
-      margin-top: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .nested_nested {
-        .pricee {
-          margin-top: 10px;
-          display: flex;
-          align-items: center;
-          font-size: 17px;
-          color: green;
-          //   font-family: "Roboto", sans-serif;
-
-          .price_decrease {
-            color: red;
-          }
-        }
-      }
     }
   }
 }

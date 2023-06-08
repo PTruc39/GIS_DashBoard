@@ -13,7 +13,7 @@ function TableProduct() {
 
     const handleDlt = (id) => {
         axios
-            .delete(`http://localhost:3001/product/${id}`)
+            .delete(`http://localhost:3001/api/product/${id}`)
             .then((response) => {
                 GetAllProduct();
                 console.log("Item deleted successfully.", response);
@@ -127,7 +127,7 @@ function TableProduct() {
         },
         {
             field: "action",
-            headerName: "Action",
+            headerName: "Hành động",
             width: 270,
             headerAlign: "center",
             renderCell: (params) => (

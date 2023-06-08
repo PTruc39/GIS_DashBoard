@@ -103,11 +103,11 @@ function DefaultLayoutPage({ type }) {
                                 {({ getRootProps, getInputProps }) => (
                                     <div {...getRootProps()}>
                                         <input {...getInputProps()} />
-                                        <button style={mystyle}>Import Excel Product</button>
+                                        <button style={mystyle}>Nhập sản phẩm từ Excel</button>
                                     </div>
                                 )}
                             </Dropzone>
-                            <button style={mystyle} onClick={DownloadProductExcel}>Export Product Excel</button>
+                            <button style={mystyle} onClick={DownloadProductExcel}>Xuất danh sách sản phẩm</button>
                         </div>
 
                         <TableProduct />
@@ -182,14 +182,11 @@ function DefaultLayoutPage({ type }) {
             <div className={classes.list_page_main}>
                 <Navbar />
 
-                
-
                 <div className={classes.data_table}>
                     <div className={classes.btnn}>
-
                         <Link
                             to={`/${linkPath}/addnew`}
-                            style={{ textDecoration: 'none' }}
+                            style={{ textDecoration: "none" }}
                         >
                             <button type="button">Thêm {title} mới</button>
                         </Link>

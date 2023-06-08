@@ -1,28 +1,37 @@
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import { Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
-import { Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Pie, PieChart, ResponsiveContainer, Cell, Legend } from 'recharts';
 
 // import css filr
-import classes from  './progressBar.module.scss';
+import classes from './progressBar.module.scss';
+import axios from 'axios';
 
 function ProgressBar() {
-    const data01 = [
-        { name: 'Users', value: 23 },
-        { name: 'Hotels', value: 30 },
-        { name: 'Rooms', value: 15 },
-        { name: 'Blogs', value: 19 },
-        { name: 'Balance', value: 20 },
-    ];
+    const [data, setData] = useState([]);
+    const [total, setTotal] = useState(0);
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
+
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/api/percentTypeProduct')
+            .then(response => {
+                setData(response.data.typeAndQuantity);
+                setTotal(response.data.totalQuantity);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }, [])
+    
+    
 
     return (
         <div className={classes.progress_bar}>
             <div className={classes.top}>
-                <p>Total Revenue</p>
-                <MoreVertOutlinedIcon />
+                <p>Tổng sản phẩm</p>
             </div>
 
             <div className={classes.middle}>
@@ -30,44 +39,31 @@ function ProgressBar() {
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart width={400} height={400}>
                             <Pie
-                                dataKey="value"
-                                isAnimationActive={false}
-                                data={data01}
+                                dataKey="quantity"
+                                nameKey="name"
+                                isAnimationActive={true}
+                                data={data}
                                 cx="50%"
                                 cy="50%"
                                 outerRadius={80}
-                                fill="#4665fdce"
+                                fill="#8884d8"
                                 label
-                            />
-                            <Tooltip />
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Legend />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <p>Total sales made today.</p>
+                <p>Tổng sản phẩm hiện có</p>
                 <p className={classes.price}>
-                    <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
-                    324
+                    {total} 
+                    <DevicesOtherIcon style={{ fontSize: '40px' }} />
                 </p>
             </div>
 
-            <div className={classes.bottom}>
-                <p>Previous transection processing. Last payments may not be included.</p>
-
-                <div className={classes.botom_nested}>
-                    <div className={classes.nested_nested}>
-                        <p>Last Week</p>
-                        <p className={classes.pricee}>
-                            <KeyboardArrowUpOutlinedIcon /> $11.9k
-                        </p>
-                    </div>
-                    <div className={classes.nested_nested}>
-                        <p>Last Month</p>
-                        <p className={classes.price_decrease}>
-                            <KeyboardArrowUpOutlinedIcon /> $12.4k
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }

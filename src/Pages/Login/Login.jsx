@@ -9,7 +9,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const sendRequestSU = async ()=>{
     const res = await axios
-    .post(`http://localhost:3001/nhanvien/login`,{
+    .post(`http://localhost:3001/api/nhanvien/login`,{
       email:String(email),
       password:String(password)
     })

@@ -17,7 +17,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     //const [formInp, setFormInp] = useState(dynamicInpVal);
     const GetItemById = (id) => {
         axios
-            .get(`http://localhost:3001/product/${id}`)
+            .get(`http://localhost:3001/api/product/${id}`)
             .then((response) => {
                 setFormInp(response.data);
             })
@@ -163,6 +163,39 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     };
     //END PROMOTION 
 
+    //GUARANTEE
+    const GetCTBHById = (id, ctbhId) => {
+        axios
+            .get(`http://localhost:3001/api/baohanh/ctbh/${id}/${ctbhId}`)
+            .then((response) => {
+                setFormInp(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const UpdateCTBHById = (id, ctbhId) => {
+        console.log(id);
+        axios
+            .put(`http://localhost:3001/api/baohanh/ctbh/${id}/${ctbhId}`, {
+				ngbaohanh: formInp.ngbaohanh,
+                mota: formInp.mota,
+                tinhtrangbaohanh: formInp.tinhtrangbaohanh
+            })
+            .then(() => {
+                Swal.fire({
+                    title: "Cập nhật thành công!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 800,
+                });
+                console.log(formInp);
+            })
+            .catch((err) => console.log(err));
+    };
+    //END GUARANTEE
+
     useEffect(() => {
         //console.log(params.productId);
         if (type === "CUSTOMER") {
@@ -174,6 +207,8 @@ const UpdateItem = ({ inputs, titlee, type }) => {
             GetNVById(params.employeeId)
         } else if(type==="PROMOTION"){
             GetKMById(params.promotionId)
+        }else if(type==="GUARANTEE"){
+            GetCTBHById(params.guaranteeId, params.ctbhId)
         } else {
             GetItemById(params.productId);
         }
@@ -197,13 +232,17 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     const handleChange = (e) => {
         setFormInp({ ...formInp, [e.target.name]: e.target.value });
     };
+    const goBack = (e) => {
+        e.preventDefault();
+        navigate(-1);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(type);
         if (type === "PRODUCT") {
             UpdateItemById(params.productId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -212,7 +251,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         if (type === "CUSTOMER") {
             UpdateCustomerById(params.customerId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -224,11 +263,27 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         }
         if (type === "EMPLOYEE") {
             UpdateNVById(params.employeeId);
+            Swal.fire({
+                title: "Cập nhật thành công",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
+            navigate(-1);
         }
         if(type === "PROMOTION"){
             UpdateKMById(params.promotionId);
             Swal.fire({
-                title: "Update successfully",
+                title: "Cập nhật thành công",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
+        }
+        if(type === "GUARANTEE"){
+            UpdateCTBHById(params.guaranteeId, params.ctbhId);
+            Swal.fire({
+                title: "Cập nhật thành công",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -263,7 +318,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
                             Cập nhật
 
                         </button>
-                        <button onClick={()=>navigate(-1)} className={classes.button} style={{marginLeft:"100px"}}>
+                        <button onClick={(e)=>goBack(e)} className={classes.button} style={{marginLeft:"100px"}}>
                             Quay lại
 
                         </button>

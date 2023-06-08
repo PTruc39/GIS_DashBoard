@@ -61,7 +61,7 @@ function Chart({ height, title, chartdata }) {
         <div className={classes.chart_sec}>
             <div>
                 <div className={classes.title}>
-                    <p>{title} (Last 1 year)</p>
+                    <p>{title} (Trong 1 năm)</p>
                 </div>
                 <AreaChart
                     width={850}
