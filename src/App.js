@@ -18,6 +18,7 @@ import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/Ta
 
 import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.jsx/DetailCustomer';
 
+
 import './app.scss';
 
 import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/">
                         <Route index element={<Home />} />
                         <Route path="login" element={<Login />} />
+                       
 
                         {/* Product */}
                         <Route path="products">

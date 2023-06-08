@@ -75,7 +75,7 @@ function TableInvoice({ type }) {
         {
             field: "mahd",
             headerName: "Mã hóa đơn",
-            width: 120,
+            width: 140,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.userr}>{param.row.mahd}</div>
@@ -84,7 +84,7 @@ function TableInvoice({ type }) {
         {
             field: "makh",
             headerName: "Mã khách hàng ",
-            width: 120,
+            width: 140,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productName}>
@@ -92,21 +92,21 @@ function TableInvoice({ type }) {
                 </div>
             ),
         },
-        {
-            field: "manv",
-            headerName: "Mã Nhân Viên",
-            width: 120,
-            headerAlign: "center",
-            renderCell: (param) => (
-                <div className={classes.productType}>
-                    {param.row.manv}
-                </div>
-            ),
-        },
+        // {
+        //     field: "manv",
+        //     headerName: "Mã Nhân Viên",
+        //     width: 120,
+        //     headerAlign: "center",
+        //     renderCell: (param) => (
+        //         <div className={classes.productType}>
+        //             {param.row.manv}
+        //         </div>
+        //     ),
+        // },
         {
             field: "ngayxuathd",
             headerName: "Ngày xuất hóa đơn",
-            width: 150,
+            width: 170,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productType}>
@@ -117,7 +117,7 @@ function TableInvoice({ type }) {
         {
             field: "trigia",
             headerName: "Trị giá",
-            width: 150,
+            width: 170,
             headerAlign: "center",
             renderCell: (param) => <div>{new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
@@ -134,14 +134,14 @@ function TableInvoice({ type }) {
         {
             field: "tinhtrang",
             headerName: "Tình trạng",
-            width: 120,
+            width: 140,
             headerAlign: "center",
             renderCell: (param) => <div>{param.row.tinhtrang}</div>,
         },
         {
             field: "action",
             headerName: "Action",
-            width: 270,
+            width: 290,
             headerAlign: "center",
             renderCell: (params) => (
                 <div className={classes.actionn}>
@@ -157,15 +157,15 @@ function TableInvoice({ type }) {
                     >
                         Xóa
                     </button>
-                    <Link 
-                        // to={`/invoices/updatenew/${params.row._id}`}
+                    {/* <Link 
+                        to={`/invoices/updatenew/${params.row._id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>
                             Sửa
                         </button>
-                    </Link>
-                    <button>Export PDF File</button>
+                    </Link> */}
+                    {/* <button>Export PDF File</button> */}
                 </div>
             ),
         },
