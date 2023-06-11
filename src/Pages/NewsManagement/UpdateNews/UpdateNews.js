@@ -131,7 +131,7 @@ function UpdateNews() {
 
         <div className={styles.new_page_main}>
           <div className={styles.bPopup}>
-            <h3>Thêm tin tức</h3>
+            <h3>Cập nhật tin tức</h3>
             <br />
             <Box sx={{ flexGrow: 1, overflow: "scroll" }}>
               <form onSubmit={handleUpdatePost}>

@@ -4,16 +4,34 @@ import { Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { Pie, PieChart, ResponsiveContainer, Cell, Legend } from 'recharts';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 
 // import css filr
 import classes from './progressBar.module.scss';
 import axios from 'axios';
 
 function ProgressBar() {
+    const exportToExcel = (dataInput) => {
+        console.log("Excute");
+        const worksheet = XLSX.utils.json_to_sheet(dataInput);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        return data;
+    };
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(0);
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
 
+    const handleExportClick = () => {
+        const excelData = exportToExcel(data);
+        saveAs(excelData, 'data.xlsx');
+      };
+      
+      
 
     useEffect(() => {
         axios.get('http://localhost:3001/api/percentTypeProduct')
@@ -44,7 +62,7 @@ function ProgressBar() {
         <div className={classes.progress_bar}>
             <div className={classes.top}>
                 <p>Tổng sản phẩm</p>
-                <button style={mystyle}>Export Excel File</button>
+                <button style={mystyle} onClick={handleExportClick}>Export Excel File</button>
             </div>
             <div className={classes.middle}>
                 <div className={classes.progress}>

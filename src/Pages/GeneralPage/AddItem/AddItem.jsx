@@ -115,7 +115,7 @@ function AddNew({ inputs, titlee, type }) {
     const GetApiPost = (type) => {
         switch (type) {
             case "PRODUCT":
-                return "http://localhost:3001/product";
+                return "http://localhost:3001/api/product";
             case "CUSTOMER":
                 return "http://localhost:3001/api/auth/"    
             case "STORE":
@@ -213,7 +213,7 @@ function AddNew({ inputs, titlee, type }) {
                             ))}
 
                             <button type="submit" className={classes.submit_btn}>
-                                Submit
+                                Tạo mới
                             </button>
                         </form>
                     </div>

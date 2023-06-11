@@ -22,12 +22,14 @@ import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.js
 import './app.scss';
 
 import UpdateNews from './Pages/NewsManagement/UpdateNews/UpdateNews';
+import OrderDetail from './Components/DataTable/TableOrder/OrderComponent/OrderDetail';
 
 const userInpDetails = InputDetails.userInpDetails;
 const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
 const promotionInpDetails = InputDetails.promotionInputs;
 const storeInpDetails = InputDetails.storeInputs;
+const orderInpDetails = InputDetails.orderInpDetails
 
 const guaranteeInpDetails = InputDetails.guaranteeInputs;
 const invoiceInputDetails = InputDetails.invoiceInputs;
@@ -49,14 +51,14 @@ function App() {
                         <Route path="products">
                             <Route index element={<DefaultLayoutPage type="product" />} />
                             <Route path=":productId" element={< ViewNew inputs={productInpDetails}
-                                        titlee="View New Product"
+                                        titlee="Xem chi tiết sản phẩm"
                                         type="PRODUCT"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
                                         inputs={productInpDetails}
-                                        titlee="Add New Product"
+                                        titlee="Thêm mới sản phẩm"
                                         type="PRODUCT"
                                     />
 
@@ -66,7 +68,7 @@ function App() {
                                 element={
                                     <UpdateItem inputs={productInpDetails}
                                         type="PRODUCT"
-                                        titlee="Update Current Product"
+                                        titlee="Cập nhật sản phẩm"
                                     />
                                 }></Route>
                         </Route>
@@ -122,20 +124,20 @@ function App() {
                         {/* Order */}
                         <Route path="orders">
                             <Route index element={<DefaultLayoutPage type="order" />} />
-                            <Route path=":orderId" element={<Detail />} />
+                            <Route path=":orderId" element={<OrderDetail />} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={userInpDetails}
+                                        inputs={orderInpDetails}
                                         titlee="Add New Customer"
                                         type="CUSTOMER"
                                     />
                                 }
                             />
-                            <Route path="updatenew/:orderId"
+                            <Route path="updateorder/:orderId"
                                 element={
-                                    <UpdateItem inputs={userInpDetails}
+                                    <UpdateItem inputs={orderInpDetails}
                                         type="CUSTOMER"
                                         titlee="Update Current Customer"
                                     />

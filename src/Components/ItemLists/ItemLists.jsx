@@ -19,7 +19,7 @@ function ItemLists({ type }) {
         })
     }
     const GetAllOrders = () => {
-        axios.get('http://localhost:3001/don-hang')
+        axios.get('http://localhost:3001/api/don-hang')
         .then(response => {
             setOrder(response.data.totalOrder);
         })

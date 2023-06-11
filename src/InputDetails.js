@@ -108,6 +108,29 @@ export const InputDetails ={
             //errorMsg: 'Address is required!',
         },
     ],
+    orderInpDetails: [
+        {
+            id: 2,
+            name: 'madh',
+            lable: 'Mã đơn hàng',
+            type: 'text',
+            placeholder: '',
+        },
+        {
+            id: 3,
+            name: 'makh',
+            lable: 'Mã khách hàng',
+            type: 'text',
+            placeholder: '',
+        },
+        {
+            id: 4,
+            name: 'tongtrigia',
+            lable: 'Tổng trị giá',
+            type: 'number',
+            placeholder: 0,
+        },
+    ],
     employeeUpDetails: [
         {
             id: 2,
