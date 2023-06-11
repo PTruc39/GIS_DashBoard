@@ -81,7 +81,7 @@ function Home() {
                     </div>
                     <div className={classes.revenue}>
                         <p>Tổng doanh thu hiện tại:</p>
-                        <p className={classes.totalRevenue}>{total}</p>
+                        <p className={classes.totalRevenue}>{total.toLocaleString()}</p>
                         <img src='https://cdn-icons-png.flaticon.com/512/32/32730.png' width="24" height="22"></img>
                     </div>
 

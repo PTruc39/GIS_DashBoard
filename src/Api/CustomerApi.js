@@ -15,7 +15,7 @@ const getHDByMaKH = async (id) => {
 };
 
 const getOrderByMaKH = async (id) => {
-    let query = `/don-hang?makh=${id}`;
+    let query = `api/don-hang?makh=${id}`;
     return await axiosInstance.get(query);
 };
 
