@@ -15,22 +15,6 @@ const userData = [
         image: man,
         address: 'HCMC City',
         age: '24',
-    },
-    {
-        id: '2',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'Ha Noi City',
-        age: '29',
-    },
-    {
-        id: '3',
-        username: 'dangbalinh',
-        email: 'linha1xp@gmail.com',
-        image: man,
-        address: 'HCMC City',
-        age: '20',
     }
 ];
 
@@ -126,7 +110,7 @@ function TableCustomer({type}) {
             ),
         },
         {
-            field: 'username',
+            field: 'hoten',
             headerName: 'Tên',
             width: 180,
             renderCell: (param) => (
