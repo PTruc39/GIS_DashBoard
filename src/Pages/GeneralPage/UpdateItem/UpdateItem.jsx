@@ -235,7 +235,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         console.log("ok");
         console.log(id);
         axios
-            .put(`http://localhost:3001/product/${id}`, formInp)
+            .put(`http://localhost:3001/api/product/${id}`, formInp)
             .then((response) => {
                 console.log("Update successfully!" + response);
             })

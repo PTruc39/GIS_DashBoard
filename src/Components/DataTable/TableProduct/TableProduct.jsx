@@ -24,17 +24,18 @@ function TableProduct() {
     };
     const handleDeleteAction = async (id) => {
         const notification = await Swal.fire({
-            title: "Delete this item",
+            title: "Xóa sản phẩm",
             icon: "warning",
-            text: "Do you want to delete this item?",
-            button: "Ok",
+            text: "Bạn có muốn xóa sản phẩm này?",
+            button: "Đồng ý",
             showCancelButton: true,
-            confirmButtonText: "Ok",
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Hủy"
         });
         if (notification.isConfirmed) {
             handleDlt(id);
             Swal.fire({
-                title: "Delete successfully",
+                title: "Xóa sản phẩm thành công!",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -76,19 +77,19 @@ function TableProduct() {
                 <div className={classes.userr}>{param.row.id}</div>
             ),
         },
-        {
-            field: "image",
-            headerName: "Hình ảnh",
-            width: 250,
-            headerAlign: "center",
-            renderCell: (param) => (
-                <img
-                    src={param.row.hinh}
-                    alt="Product Image"
-                    className={classes.product_image}
-                />
-            ),
-        },
+        // {
+        //     field: "image",
+        //     headerName: "Hình ảnh",
+        //     width: 250,
+        //     headerAlign: "center",
+        //     renderCell: (param) => (
+        //         <img
+        //             src={param.row.hinh}
+        //             alt="Product Image"
+        //             className={classes.product_image}
+        //         />
+        //     ),
+        // },
         {
             field: "productName",
             headerName: "Tên sản phẩm",
@@ -116,7 +117,7 @@ function TableProduct() {
             headerName: "Giá",
             width: 150,
             headerAlign: "center",
-            renderCell: (param) => <div>{param.row.gia}</div>,
+            renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
         },
         {
             field: "color",
