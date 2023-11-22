@@ -11,10 +11,13 @@ import TableEmployee from '../../Components/DataTable/TableEmployee/TableEmploye
 import TableStore from '../../Components/DataTable/TableStore/TableStore';
 import TableNews from '../../Components/DataTable/TableNews/TableNews';
 import TableInvoice from '../../Components/DataTable/TableInvoice/TableInvoice';
+import TableDamage from '../../Components/DataTable/TableDamage/TableDamage';
 import axios from 'axios';
 import classes from './DefaultLayoutPage.module.scss';
 import { Margin } from '@mui/icons-material';
 import {saveAs} from 'file-saver';
+import TableBuilding from '../../Components/DataTable/TableBuilding/TableBuilding';
+import TableRepair from '../../Components/DataTable/TableRepair/TableRepair';
 
 function DefaultLayoutPage({ type }) {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -92,23 +95,29 @@ function DefaultLayoutPage({ type }) {
             border: 'none'
         };
         switch (type) {
+            case 'repair':
+                return <TableRepair />;
             case 'customer':
                 return <TableCustomer />;
+                case 'building':
+                
+                return (
+                    <div >
+                        <TableBuilding />
+                    </div>
+                );
+                case 'damagereport':
+                    return (
+                        <div >
+                            
+                            <TableDamage/>
+                        </div>
+                    );
             case 'product':
 
                 return (
                     <div >
-                        <div style={{ display: 'flex' }}>
-                            <Dropzone onDrop={handleFileDrop} accept=".xlsx,.xls">
-                                {({ getRootProps, getInputProps }) => (
-                                    <div {...getRootProps()}>
-                                        <input {...getInputProps()} />
-                                        <button style={mystyle}>Nhập sản phẩm từ Excel</button>
-                                    </div>
-                                )}
-                            </Dropzone>
-                            <button style={mystyle} onClick={DownloadProductExcel}>Xuất danh sách sản phẩm</button>
-                        </div>
+                        
 
                         <TableProduct />
                     </div>
@@ -138,13 +147,25 @@ function DefaultLayoutPage({ type }) {
                 return <TableNews />;
         }
     }
-
+console.log(type);
     let linkPath;
     let title;
     switch (type) {
+        case "building":
+            linkPath = "building";
+            title = "công trình";
+            break;
+            case "repair":
+            linkPath = "repair";
+            title = "sửa chữa";
+            break;
         case "product":
             linkPath = "products";
             title = "sản phẩm";
+            break;
+            case "damagereport":
+            linkPath = "products2";
+            title = "hư hại";
             break;
         case "customer":
             linkPath = "customers";

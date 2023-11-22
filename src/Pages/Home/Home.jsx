@@ -12,6 +12,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 function Home() {
+
+
     const [data, setData] = useState([]);
     const [total, setTotal] = useState(0);
     const exportToExcel = (dataInput) => {
@@ -63,39 +65,13 @@ function Home() {
                 <div className={classes.bg_color} />
 
                 <div className={classes.home_items}>
-                    <ItemLists type="customer" />
-                    <ItemLists type="order" />
-                    <ItemLists type="new" />
+                    
+                    <ItemLists type="repair" />
+                    <ItemLists type="Report" />
                     <ItemLists type="employee" />
                 </div>
-
-                <div className={classes.chart_sec}>
-                    <ProgressBar />
-                    <label>Biểu đồ 1. Biểu đồ biểu thị số lượng các loại sản phẩm</label>
-                </div>
-
-                <div className={classes.column}>
-                    <div className={classes.title}>
-                        <p>Doanh thu theo tháng</p>
-                        <button style={mystyle} onClick={handleExportClick}>Export Excel File</button>
-                    </div>
-                    <div className={classes.revenue}>
-                        <p>Tổng doanh thu hiện tại:</p>
-                        <p className={classes.totalRevenue}>{total.toLocaleString()}</p>
-                        <img src='https://cdn-icons-png.flaticon.com/512/32/32730.png' width="24" height="22"></img>
-                    </div>
-
-                    <BarChart width={1100} height={600} data={data} className={classes.chart}>
-                        <CartesianGrid strokeDasharray="4 5" />
-                        <XAxis dataKey="month" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="revenue" fill="#FFBB28" />
-                    </BarChart>
-                    <label>Biểu đồ 2. Biểu đồ doanh thu từng tháng</label>
-
-                </div>
+{/*<div>  <div dangerouslySetInnerHTML={{ __html: htmlFileString }}></div> </div>*/}
+               
 
 
             </div>

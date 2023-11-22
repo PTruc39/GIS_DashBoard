@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roof 3D</title>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.16/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.16/"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="viewDiv"></div>
+      <div id="toolDiv">
+        <div class="form-container">
+          <div class="btn">Tính khoảng cách 2 điểm</div>
+          <!-- <form action=""></form> -->
+          <form id="form1" class="form hidden">
+            <label for="point1">A(x,y)</label>
+            <input type="text" id="point1" name="point1" placeholder="x,y" />
+
+            <label for="point2">B(x,y)</label>
+            <input type="text" id="point2" name="point2" placeholder="x,y" />
+
+            <label for="result1">Kết quả:</label>
+            <div id="result1"></div>
+
+            <input class="submit-btn" type="submit" value="Submit" />
+          </form>
+        </div>
+
+        <div class="form-container">
+          <div class="btn">Hiển thị điểm trên map</div>
+          <!-- <form action=""></form> -->
+          <form id="form2" class="form hidden">
+            <label for="point">A(x,y,z)</label>
+            <input type="text" id="point" name="point" placeholder="x,y,z" />
+            <input class="submit-btn" type="submit" value="Submit" />
+          </form>
+        </div>
+
+        <div class="form-container">
+          <div class="btn">Dịch chuyển điểm</div>
+          <form id="form3" class="form hidden">
+            <label for="point3">A(x,y,z)</label>
+            <input type="text" id="point3" name="point3" placeholder="x,y,z" />
+
+            <label for="dist">Khoảng cách</label>
+            <input type="text" id="dist" name="dist" placeholder="x,y,z" />
+
+            <label for="angle3">Góc xoay trên mặt phẳng 2D</label>
+            <input
+              type="text"
+              id="angle31"
+              name="angle31"
+              placeholder="x,y,z"
+            />
+
+            <label for="angle3">Góc xoay theo trục z</label>
+            <input
+              type="text"
+              id="angle32"
+              name="angle32"
+              placeholder="x,y,z"
+            />
+            <button id="delete3">Xóa điểm vừa tạo</button>
+
+            <input class="submit-btn" type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="form-container">
+          <div class="btn">Tìm điểm đối xứng qua mặt phẳng</div>
+          <!-- <form action=""></form> -->
+          <form id="form4" class="form hidden">
+            <label for="rings">Điểm A</label>
+            <input
+              type="text"
+              id="rings"
+              name="rings"
+              placeholder="x,y,z],[x1,y1,z1"
+            />
+
+            <input class="submit-btn" type="submit" value="Submit" />
+          </form>
+        </div>
+
+        <div class="form-container">
+          <div class="btn">Hiển thị đường trên map</div>
+          <!-- <form action=""></form> -->
+          <form id="form5" class="form hidden">
+            <label for="line">paths: x1,y1,z1;x2,y2,z2;x3,y3,z3</label>
+            <input
+              type="text"
+              id="line"
+              name="line"
+              placeholder="Nhập đúng cấu trúc trên mới ra"
+            />
+            <input class="submit-btn" type="submit" value="Submit" />
+          </form>
+        </div>
+
+        <div class="form-container">
+          <div class="btn">Vẽ hình tròn</div>
+          <!-- <form action=""></form> -->
+          <form id="form6" class="form hidden">
+            <label for="centerP">Tâm đường tròn:</label>
+            <input
+              type="text"
+              id="centerP"
+              name="centerP"
+              placeholder="x,y,z"
+            />
+
+            <label for="radius">Bán kính (m):</label>
+            <input type="text" id="radius" name="radius" placeholder="r (m)" />
+
+            <label for="rotation">Góc xoay hợp với Oxy (độ):</label>
+            <input
+              type="text"
+              id="rotation"
+              name="rotation"
+              placeholder="180"
+            />
+
+            <label for="rotation1">Góc xoay đường tròn</label>
+            <input
+              type="text"
+              id="rotation1"
+              name="rotation1"
+              placeholder="180"
+            />
+
+            <input class="submit-btn" type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="./toolEvent.js"></script>
+    <script>
+      var map;
+      var list_points = [];
+      var string_points = "";
+      function copyTextToClipboard(text) {
+        if (!navigator.clipboard) {
+          fallbackCopyTextToClipboard(text);
+          return;
+        }
+        navigator.clipboard.writeText(text).then(
+          function () {
+            console.log("Async: Copying to clipboard was successful!");
+          },
+          function (err) {
+            console.error("Async: Could not copy text: ", err);
+          }
+        );
+      }
+
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/geometry/Point",
+        "esri/geometry/Polyline",
+        "esri/Graphic",
+        "esri/symbols/PictureMarkerSymbol",
+        "esri/layers/FeatureLayer",
+        "esri/geometry/SpatialReference",
+        "esri/tasks/GeometryService",
+        "esri/tasks/support/DistanceParameters",
+        "esri/geometry/support/geodesicUtils",
+        "esri/layers/GeoJSONLayer",
+        "esri/layers/GraphicsLayer",
+        "esri/request",
+      ], function (
+        Map,
+        SceneView,
+        Point,
+        Polyline,
+        Graphic,
+        PictureMarkerSymbol,
+        FeatureLayer,
+        SpatialReference,
+        GeometryService,
+        DistanceParameters,
+        geodesicUtils,
+        GeoJSONLayer,
+        GraphicsLayer,
+        esriRequest
+      ) {
+        const map = new Map({
+          basemap: "topo-vector",
+          ground: "world-elevation",
+        });
+
+        const view = new SceneView({
+          container: "viewDiv",
+          map: map,
+          camera: {
+            // position: [106.70098190805595, 10.777971245189503, 500],
+            position: [106.69853431870011, 10.780253087624407, 200],
+            //   heading: -45, // góc xoay của camera hướng về đông tây nam bắc
+            //   tilt: 28 // góc camera hợp với đường thẳng vuông góc với mặt đất
+            heading: 140,
+            titl: 30,
+          },
+        });
+
+        var graphicsLayer = new GraphicsLayer();
+
+        var createGraphic = function (data) {
+          return new Graphic({
+            geometry: data,
+            symbol: data.symbol,
+            attributes: {
+              name: "polygon",
+            },
+            attributes: data.attributes,
+            popupTemplate: {
+              title: "{name}",
+              content: [
+                {
+                  type: "fields",
+                  fieldInfos: [
+                    { fieldName: "name", label: "name" },
+                    { fieldName: "Do dai", label: "Độ dài(m)" },
+                    { fieldName: "Member", label: "Thành viên" },
+                  ],
+                },
+              ],
+            },
+          });
+        };
+
+        const json_options = {
+          query: {
+            f: "json",
+          },
+          responseType: "json",
+        };
+        // request json
+        esriRequest("./face.json", json_options).then(function (response) {
+          console.log(response);
+          response.data.forEach(function (data) {
+            // console.log(data);
+            graphicsLayer.add(createGraphic(data));
+          });
+          map.add(graphicsLayer);
+        });
+
+        geometryService = new GeometryService(
+          "https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+        );
+        function calcDistanceOfTwoPoint(x1, y1, x2, y2) {
+          console.log(x1, " | ", y1, " | ", x2, " | ", y2, " | ");
+          let meter_value;
+          var pt1 = new Point(x1, y1, new SpatialReference({ wkid: 4326 }));
+          var pt2 = new Point(x2, y2, new SpatialReference({ wkid: 4326 }));
+          // Define points for measurement
+          var firstPoint = new Point({
+            longitude: x1,
+            latitude: y1,
+          });
+          var otherPoint = new Point({
+            longitude: x2,
+            latitude: y2,
+          });
+
+          // Measure distance and output result to console log
+          var distanceUnits = "meters";
+          var distanceResult = geodesicUtils.geodesicDistance(
+            firstPoint,
+            otherPoint,
+            distanceUnits
+          );
+          console.log("hey i'm here ", distanceResult.distance, distanceUnits);
+          return distanceResult.distance;
+        }
+
+        let point = {
+          type: "point",
+          x: 105.14813632186537,
+          y: 10.704784801285976,
+          z: 30,
+        };
+        const markerSymbol = {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          color: [226, 119, 40],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
+
+        function addPoint(x, y, z) {
+          console.log("add point: [", x, ",", y, ",", z, "]");
+          point.x = x;
+          point.y = y;
+          point.z = z;
+          const pointGraphic = new Graphic({
+            geometry: point,
+            symbol: markerSymbol,
+          });
+          alert(x + ", " + y + ", " + z);
+          view.graphics.add(pointGraphic);
+        }
+
+        function addLine(CoordinatesStr) {
+          var pathStrings = CoordinatesStr.split(";");
+
+          var paths = pathStrings.map(function (pathString) {
+            // Thêm dấu `[` và `]` vào đầu và cuối chuỗi
+            let coordinates = pathString
+              .split(",")
+              .map((item) => parseFloat(item.trim()));
+            return coordinates;
+          });
+
+          console.log(paths);
+
+          var polyline = {
+            type: "polyline",
+            paths: paths,
+            symbol: {
+              type: "simple-line",
+              color: [226, 119, 40],
+              width: 4,
+            },
+          };
+
+          let lineGraphic = new Graphic({
+            geometry: polyline,
+          });
+          view.graphics.add(lineGraphic);
+        }
+
+        let form1 = document.getElementById("form1");
+        form1.addEventListener("submit", function (event) {
+          // Prevent form from actually submitting to a server
+          event.preventDefault();
+          let p1Str = document.getElementById("point1").value;
+          let p2Str = document.getElementById("point2").value;
+
+          let p1Arr = p1Str.split(",").map((item) => parseFloat(item.trim()));
+          let p2Arr = p2Str.split(",").map((item) => parseFloat(item.trim()));
+
+          let x1 = p1Arr[0];
+          let y1 = p1Arr[1];
+
+          let x2 = p2Arr[0];
+          let y2 = p2Arr[1];
+
+          let result = calcDistanceOfTwoPoint(x1, y1, x2, y2);
+          console.log("result: ", result);
+          let result1 = document.getElementById("result1");
+          result1.innerHTML = result.toString();
+        });
+
+        let form2 = document.getElementById("form2");
+
+        form2.addEventListener("submit", function (event) {
+          // Prevent form from actually submitting to a server
+          event.preventDefault();
+          let pStr = document.getElementById("point").value;
+
+          let pArr = pStr.split(",").map((item) => parseFloat(item.trim()));
+
+          console.log(pArr);
+          let x = pArr[0];
+          let y = pArr[1];
+          let z = pArr[2];
+
+          addPoint(x, y, z);
+        });
+
+        function dichChuyenDiem(p3Arr, dist, angle31, angle32) {
+          var radiusZ = parseFloat(dist);
+          var radiusXY = radiusZ / 111321;
+          let angleXY = (Math.PI * parseFloat(angle31)) / 180;
+          let angleZ = (Math.PI * parseFloat(angle32)) / 180;
+
+          var dx = radiusXY * Math.cos(angleZ) * Math.cos(angleXY);
+          var dy = radiusXY * Math.cos(angleZ) * Math.sin(angleXY);
+          var dz = radiusZ * Math.sin(angleZ);
+
+          let B = [p3Arr[0] + dx, p3Arr[1] + dy, p3Arr[2] + dz];
+          return B;
+        }
+
+        let form3 = document.getElementById("form3");
+        form3.addEventListener("submit", function (event) {
+          // Prevent form from actually submitting to a server
+          event.preventDefault();
+          let p3Str = document.getElementById("point3").value;
+          let dist = document.getElementById("dist").value;
+          let angle31 = document.getElementById("angle31").value;
+          let angle32 = document.getElementById("angle32").value;
+
+          let p3Arr = p3Str.split(",").map((item) => parseFloat(item.trim()));
+          console.log("p3Atrr", p3Arr);
+          let B = dichChuyenDiem(p3Arr, dist, angle31, angle32);
+          console.log("Diem dich chuyen");
+          addPoint(B[0], B[1], B[2]);
+        });
+
+        let form4 = document.getElementById("form4");
+
+        form4.addEventListener("submit", function (event) {
+          // Prevent form from actually submitting to a server
+          event.preventDefault();
+          let pStr = document.getElementById("rings").value;
+
+          let pArr = pStr.split(",").map((item) => parseFloat(item.trim()));
+
+          console.log(pArr);
+
+          console.log("Diem doi xung");
+          let B = timDiemDX(pArr, [106.6993842568616, 10.779516839019685, 17]);
+          addPoint(B[0], B[1], B[2]);
+        });
+
+        let form5 = document.getElementById("form5");
+
+        form5.addEventListener("submit", function (event) {
+          // Prevent form from actually submitting to a server
+          event.preventDefault();
+          let coordinatesStr = document.getElementById("line").value;
+          addLine(coordinatesStr);
+        });
+
+        // Vẽ hình tròn
+        document
+          .getElementById("form6")
+          .addEventListener("submit", function (event) {
+            // Prevent form from actually submitting to a server
+            event.preventDefault();
+
+            // Retrieve values from the form
+            let centerP = document.getElementById("centerP").value;
+            let radius = document.getElementById("radius").value;
+            let rotation = document.getElementById("rotation").value;
+            let rotation1 = document.getElementById("rotation1").value;
+
+            // Define the circle's center and radius
+            // var center = [106.69937279830634, 10.779509830106498, 50];
+            let center = centerP.split(",").map(parseFloat);
+            var radiusZ = parseFloat(radius); // in decimal degrees
+            var radiusXY = radiusZ / 111321;
+            var rotationN = parseFloat(rotation);
+            //1 độ vĩ ≈ 111.32km
+
+            // Calculate the circle's coordinates
+            var circlePoints = [];
+            let i;
+
+            for (i = 0; i < rotation1; i += 3.6) {
+              var angle = (Math.PI * i) / 180;
+              var dx =
+                radiusXY *
+                Math.cos(angle) *
+                Math.cos((Math.PI * rotationN) / 180);
+              var dy =
+                radiusXY *
+                Math.cos(angle) *
+                Math.sin((Math.PI * rotationN) / 180);
+              var dz = radiusZ * Math.sin(angle);
+              var doLech = 0.00000000001 / i;
+              circlePoints.push([
+                center[0] + dx,
+                center[1] + dy,
+                center[2] + dz,
+              ]); // 100 meters above the ground
+            }           
+
+            circlePoints.push(circlePoints[0]); // Close the circle
+
+            console.log(circlePoints);
+
+            var circlePolygon = {
+              type: "polygon",
+              rings: [circlePoints],
+              spatialReference: { wkid: 4326 },
+            };
+
+            var circleGraphic = new Graphic({
+              geometry: circlePolygon,
+              symbol: {
+                type: "simple-fill",
+                color: [51, 255, 51, 0.8],
+                outline: {
+                  color: [0, 0, 255, 1],
+                  width: 2,
+                },
+              },
+            });
+
+            graphicsLayer.add(circleGraphic);
+          });
+
+        // Hàm tìm điểm đối xứng qua mặt phẳng
+        // A là điểm càn tìm điểm đối xứng, O là điểm nằm trong mp đó
+        function timDiemDX(A, O) {
+          // tìm các tham số Rxy, Rz, cosZ, cos(XY), sin ... theo hướng từ O đến A
+          var dx = A[0] - O[0];
+          var dy = A[1] - O[1];
+          var dz = A[2] - O[2];
+
+          var SqrRxyCosZ = dx * dx + dy * dy;
+          var SqrRxySinZ = Math.pow(dz / 111321, 2);
+          var Rxy = Math.sqrt(SqrRxySinZ + SqrRxyCosZ);
+
+          var sinZ = dz / (111321 * Rxy);
+          var cosZ = Math.sqrt(1 - sinZ * sinZ);
+
+          var cosXY = dx / (Rxy * cosZ);
+          var sinXY = dy / (Rxy * cosZ);
+
+          var gocXY = Math.acos(cosXY);
+          var gocXY1 = (2 * 138 * Math.PI) / 180 - gocXY;
+
+          var cosXY1 = Math.cos(gocXY1);
+          var sinXY1 = Math.sin(gocXY1);
+
+          var dx1 = Rxy * cosZ * cosXY1;
+          var dy1 = Rxy * cosZ * sinXY1;
+          var dz1 = 111321 * Rxy * sinZ;
+
+          var B = [O[0] + dx1, O[1] + dy1, O[2] + dz1];
+          return B;
+        }
+
+        // DỊCH CHUYỂN NHIỀU ĐIỂM
+        function DichChuyenCoordinates() {
+          const coordinates = [
+          [106.69883638835071, 10.780120838856343, 21.9], 
+                        [106.69883639834102, 10.780120849951693, 21.9528873603209], 
+                        [106.69883642827249, 10.780120883193957, 22.00556599839255], 
+                        [106.69883647802699, 10.780120938451942, 22.057828015697062], 
+                        [106.69883654740819, 10.78012101550757, 22.109467157928382], 
+                        [106.69883663614226, 10.780121114056737, 22.160279628983798], 
+                        [106.69883674387901, 10.780121233710515, 22.210064895254067], 
+                        [106.69883687019325, 10.780121373996687, 22.258626477037943], 
+                        [106.69883701458647, 10.780121534361605, 22.305772723957805], 
+                        [106.69883717648882, 10.780121714172383, 22.35131757131613], 
+                        [106.69883735526135, 10.78012191271939, 22.395081274407854], 
+                        [106.69883755019852, 10.78012212921905, 22.43689111789061], 
+                        [106.698837760531, 10.780122362816941, 22.47658209741327], 
+                        [106.69883798542871, 10.780122612591157, 22.513997570812748], 
+                        [106.69883822400409, 10.780122877555952, 22.548989876309033], 
+                        [106.69883847531557, 10.780123156665633, 22.5814209152588], 
+                        [106.69883873837136, 10.780123448818681, 22.61116269716764], 
+                        [106.69883901213329, 10.780123752862103, 22.638097844810094], 
+                        [106.69883929552094, 10.780124067595976, 22.662120057463913], 
+                        [106.69883958741592, 10.78012439177819, 22.683134530430454], 
+                        [106.69883988666624, 10.780124724129346, 22.70105832918552], 
+                        [106.69884019209091, 10.780125063337804, 22.715820716684032], 
+                        [106.69884050248456, 10.780125408064867, 22.727363432526825], 
+                        [106.69884081662218, 10.780125756950053, 22.735640922887832], 
+                        [106.69884113326405, 10.78012610861647, 22.74062052029422], 
+                        [106.6988414511605, 10.780126461676254, 22.74228257255], 
+                        [106.69884176905695, 10.780126814736038, 22.74062052029422], 
+                        [106.69884208569883, 10.780127166402455, 22.735640922887832], 
+                        [106.69884239983645, 10.78012751528764, 22.727363432526825], 
+                        [106.6988427102301, 10.780127860014703, 22.715820716684032], 
+                        [106.69884301565477, 10.780128199223162, 22.70105832918552], 
+                        [106.69884331490509, 10.780128531574318, 22.683134530430454], 
+                        [106.69884360680007, 10.780128855756532, 22.662120057463913], 
+                        [106.69884389018772, 10.780129170490405, 22.638097844810094], 
+                        [106.69884416394964, 10.780129474533826, 22.611162697167643], 
+                        [106.69884442700544, 10.780129766686875, 22.5814209152588], 
+                        [106.69884467831692, 10.780130045796556, 22.548989876309033], 
+                        [106.6988449168923, 10.78013031076135, 22.513997570812748], 
+                        [106.69884514179, 10.780130560535566, 22.476582097413274], 
+                        [106.69884535212249, 10.780130794133457, 22.43689111789061], 
+                        [106.69884554705966, 10.780131010633118, 22.395081274407854], 
+                        [106.69884572583219, 10.780131209180125, 22.35131757131613], 
+                        [106.69884588773454, 10.780131388990903, 22.30577272395781], 
+                        [106.69884603212776, 10.78013154935582, 22.258626477037947], 
+                        [106.698846158442, 10.780131689641992, 22.210064895254067], 
+                        [106.69884626617875, 10.78013180929577, 22.1602796289838], 
+                        [106.69884635491282, 10.780131907844938, 22.109467157928385], 
+                        [106.69884642429402, 10.780131984900565, 22.057828015697066], 
+                        [106.69884647404852, 10.78013204015855, 22.00556599839255], 
+                        [106.69884650398, 10.780132073400814, 21.9528873603209], 
+                        [106.6988465139703, 10.780132084496165, 21.900000000000002]
+          ];
+          let result = [];
+          coordinates.forEach((coordinate) => {
+            result.push(dichChuyenDiem(coordinate, 10, 228, 0));
+          });
+          console.log("Tọa độ các điểm sau dịch chuyển:");
+          console.log(result);
+        }
+
+        DichChuyenCoordinates();
+
+        // ĐỐI XỨNG NHIỀU ĐIỂM QUA MẶT PHẲNG
+        function DoiXungCoordinates() {
+          const coordinates = [
+                            [106.69880243214487, 10.780069354064405, 19.4],
+                            [106.69879202369044, 10.780071566449688, 19.4],
+                            [106.69879202369144, 10.780071566450688, 24.4],
+                            [106.69880243214587, 10.780069354065405, 24.4],
+                            [106.69880243214487, 10.780069354064405, 19.4]
+          ];
+          let result = [];
+          coordinates.forEach((coordinate) => {
+            result.push(
+              timDiemDX(coordinate, [106.6993842568616, 10.779516839019685, 17])
+            );
+          });
+          console.log("Tọa độ các điểm đối xứng:");
+          console.log(result);
+        }
+
+        DoiXungCoordinates();
+
+        function plus() {
+          const plusX = -0.00000000001
+          const plusY = -0.00000000001
+          const plusZ = 0
+          const daonguoc = false
+          const coordinates = [
+          [106.69883638835071, 10.780120838856343, 21.9], 
+                        [106.69883639834102, 10.780120849951693, 21.9528873603209], 
+                        [106.69883642827249, 10.780120883193957, 22.00556599839255], 
+                        [106.69883647802699, 10.780120938451942, 22.057828015697062], 
+                        [106.69883654740819, 10.78012101550757, 22.109467157928382], 
+                        [106.69883663614226, 10.780121114056737, 22.160279628983798], 
+                        [106.69883674387901, 10.780121233710515, 22.210064895254067], 
+                        [106.69883687019325, 10.780121373996687, 22.258626477037943], 
+                        [106.69883701458647, 10.780121534361605, 22.305772723957805], 
+                        [106.69883717648882, 10.780121714172383, 22.35131757131613], 
+                        [106.69883735526135, 10.78012191271939, 22.395081274407854], 
+                        [106.69883755019852, 10.78012212921905, 22.43689111789061], 
+                        [106.698837760531, 10.780122362816941, 22.47658209741327], 
+                        [106.69883798542871, 10.780122612591157, 22.513997570812748], 
+                        [106.69883822400409, 10.780122877555952, 22.548989876309033], 
+                        [106.69883847531557, 10.780123156665633, 22.5814209152588], 
+                        [106.69883873837136, 10.780123448818681, 22.61116269716764], 
+                        [106.69883901213329, 10.780123752862103, 22.638097844810094], 
+                        [106.69883929552094, 10.780124067595976, 22.662120057463913], 
+                        [106.69883958741592, 10.78012439177819, 22.683134530430454], 
+                        [106.69883988666624, 10.780124724129346, 22.70105832918552], 
+                        [106.69884019209091, 10.780125063337804, 22.715820716684032], 
+                        [106.69884050248456, 10.780125408064867, 22.727363432526825], 
+                        [106.69884081662218, 10.780125756950053, 22.735640922887832], 
+                        [106.69884113326405, 10.78012610861647, 22.74062052029422], 
+                        [106.6988414511605, 10.780126461676254, 22.74228257255], 
+                        [106.69884176905695, 10.780126814736038, 22.74062052029422], 
+                        [106.69884208569883, 10.780127166402455, 22.735640922887832], 
+                        [106.69884239983645, 10.78012751528764, 22.727363432526825], 
+                        [106.6988427102301, 10.780127860014703, 22.715820716684032], 
+                        [106.69884301565477, 10.780128199223162, 22.70105832918552], 
+                        [106.69884331490509, 10.780128531574318, 22.683134530430454], 
+                        [106.69884360680007, 10.780128855756532, 22.662120057463913], 
+                        [106.69884389018772, 10.780129170490405, 22.638097844810094], 
+                        [106.69884416394964, 10.780129474533826, 22.611162697167643], 
+                        [106.69884442700544, 10.780129766686875, 22.5814209152588], 
+                        [106.69884467831692, 10.780130045796556, 22.548989876309033], 
+                        [106.6988449168923, 10.78013031076135, 22.513997570812748], 
+                        [106.69884514179, 10.780130560535566, 22.476582097413274], 
+                        [106.69884535212249, 10.780130794133457, 22.43689111789061], 
+                        [106.69884554705966, 10.780131010633118, 22.395081274407854], 
+                        [106.69884572583219, 10.780131209180125, 22.35131757131613], 
+                        [106.69884588773454, 10.780131388990903, 22.30577272395781], 
+                        [106.69884603212776, 10.78013154935582, 22.258626477037947], 
+                        [106.698846158442, 10.780131689641992, 22.210064895254067], 
+                        [106.69884626617875, 10.78013180929577, 22.1602796289838], 
+                        [106.69884635491282, 10.780131907844938, 22.109467157928385], 
+                        [106.69884642429402, 10.780131984900565, 22.057828015697066], 
+                        [106.69884647404852, 10.78013204015855, 22.00556599839255], 
+                        [106.69884650398, 10.780132073400814, 21.9528873603209], 
+                        [106.6988465139703, 10.780132084496165, 21.900000000000002]
+          ];
+          let result = [];
+          let limit = coordinates.length
+          if(daonguoc)
+          {
+            for (let i = limit-1; i >= 0; i--) {
+                result.push(
+                  [coordinates[i][0]+plusX, coordinates[i][1]+plusY, coordinates[i][2]+plusZ]
+                );
+            }
+          }
+          else
+          {
+            for (let i = 0; i < coordinates.length; i++) {
+                result.push(
+                  [coordinates[i][0]+plusX, coordinates[i][1]+plusY, coordinates[i][2]+plusZ]
+                );
+            }
+          }
+          console.log("Tọa độ các điểm sau khi cộng:");
+          console.log(result);
+        }
+
+        // plus()
+
+        // Lấy path:
+        // Tạo một đối tượng XMLHttpRequest
+        // var xhr1 = new XMLHttpRequest();
+        let data;
+        // Thiết lập phương thức và URL cho yêu cầu
+        let prop = [
+          {
+            name: "wall",
+            color: "#FF7F24",
+          },
+          {
+            name: "hightRoof",
+            color: "#EEEEE0",
+          },
+          {
+            name: "lowRoof",
+            color: "#8B4513",
+          },
+          {
+            name: "window",
+            color: "#EEEEE0",
+          },
+        ];
+
+        // xhr1.open("GET", "http://localhost:3000/api/bodycomp/path/all", true);
+
+        // // Định nghĩa hàm xử lý sự kiện khi yêu cầu hoàn thành
+        // xhr1.onload = function () {
+        //   if (xhr1.status >= 200 && xhr1.status < 300) {
+        //     // Xử lý dữ liệu từ API
+        //     data = JSON.parse(xhr1.responseText);
+        //     // console.log(data);
+        //     data.map((url) => {
+        //       let geojsonLayer1 = new GeoJSONLayer({
+        //         url: "http://localhost:3000/api/bodycomp/path?path=" + url,
+        //       });
+        //       let obj = prop.find((obj) => url.includes(obj.name));
+        //       geojsonLayer1.renderer = {
+        //         type: "simple", // Sử dụng renderer đơn giản
+        //         symbol: {
+        //           type: "simple-fill", // Sử dụng symbol đơn giản là simple-fill
+        //           outline: {
+        //             color: [0, 0, 0, 0.8], // Màu đường viền (nếu cần)
+        //             width: 1, // Độ dày của đường viền (nếu cần)
+        //           },
+        //           color: obj.color, // Màu nền của polygon
+        //         },
+        //       };
+
+        //       // map.layers.add(geojsonLayer1);
+        //     });
+        //   } else {
+        //     console.error("Lỗi khi truy cập API: " + xhr1.status);
+        //   }
+        // };
+
+        // // Xử lý lỗi kết nối
+        // xhr1.onerror = function () {
+        //   console.error("Lỗi kết nối đến API.");
+        // };
+
+        // // Gửi yêu cầu
+        // xhr1.send();
+
+        // var xhr2 = new XMLHttpRequest();
+        // xhr2.open("GET", "http://localhost:3000/api/cylinder", true);
+
+        // // Định nghĩa hàm xử lý sự kiện khi yêu cầu hoàn thành
+        // xhr2.onload = function () {
+        //   if (xhr2.status >= 200 && xhr2.status < 300) {
+        //     // Xử lý dữ liệu từ API
+        //     data = JSON.parse(xhr2.responseText);
+        //     // console.log(data);
+        //     data.map((featureCollection) => {
+        //       let geojsonLayer1 = new GeoJSONLayer({
+        //         url: "http://localhost:3000/api/cylinder/path?path=" + featureCollection.features[0].properties.Path,
+        //       });
+
+        //       geojsonLayer1.renderer = {
+        //         type: "simple",
+        //         symbol: {
+        //           type: "polygon-3d",
+        //           symbolLayers: [
+        //             {
+        //               type: "extrude",
+        //               size: featureCollection.features[0].properties.Height,
+        //               material: {
+        //                 color: "#EE7621"
+        //               }
+        //             }
+        //           ]
+        //         }
+        //       };
+
+        //       // map.layers.add(geojsonLayer1);
+        //     });
+        //   } else {
+        //     console.error("Lỗi khi truy cập API: " + xhr2.status);
+        //   }
+        // };
+
+        // // Xử lý lỗi kết nối
+        // xhr2.onerror = function () {
+        //   console.error("Lỗi kết nối đến API.");
+        // };
+
+        // // Gửi yêu cầu
+        // xhr2.send();
+
+        let geojsonLayer1 = new GeoJSONLayer({
+          url: './wall.geojson'
+        });
+
+        geojsonLayer1.renderer = {
+          type: "simple",
+          symbol: {
+            type: "simple-fill", // Sử dụng symbol đơn giản là simple-fill
+            outline: {
+              color: [0, 0, 0, 0.8], // Màu đường viền (nếu cần)
+              width: 1, // Độ dày của đường viền (nếu cần)
+            },
+            color: [255, 127, 36, 1]	
+          },
+        };
+        // geojsonLayer1.renderer = {
+        //         type: "simple",
+        //         symbol: {
+        //           type: "polygon-3d",
+        //           symbolLayers: [
+        //             {
+        //               type: "extrude",
+        //               size: 0.1,
+        //               material: {
+        //                 color: "#EE7621"
+        //               }
+        //             }
+        //           ]
+        //         }
+        //       };
+
+
+        let geojsonLayer3 = new GeoJSONLayer({
+          url: './Column.geojson'
+        });
+
+         geojsonLayer3.renderer = {
+                 type: "simple",
+                 symbol: {
+                   type: "polygon-3d",
+                   symbolLayers: [
+                     {
+                      type: "extrude",
+                       size: 11.25,
+                       material: {
+                        color: "#e6e6ff"
+                      }
+                    }
+                  ]
+                }
+               };
+
+
+
+               let geojsonLayer4 = new GeoJSONLayer({
+                url: './floor1.geojson'
+              });
+      
+               geojsonLayer4.renderer = {
+                       type: "simple",
+                       symbol: {
+                         type: "polygon-3d",
+                         symbolLayers: [
+                           {
+                            type: "extrude",
+                             size: 0.5,
+                             material: {
+                              color: "#e6e6ff"
+                            }
+                          }
+                        ]
+                      }
+                     };
+
+                     let geojsonLayer5 = new GeoJSONLayer({
+                      url: './floor2.geojson'
+                    });
+            
+                     geojsonLayer5.renderer = {
+                             type: "simple",
+                             symbol: {
+                               type: "polygon-3d",
+                               symbolLayers: [
+                                 {
+                                  type: "extrude",
+                                   size: 0.5,
+                                   material: {
+                                    color: "#e6e6ff"
+                                  }
+                                }
+                              ]
+                            }
+                           };
+      
+        let geojsonLayer2 = new GeoJSONLayer({
+          url: './window.geojson'
+        });
+
+        geojsonLayer2.renderer = {
+          type: "simple",
+          symbol: {
+            type: "simple-fill", // Sử dụng symbol đơn giản là simple-fill
+            outline: {
+              color: [0, 0, 0, 0.8], // Màu đường viền (nếu cần)
+              width: 1, // Độ dày của đường viền (nếu cần)
+            },
+            color: [0, 0, 225, 0.7]	
+          },
+        };
+        map.layers.add(geojsonLayer1);
+        map.layers.add(geojsonLayer2);
+        map.layers.add(geojsonLayer3);
+        map.layers.add(geojsonLayer4);
+        map.layers.add(geojsonLayer5);
+
+        view.popup.defaultPopupTemplateEnabled = true;
+
+        view.on("click", function (event) {
+          // Listen for the click event
+          view.hitTest(event).then(function (hitTestResults) {
+            // Search for features where the user clicked
+            if (hitTestResults.results) {
+              list_points.push([
+                event.mapPoint.longitude,
+                event.mapPoint.latitude,
+              ]);
+              string_points +=
+                "[" +
+                event.mapPoint.longitude +
+                ", " +
+                event.mapPoint.latitude +
+                "],";
+              copyTextToClipboard(string_points);
+              console.log(list_points);
+              console.log(event);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

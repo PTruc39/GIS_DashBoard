@@ -72,6 +72,80 @@ function App() {
                                     />
                                 }></Route>
                         </Route>
+                        {/* DAMAGEREPORT */}
+                        <Route path="products2">
+                            <Route index element={<DefaultLayoutPage type="damagereport" />} />
+                            <Route path=":productId" element={< ViewNew inputs={productInpDetails}
+                                        titlee="Xem chi tiết sản phẩm"
+                                        type="DAMAGEREPORT"/>} />
+                            <Route
+                                path="addnew"
+                                element={
+                                    <AddNew
+                                        inputs={productInpDetails}
+                                        titlee="Thêm mới sản phẩm"
+                                        type="DAMAGEREPORT"
+                                    />
+
+                                }
+                            />
+                            <Route path="updatenew/:productId"
+                                element={
+                                    <UpdateItem inputs={productInpDetails}
+                                        type="DAMAGEREPORT"
+                                        titlee="Cập nhật sản phẩm"
+                                    />
+                                }></Route>
+                        </Route>
+                        {/* Repair status */}
+                        <Route path="repair">
+                            <Route index element={<DefaultLayoutPage type="repair" />} />
+                            <Route path=":productId" element={< ViewNew inputs={productInpDetails}
+                                        titlee="Xem sửa chữa"
+                                        type="REPAIR"/>} />
+                            <Route
+                                path="addnew"
+                                element={
+                                    <AddNew
+                                        inputs={productInpDetails}
+                                        titlee="Thêm sửa chửa"
+                                        type="REPAIR"
+                                    />
+
+                                }
+                            />
+                            <Route path="updatenew/:productId"
+                                element={
+                                    <UpdateItem inputs={productInpDetails}
+                                        type="REPAIR"
+                                        titlee="Cập nhật sửa chữa"
+                                    />
+                                }></Route>
+                        </Route>
+                        {/* CONG TRINH */}
+                        <Route path="building">
+                            <Route index element={<DefaultLayoutPage type="building" />} />
+                            <Route path=":promotionId" element={< ViewNew inputs={promotionInpDetails}
+                                        titlee="Xem công trình"
+                                        type="BUILDING"/>} />
+                            <Route
+                                path="addnew"
+                                element={
+                                    <AddNew
+                                        inputs={userInpDetails}
+                                        titlee="Thêm công trình mới"
+                                        type="BUILDING"
+                                    />
+                                }
+                            />
+                            <Route path="updatenew/:customerId"
+                                element={
+                                    <UpdateItem inputs={InputDetails.userUpDetails}
+                                        type="BUILDING"
+                                        titlee="Cập nhật công trình"
+                                    />
+                                }></Route>
+                        </Route>
 
                         {/* Customer */}
                         <Route path="customers">
@@ -121,7 +195,7 @@ function App() {
                                 }></Route>
                         </Route>
 
-                        {/* Order */}
+                        {/* Report */}
                         <Route path="orders">
                             <Route index element={<DefaultLayoutPage type="order" />} />
                             <Route path=":orderId" element={<OrderDetail />} />

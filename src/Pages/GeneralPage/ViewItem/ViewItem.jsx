@@ -40,6 +40,62 @@ const ViewNew = ({ inputs, titlee, type }) => {
 				baohanh: ''
 			};
 			break;
+		case 'CUSTOMER':
+			dynamicInpVal = {
+				tensanpham: '',
+				loaisanpham: '',
+				masp: '',
+				hinh: '',
+				gia: '',
+				rom: '',
+				mausac: '',
+				ram: '',
+				chip: '',
+				baomat: '',
+				chongnuoc: '',
+				sac: '',
+				dophangiai: '',
+				kichthuoc: '',
+				camera: '',
+				khoiluong: '',
+				hedieuhanh: '',
+				nguongoc: '',
+				chatlieu: '',
+				kichthuocmanhinh: '',
+				loaiphukien: '',
+				congnghe: '',
+				congsuat: '',
+				baohanh: ''
+			};
+			break;
+			case 'DAMAGEREPORT':
+			dynamicInpVal = {
+				tensanpham: '',
+				loaisanpham: '',
+				masp: '',
+				hinh: '',
+				gia: '',
+				rom: '',
+				mausac: '',
+				ram: '',
+				chip: '',
+				baomat: '',
+				chongnuoc: '',
+				sac: '',
+				dophangiai: '',
+				kichthuoc: '',
+				camera: '',
+				khoiluong: '',
+				hedieuhanh: '',
+				nguongoc: '',
+				chatlieu: '',
+				kichthuocmanhinh: '',
+				loaiphukien: '',
+				congnghe: '',
+				congsuat: '',
+				baohanh: ''
+			};
+			break;
 		case 'PRODUCT':
 			dynamicInpVal = {
 				tensanpham: '',

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try</title>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.15/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.15/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+    </style>
+    <script>
+        require([
+  "esri/Map",
+  "esri/views/SceneView",
+  "esri/Graphic",
+  "esri/geometry/Mesh",
+  "esri/symbols/FillSymbol3DLayer",
+  "esri/symbols/ExtrudeSymbol3DLayer"
+], function(Map, SceneView, Graphic, Mesh, FillSymbol3DLayer, ExtrudeSymbol3DLayer) {
+
+  const map = new Map({
+    basemap: "topo"
+  });
+
+  const view = new SceneView({
+    container: "viewDiv",
+    map: map,
+    viewingMode: "local",
+    camera: {
+      position: {
+        x: 106.69944436507177,
+        y: 10.779583595950136,
+        z: 17
+      },
+      heading: 0,
+      tilt: 0
+    }
+  });
+
+  const squareBasePoints = [
+    [106.69944436507177, 10.779583595950136, 17],
+    [106.69937760814132, 10.7796437041603, 17],
+    [106.69943771635148, 10.779710461090751, 17],
+    [106.69950447328193, 10.779650352880587, 17]
+  ];
+
+  const apexPoint = [106.69944436507177, 10.779583595950136, 25]; // Đỉnh của hình chóp
+
+  const edges = [
+    [apexPoint, squareBasePoints[0]],
+    [apexPoint, squareBasePoints[1]],
+    [apexPoint, squareBasePoints[2]],
+    [apexPoint, squareBasePoints[3]]
+  ];
+
+  const polygon = new Mesh({
+    vertexAttributes: {
+      position: [].concat(...squareBasePoints, apexPoint)
+    },
+    edges: edges
+  });
+
+  const fillSymbolLayer = new FillSymbol3DLayer({
+    material: {
+      color: [255, 0, 0, 0.5]
+    }
+  });
+
+  const extrudeSymbolLayer = new ExtrudeSymbol3DLayer({
+    size: 8
+  });
+
+  const symbol = {
+    type: "point-3d",
+    symbolLayers: [fillSymbolLayer, extrudeSymbolLayer]
+  };
+
+  const graphic = new Graphic({
+    geometry: polygon,
+    symbol: symbol
+  });
+
+  const graphicsLayer = new GraphicsLayer();
+  graphicsLayer.add(graphic);
+
+  map.add(graphicsLayer);
+});
+
+    </script>
+</head>
+<body>
+    <div id="viewDiv"></div>
+</body>
+</html>

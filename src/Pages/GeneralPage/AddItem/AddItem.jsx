@@ -35,6 +35,16 @@ function AddNew({ inputs, titlee, type }) {
                     age: ''
                 };
                 break;    
+        case 'DAMAGEREPORT':
+                    dynamicInpVal = {
+                        reason: '',
+                        name: '',
+                        email: '',
+                        password: '',
+                        address: '',
+                        age: ''
+                    };
+                    break;         
         case 'PRODUCT':
             dynamicInpVal = {
                 tensanpham: '',
@@ -116,6 +126,8 @@ function AddNew({ inputs, titlee, type }) {
         switch (type) {
             case "PRODUCT":
                 return "http://localhost:3001/api/product";
+            case "DAMAGEREPORT":
+                return "http://localhost:3001/api/product2";
             case "CUSTOMER":
                 return "http://localhost:3001/api/auth/"    
             case "STORE":

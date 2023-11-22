@@ -1,0 +1,59 @@
+html,
+body,
+#container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#container {
+    display: flex;
+}
+
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 80%;
+}
+
+#toolDiv {
+    margin: 10px;
+    flex: 1;
+    overflow-y: scroll;
+}
+
+/* label {
+    margin-bottom: 5px;
+} */
+
+input {
+    display: block;
+    height: 24px;
+    padding: 0 5px;
+    margin: 5px 0;
+}
+
+.btn {
+    padding: 5px;
+    background-color: rgb(33, 195, 187);
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 3px 3px 7px #ccc;
+    margin: 10px 0;
+}
+
+.btn:hover {
+    background-color: rgba(6, 148, 141, 0.8);
+}
+
+.btn:active {
+    background-color: rgba(6, 148, 141, 1);
+}
+
+.hidden {
+    display: none;
+}

@@ -47,9 +47,9 @@ function ItemLists({ type }) {
 
     
     switch (type) {
-        case 'customer':
+        case 'repair':
             data = {
-                title: 'Khách hàng',
+                title: 'Đang sửa chữa',
                 count: customer,
                 icon: (
                     <PermIdentityIcon
@@ -61,12 +61,12 @@ function ItemLists({ type }) {
                     />
                 ),
                 link: 'Xem tất cả khách hàng',
-                linkto: '/customers',
+                linkto: '/repair',
             };
             break;
-        case 'order':
+        case 'Report':
             data = {
-                title: 'Đơn hàng',
+                title: 'Báo cáo',
                 count: order,
 
                 icon: (
@@ -78,27 +78,11 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'Xem tất cả đơn hàng',
-                linkto: '/orders',
+                link: 'Xem tất cả báo cáo',
+                linkto: '/products2',
             };
             break;
-        case 'new':
-            data = {
-                title: 'Tin tức',
-                count: news,
-                icon: (
-                    <FeedIcon
-                        style={{
-                            color: '#367E18',
-                            backgroundColor: '#A7FFE4',
-                        }}
-                        className="icon"
-                    />
-                ),
-                link: 'Xem tất cả tin tức',
-                linkto: '/news'
-            };
-            break;
+      
         case 'employee':
             data = {
                 title: 'Nhân viên',
