@@ -103,6 +103,19 @@ function Sidebar() {
                             <LogoutIcon className="icon" /> Đăng Xuất
                         </li>
                     </Link>
+                    {document.cookie.indexOf("token") !== -1 ? (
+                              <Link to="/login" >
+                              <li>
+                                  <LogoutIcon className="icon" /> Đăng Xuất
+                              </li>
+                          </Link>
+                        ) : (
+                            <Link to="/login" >
+                              <li>
+                                  <LogoutIcon className="icon" /> Đăng Nhập
+                              </li>
+                          </Link>
+                        )}
                 </ul>
             </div>
         </div>
