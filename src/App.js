@@ -15,7 +15,7 @@ import ViewNew from './Pages/GeneralPage/ViewItem/ViewItem';
 import { useParams } from 'react-router-dom';
 import Guarantee from './Pages/Guarantee/Guarantee';
 import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/TableGuaranteeDetail';
-
+import Register from './Pages/Register';
 import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.jsx/DetailCustomer';
 
 
@@ -29,6 +29,7 @@ const productInpDetails = InputDetails.productInpDetails;
 const blogInputs = InputDetails.blogInputs;
 const promotionInpDetails = InputDetails.promotionInputs;
 const storeInpDetails = InputDetails.storeInputs;
+const damageInpDetails = InputDetails.damageInpDetails;
 const orderInpDetails = InputDetails.orderInpDetails
 
 const guaranteeInpDetails = InputDetails.guaranteeInputs;
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/">
                         <Route index element={<Home />} />
                         <Route path="login" element={<Login />} />
+                        <Route path="register" element={<Register/>} />
                        
 
                         {/* Product */}
@@ -68,21 +70,21 @@ function App() {
                                 element={
                                     <UpdateItem inputs={productInpDetails}
                                         type="PRODUCT"
-                                        titlee="Cập nhật sản phẩm"
+                                        titlee="Cập nhật vật liệu"
                                     />
                                 }></Route>
                         </Route>
                         {/* DAMAGEREPORT */}
                         <Route path="products2">
                             <Route index element={<DefaultLayoutPage type="damagereport" />} />
-                            <Route path=":productId" element={< ViewNew inputs={productInpDetails}
+                            <Route path=":productId" element={< ViewNew inputs={damageInpDetails}
                                         titlee="Xem chi tiết sản phẩm"
                                         type="DAMAGEREPORT"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={productInpDetails}
+                                        inputs={damageInpDetails}
                                         titlee="Thêm mới sản phẩm"
                                         type="DAMAGEREPORT"
                                     />
@@ -91,9 +93,9 @@ function App() {
                             />
                             <Route path="updatenew/:productId"
                                 element={
-                                    <UpdateItem inputs={productInpDetails}
+                                    <UpdateItem inputs={damageInpDetails}
                                         type="DAMAGEREPORT"
-                                        titlee="Cập nhật sản phẩm"
+                                        titlee="Cập nhật báo cáo"
                                     />
                                 }></Route>
                         </Route>

@@ -18,12 +18,47 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     //const [formInp, setFormInp] = useState(dynamicInpVal);
     const GetItemById = (id) => {
         axios
-            .get(`http://localhost:3001/api/product/${id}`)
+            .get(`https://localhost:7094/api/Materials/${id}`)
             .then((response) => {
                 setFormInp(response.data);
             })
             .catch((error) => {
                 console.error(error);
+            });
+    };
+    const UpdateItemById = (id) => {
+        console.log("ok");
+        console.log(id);
+        axios
+            .put(`https://localhost:7094/api/DamageReport/${id}`, formInp)
+            .then((response) => {
+                console.log("Update successfully!" + response);
+            })
+            .catch((error) => {
+                console.error("Update error", error);
+            });
+    };
+    /// DAMAGE REPORT
+    const GetDamageById = (id) => {
+        axios
+            .get(`https://localhost:7094/api/DamageReport/${id}`)
+            .then((response) => {
+                setFormInp(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+    const UpdateDamageById = (id) => {
+        console.log("ok");
+        console.log(id);
+        axios
+            .put(`https://localhost:7094/api/DamageReport/${id}`, formInp)
+            .then((response) => {
+                console.log("Update successfully!" + response);
+            })
+            .catch((error) => {
+                console.error("Update error", error);
             });
     };
 
@@ -224,6 +259,8 @@ const UpdateItem = ({ inputs, titlee, type }) => {
             GetKMById(params.promotionId)
         }else if(type==="GUARANTEE"){
             GetCTBHById(params.guaranteeId, params.ctbhId)
+        }if(type==="DAMAGEREPORT"){
+            GetDamageById(params.productId)
         } else {
             GetItemById(params.productId);
         }
@@ -231,18 +268,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
        
 
     }, []);
-    const UpdateItemById = (id) => {
-        console.log("ok");
-        console.log(id);
-        axios
-            .put(`http://localhost:3001/api/product/${id}`, formInp)
-            .then((response) => {
-                console.log("Update successfully!" + response);
-            })
-            .catch((error) => {
-                console.error("Update error", error);
-            });
-    };
+    
 
     const handleChange = (e) => {
         setFormInp({ ...formInp, [e.target.name]: e.target.value });
@@ -254,8 +280,17 @@ const UpdateItem = ({ inputs, titlee, type }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(type);
-        if (type === "PRODUCT") {
+        if (type === "PRODUCT" ) {
             UpdateItemById(params.productId);
+            Swal.fire({
+                title: "Cập nhật thành công",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 800,
+            });
+        }
+        if (type === "DAMAGEREPORT") {
+            UpdateDamageById(params.productId);
             Swal.fire({
                 title: "Cập nhật thành công",
                 icon: "success",

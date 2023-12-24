@@ -37,12 +37,11 @@ function AddNew({ inputs, titlee, type }) {
                 break;    
         case 'DAMAGEREPORT':
                     dynamicInpVal = {
-                        reason: '',
-                        name: '',
-                        email: '',
-                        password: '',
-                        address: '',
-                        age: ''
+                        content: '',
+                        cause: '',
+                        bodyId: '',
+                        accountId: '',
+                       
                     };
                     break;         
         case 'PRODUCT':
@@ -106,7 +105,7 @@ function AddNew({ inputs, titlee, type }) {
             case "PRODUCT":
                 return "https://localhost:7094/api/Materials";
             case "DAMAGEREPORT":
-                return "http://localhost:3001/api/product2";
+                return "https://localhost:7094/api/DamageReport";
             case "CUSTOMER":
                 return "http://localhost:3001/api/auth/"    
             case "STORE":

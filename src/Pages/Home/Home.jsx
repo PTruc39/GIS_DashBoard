@@ -29,16 +29,7 @@ function Home() {
         const excelData = exportToExcel(data);
         saveAs(excelData, 'data.xlsx');
       };
-    useEffect(() => {
-        axios.get('http://localhost:3001/api/totalRevenueByMonth')
-            .then(response => {
-                setData(response.data.monthAndRevenue);
-                setTotal(response.data.totalRevenue);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }, [])
+    
     const mystyle = {
         cursor: 'pointer',
         color: "white",

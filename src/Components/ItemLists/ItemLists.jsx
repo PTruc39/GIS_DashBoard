@@ -38,12 +38,12 @@ function ItemLists({ type }) {
             setEmployee(response.data.length);
         })
     }
-    useEffect(() => {
-        GetAllCustomer();
-        GetAllOrders();
-        GetAllNews();
-        GetAllEmployees();
-    },[]);
+    // useEffect(() => {
+    //     GetAllCustomer();
+    //     GetAllOrders();
+    //     GetAllNews();
+    //     GetAllEmployees();
+    // },[]);
 
     let data;
 

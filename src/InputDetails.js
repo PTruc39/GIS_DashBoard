@@ -301,6 +301,46 @@ export const InputDetails ={
         
         
     ],
+    damageInpDetails : [
+        {
+            id: 2,
+            name: 'content',
+            lable: 'Nội dung báo cáo',
+            type: 'text',
+            placeholder: 'Nội dung báo cáo',
+            required: false,
+            errorMsg: 'Required!',
+        },
+        {
+            id: 3,
+            name: 'cause',
+            lable: 'Lý do',
+            type: 'text',
+            placeholder: 'Lý do',
+            required: false,
+            errorMsg: 'Required!',
+        },
+        {
+            id: 4,
+            name: 'bodyId',
+            lable: 'Mã body',
+            type: 'text',
+            placeholder: 'BodyId',
+            required: false,
+            errorMsg: 'Required!',
+        },
+        {
+            id: 5,
+            name: 'accountId',
+            lable: 'Mã account',
+            type: 'text',
+            placeholder: 'accountId',
+            required: false,
+            errorMsg: 'Required!',
+        }
+        
+        
+    ],
     blogInputs: [
         {
             id: 1,

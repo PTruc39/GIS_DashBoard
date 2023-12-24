@@ -170,7 +170,7 @@ const ViewNew = ({ inputs, titlee, type }) => {
 	}
 	const [formInp, setFormInp] = useState(dynamicInpVal);
 	const GetItemById = (id) => {
-		axios.get(`http://localhost:3001/api/product/${id}`)
+		axios.get(`https://localhost:7094/api/Materials/${id}`)
 			.then(response => {
 				setFormInp(response.data);
 			}
@@ -183,6 +183,18 @@ const ViewNew = ({ inputs, titlee, type }) => {
         e.preventDefault();
         navigate(-1);
     };
+// damage report
+const GetDamageById = (id) => {
+	axios.get(`https://localhost:7094/api/DamageReport/${id}`)
+		.then(response => {
+			setFormInp(response.data);
+		}
+		)
+		.catch(error => {
+			console.error(error);
+		});
+}
+
 
 	//PROMOTION
 	const batdauFormat = (value) =>{
@@ -225,6 +237,8 @@ const ViewNew = ({ inputs, titlee, type }) => {
 			GetKMById(params.promotionId);
 		} else if (type === "INVOICE") {
 			GetHoaDonById(params.invoiceId)
+		}else if (type === "DAMAGEREPORT") {
+			GetDamageById(params.productId)
 		}
 		else {
 			GetItemById(params.productId);

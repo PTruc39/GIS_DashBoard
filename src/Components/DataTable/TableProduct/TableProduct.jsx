@@ -52,8 +52,7 @@ function TableProduct() {
                 const fetchedData = response.data.map((item) => {
                     index = index + 1;
                     return {
-                        ...item,
-                        id: index,
+                        ...item
                     };
                 });
                 console.log("Rerender");
@@ -136,7 +135,7 @@ function TableProduct() {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDeleteAction(params.row._id)}
+                        onClick={() => handleDeleteAction(params.row.id)}
                     >
                         Xóa
                     </button>

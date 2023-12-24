@@ -46,8 +46,7 @@ function TableDamage({ type }) {
                 const fetchedData = response.data.map((item) => {
                     index = index + 1;
                     return {
-                        ...item,
-                        id: index,
+                        ...item
                     };
                 });
                 setData(fetchedData);
@@ -142,7 +141,7 @@ function TableDamage({ type }) {
             headerAlign: "center",
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={`/product2/${params.row.id}`}>
+                    <Link to={`/products2/${params.row.id}`}>
                         <button type="button" className={classes.view_btn}>
                             Xem
                         </button>
@@ -150,18 +149,18 @@ function TableDamage({ type }) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleSuccessAction(params.row._id)}
+                        onClick={() => handleSuccessAction(params.row.id)}
                     >
                         Xóa
                     </button>
-                    {/* <Link 
-                        to={`/invoices/updatenew/${params.row._id}`}
+                     <Link 
+                        to={`updatenew/${params.row.id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>
                             Sửa
                         </button>
-                    </Link> */}
+                    </Link> 
                     {/* <button>Export PDF File</button> */}
                 </div>
             ),
