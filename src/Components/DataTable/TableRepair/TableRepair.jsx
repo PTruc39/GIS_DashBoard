@@ -92,8 +92,8 @@ function TableRepair() {
         // },
         {
             field: "productName",
-            headerName: "Tên sản phẩm",
-            width: 250,
+            headerName: "Ngày bắt đầu",
+            width: 220,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productName}>
@@ -103,8 +103,8 @@ function TableRepair() {
         },
         {
             field: "typeProduct",
-            headerName: "Trạng Thái sửa chữa",
-            width: 250,
+            headerName: "Ngày kết thúc",
+            width: 220,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productType}>
@@ -114,18 +114,26 @@ function TableRepair() {
         },
         {
             field: "price",
-            headerName: "Giá",
+            headerName: "Loại",
+            width: 150,
+            headerAlign: "center",
+            renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
+        },
+        {
+            field: "price2",
+            headerName: "Đối tượng",
             width: 150,
             headerAlign: "center",
             renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
         },
         {
             field: "color",
-            headerName: "Màu sắc",
+            headerName: "Lý do sửa chữa",
             width: 120,
             headerAlign: "center",
             renderCell: (param) => <div>{param.row.mausac}</div>,
         },
+        
         {
             field: "action",
             headerName: "Hành động",

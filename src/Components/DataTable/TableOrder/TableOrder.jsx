@@ -28,14 +28,14 @@ function TableOrder({ type }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => { setOpen(false); setSelected(null) };
     useEffect(() => {
-        api.getAllOrders().then(result => setData(result.orders))
+        api.getAllOrders().then(result => setData(result))
     }, [])
     const [selected, setSelected] = useState(null);
     const [products, setProducts] = useState(null);
 
     const handleDelete = (madh) => {
         Swal.fire({
-            title: 'Bạn muốn xóa đơn hàng không?',
+            title: 'Bạn muốn xóa không?',
             showDenyButton: true,
             confirmButtonText: 'Có',
             denyButtonText: 'Không',
@@ -57,40 +57,36 @@ function TableOrder({ type }) {
         })
     };
 
-    useEffect(() => {
-        if (selected) {
-            if (selected.products.length !== 0) {
-                let arr = [];
-                console.log(selected)
-                selected.products.map((product, index) => axios.get(`http://localhost:3001/api/product/${product.productId}`)
-                    .then(response => {
-                        arr.push({name: response.data.tensanpham, soluong: product.soluong});
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    })
-                )
-                setProducts(arr)
-            }
-        } else {
-            setProducts(null)
-        }
-    }, [selected])
+    // useEffect(() => {
+    //     if (selected) {
+    //         if (selected.products.length !== 0) {
+    //             let arr = [];
+    //             console.log(selected)
+    //             selected.products.map((product, index) => axios.get(`http://localhost:3001/api/productn/${product.productId}`)
+    //                 .then(response => {
+    //                     arr.push({name: response.data.tensanpham, soluong: product.soluong});
+    //                 })
+    //                 .catch(error => {
+    //                     console.error(error);
+    //                 })
+    //             )
+    //             setProducts(arr)
+    //         }
+    //     } else {
+    //         setProducts(null)
+    //     }
+    // }, [selected])
 
     const columns = [
         {
-            field: '_id',
+            field: 'id',
             headerName: 'ID',
             width: 50,
         },
-        {
-            field: 'madh',
-            headerName: 'Mã đơn hàng',
-            width: 400,
-            style: { color: 'red' },
-        },
-        { field: 'makh', headerName: 'Mã khách hàng', width: 200 },
-        { field: 'tinhtrang', headerName: 'Tình trạng', width: 300 },
+        
+        { field: 'email', headerName: 'Email', width: 200 },
+        { field: 'sdt', headerName: 'SDT', width: 300 },
+        { field: 'message', headerName: 'Nội dung', width: 300 },
         {
             field: 'action',
             headerName: 'Action',
@@ -107,14 +103,7 @@ function TableOrder({ type }) {
                     >
                         Xóa
                     </button>
-                    <Link to={`updateorder/${params.row._id}`}>
-                        <button
-                            type="button"
-                            className={classes.update_btn}
-                        >
-                            Sửa
-                        </button>
-                    </Link>
+                    
                 </div>
             ),
         },
@@ -129,7 +118,7 @@ function TableOrder({ type }) {
 
                     {data && <DataGrid
                         rowHeight={100}
-                        getRowId={(row) => row._id}
+                        getRowId={(row) => row.id}
                         className={classes.data_grid}
                         rows={data}
                         columns={columns}
@@ -145,36 +134,12 @@ function TableOrder({ type }) {
                     >
                         <Box sx={style}>
                             {selected && <div>
-                                <p>Mã đơn hàng: {selected.madh}</p><br></br>
-                                <p>Mã khách hàng : {selected.makh}</p><br></br>
-                                <p>Phương thức thanh toán : {selected.paymentMethod}</p><br></br>
-                                <p>Tình trạng : {selected.tinhtrang}</p><br></br>
-                                <p>Tổng trị giá : {selected.tongtrigia}</p><br></br>
-                                {products !== null && <div>
-                                    <TableContainer component={Paper}>
-                                        <Table sx={{ minWidth: 600 }} size="small" aria-label="a dense table">
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell>Tên sản phẩm</TableCell>
-                                                    <TableCell align="right">Số lượng</TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {products?.map((product) => (
-                                                    <TableRow
-                                                        key={product.name}
-                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                    >
-                                                        <TableCell component="th" scope="row">
-                                                            {product.name}
-                                                        </TableCell>
-                                                        <TableCell align="right">{product.soluong}</TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                </div>}
+                                <p>Tên người gửi: {selected.name}</p><br></br>
+                                <p>Email: {selected.email}</p><br></br>
+                                <p>Nội dung: {selected.message}</p><br></br>
+                                <p>Ngày gửi: {selected.createdAt}</p><br></br>
+                    
+                                
                             </div>}
                         </Box>
                     </Modal>

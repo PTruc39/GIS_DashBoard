@@ -5,10 +5,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import DiscountIcon from '@mui/icons-material/Discount';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 import StoreIcon from '@mui/icons-material/Store';
+import ForumIcon from '@mui/icons-material/Forum';
+import FoundationIcon from '@mui/icons-material/Foundation';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../../ColorContext/darkContext';
+import BuildIcon from '@mui/icons-material/Build';
 import './Sidebar.scss';
 
 function Sidebar() {
@@ -19,7 +23,7 @@ function Sidebar() {
         <div className="sidebar">
             <div className="logo">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <h3 className="text_none">APPLEDUNK</h3>
+                    <h3 className="text_none">Notre Dame Cathedral</h3>
                 </Link>
             </div>
 
@@ -55,17 +59,17 @@ function Sidebar() {
     </Link>
                     <Link to="/products2" style={{ textDecoration: 'none' }}>
                         <li>
-                            <TableChartIcon className="icon" /> Quản lý hư hại
+                            <SummarizeIcon className="icon" /> Quản lý hư hại
                         </li>
                     </Link>
                     <Link to="/repair" style={{ textDecoration: 'none' }}>
                         <li>
-                            <TableChartIcon className="icon" /> Quản lý sửa chữa
+                            <BuildIcon className="icon" /> Quản lý sửa chữa
                         </li>
                     </Link>
                     <Link to="/building" style={{ textDecoration: 'none' }}>
                         <li>
-                            <TableChartIcon className="icon" /> Quản lý công trình
+                            <FoundationIcon className="icon" /> Quản lý công trình
                         </li>
                     </Link>
                      {/*<Link to="/news" style={{ textDecoration: 'none' }}>
@@ -75,7 +79,7 @@ function Sidebar() {
     </Link>*/}
                     <Link to="/orders" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Quản lý phản hồi
+                            <ForumIcon className="icon" /> Quản lý phản hồi
                         </li>
                     </Link>
                      {/*<Link to="/stores" style={{ textDecoration: 'none' }}>

@@ -51,14 +51,14 @@ function App() {
                         <Route path="products">
                             <Route index element={<DefaultLayoutPage type="product" />} />
                             <Route path=":productId" element={< ViewNew inputs={productInpDetails}
-                                        titlee="Xem chi tiết sản phẩm"
+                                        titlee="Xem chi tiết"
                                         type="PRODUCT"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
                                         inputs={productInpDetails}
-                                        titlee="Thêm mới sản phẩm"
+                                        titlee="Thêm mới"
                                         type="PRODUCT"
                                     />
 

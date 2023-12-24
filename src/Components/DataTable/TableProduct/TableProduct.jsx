@@ -13,7 +13,7 @@ function TableProduct() {
 
     const handleDlt = (id) => {
         axios
-            .delete(`http://localhost:3001/api/product/${id}`)
+            .delete(`https://localhost:7094/api/Materials/${id}`)
             .then((response) => {
                 GetAllProduct();
                 console.log("Item deleted successfully.", response);
@@ -26,7 +26,7 @@ function TableProduct() {
         const notification = await Swal.fire({
             title: "Xóa sản phẩm",
             icon: "warning",
-            text: "Bạn có muốn xóa sản phẩm này?",
+            text: "Bạn có muốn xóa vật liệu này?",
             button: "Đồng ý",
             showCancelButton: true,
             confirmButtonText: "Đồng ý",
@@ -35,7 +35,7 @@ function TableProduct() {
         if (notification.isConfirmed) {
             handleDlt(id);
             Swal.fire({
-                title: "Xóa sản phẩm thành công!",
+                title: "Xóa thành công!",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 800,
@@ -46,10 +46,10 @@ function TableProduct() {
 
     const GetAllProduct = () => {
         axios
-            .get("http://localhost:3001/api/product")
+            .get("https://localhost:7094/api/Materials")
             .then((response) => {
                 let index = 0;
-                const fetchedData = response.data.listProducts.map((item) => {
+                const fetchedData = response.data.map((item) => {
                     index = index + 1;
                     return {
                         ...item,
@@ -58,6 +58,8 @@ function TableProduct() {
                 });
                 console.log("Rerender");
                 setData(fetchedData);
+                console.log(data);
+
             })
             .catch((error) => {
                 console.error(error);
@@ -91,40 +93,33 @@ function TableProduct() {
         //     ),
         // },
         {
-            field: "productName",
-            headerName: "Tên sản phẩm",
+            field: "name",
+            headerName: "Tên vật liệu",
             width: 250,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productName}>
-                    {param.row.tensanpham}
+                    {param.row.name}
                 </div>
             ),
         },
         {
-            field: "typeProduct",
-            headerName: "Loại sản phẩm",
+            field: "age",
+            headerName: "Độ bền",
             width: 250,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productType}>
-                    {param.row.loaisanpham}
+                    {param.row.age}
                 </div>
             ),
         },
         {
-            field: "price",
-            headerName: "Giá",
-            width: 150,
+            field: "description",
+            headerName: "Mô Tả",
+            width: 250,
             headerAlign: "center",
-            renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
-        },
-        {
-            field: "color",
-            headerName: "Màu sắc",
-            width: 120,
-            headerAlign: "center",
-            renderCell: (param) => <div>{param.row.mausac}</div>,
+            renderCell: (param) => <div>{param.row.description}</div>,
         },
         {
             field: "action",
@@ -133,7 +128,7 @@ function TableProduct() {
             headerAlign: "center",
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={`/products/${params.row._id}`}>
+                    <Link to={`/products/${params.row.id}`}>
                         <button type="button" className={classes.view_btn}>
                             Xem
                         </button>
@@ -146,7 +141,7 @@ function TableProduct() {
                         Xóa
                     </button>
                     <Link
-                        to={`/products/updatenew/${params.row._id}`}
+                        to={`/products/updatenew/${params.row.id}`}
                         style={{ textDecoration: "none" }}
                     >
                         <button type="button" className={classes.update_btn}>

@@ -2,7 +2,7 @@
 import axiosInstance from "./axiosInstance";
 
 const getAllOrders = async (makh = null) => {
-    let query = `/api/don-hang?pageSize=999`;
+    let query = `api/Feedbacks`;
     if (makh) {
         query = query.concat(`&makh=${makh}`)
     }

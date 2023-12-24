@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './itemlists.module.scss';
 import axios from 'axios';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import BuildIcon from '@mui/icons-material/Build';
 
 function ItemLists({ type }) {
     const [customer,setCustomer] = useState(0);
@@ -52,7 +54,7 @@ function ItemLists({ type }) {
                 title: 'Đang sửa chữa',
                 count: customer,
                 icon: (
-                    <PermIdentityIcon
+                    <BuildIcon
                         style={{
                             color: '#FF74B1',
                             backgroundColor: '#FFD6EC',
@@ -60,7 +62,7 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'Xem tất cả khách hàng',
+                link: 'Xem tất cả trạng thái',
                 linkto: '/repair',
             };
             break;
@@ -70,7 +72,7 @@ function ItemLists({ type }) {
                 count: order,
 
                 icon: (
-                    <LocalGroceryStoreOutlinedIcon
+                    <SummarizeIcon
                         style={{
                             color: '#AC7088',
                             backgroundColor: '#FFF38C',
@@ -88,7 +90,7 @@ function ItemLists({ type }) {
                 title: 'Nhân viên',
                 count: employee,
                 icon: (
-                    <BadgeIcon
+                    <PermIdentityIcon
                         style={{
                             color: '#AC7088',
                             backgroundColor: '#C0C0C0',

@@ -9,7 +9,7 @@ function TableDamage({ type }) {
     const [data, setData] = useState([]);
     const handleDlt = (id) => {
         axios
-            .delete(`http://localhost:3001/api/hoa-don/${id}`)
+            .delete(`https://localhost:7094/api/DamageReport/${id}`)
             .then((response) => {
                 console.log("Item deleted successfully.");
             })
@@ -40,10 +40,10 @@ function TableDamage({ type }) {
 
     const GetAllInvoice = () => {
         axios
-            .get("http://localhost:3001/api/hoa-don")
+            .get("https://localhost:7094/api/DamageReport")
             .then((response) => {
                 let index = 0;
-                const fetchedData = response.data.listHoaDon.map((item) => {
+                const fetchedData = response.data.map((item) => {
                     index = index + 1;
                     return {
                         ...item,
@@ -58,7 +58,7 @@ function TableDamage({ type }) {
     };
     useEffect(() => {
         GetAllInvoice();
-    }, [data]);
+    }, []);
 
     console.log(data);
 
@@ -66,7 +66,7 @@ function TableDamage({ type }) {
         {
             field: "id",
             headerName: "Mã hư hại",
-            width: 50,
+            width: 100,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.userr}>{param.row.id}</div>
@@ -78,17 +78,17 @@ function TableDamage({ type }) {
             width: 140,
             headerAlign: "center",
             renderCell: (param) => (
-                <div className={classes.userr}>{param.row.mahd}</div>
+                <div className={classes.userr}>{param.row.date}</div>
             ),
         },
         {
-            field: "makh",
+            field: "content",
             headerName: "Nội dung",
             width: 140,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productName}>
-                    {param.row.makh}
+                    {param.row.content}
                 </div>
             ),
         },
@@ -104,13 +104,13 @@ function TableDamage({ type }) {
         //     ),
         // },
         {
-            field: "ngayxuathd",
+            field: "cause",
             headerName: "Nguyên nhân",
             width: 170,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productType}>
-                    {param.row.ngayxuathd}
+                    {param.row.cause}
                 </div>
             ),
         },
@@ -119,10 +119,7 @@ function TableDamage({ type }) {
             headerName: "Tài khoản",
             width: 170,
             headerAlign: "center",
-            renderCell: (param) => <div>{new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-              }).format(param.row.trigia)}</div>,
+            renderCell: (param) => <div>{param.row.id_account}</div>,
         },
         // {
         //     field: "phuongthucthanhtoan",
@@ -132,11 +129,11 @@ function TableDamage({ type }) {
         //     renderCell: (param) => <div>{param.row.phuongthucthanhtoan}</div>,
         // },
         {
-            field: "tinhtrang",
-            headerName: "Thực Thể",
+            field: "status",
+            headerName: "Trạng Thái",
             width: 140,
             headerAlign: "center",
-            renderCell: (param) => <div>{param.row.tinhtrang}</div>,
+            renderCell: (param) => <div>{param.row.status}</div>,
         },
         {
             field: "action",
@@ -145,7 +142,7 @@ function TableDamage({ type }) {
             headerAlign: "center",
             renderCell: (params) => (
                 <div className={classes.actionn}>
-                    <Link to={`/product2/${params.row._id}`}>
+                    <Link to={`/product2/${params.row.id}`}>
                         <button type="button" className={classes.view_btn}>
                             Xem
                         </button>

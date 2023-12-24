@@ -47,30 +47,9 @@ function AddNew({ inputs, titlee, type }) {
                     break;         
         case 'PRODUCT':
             dynamicInpVal = {
-                tensanpham: '',
-                loaisanpham: '',
-                masp: '',
-                hinh: '',
-                gia: '',
-                rom: '',
-                mausac: '',
-                ram: '',
-                chip: '',
-                baomat: '',
-                chongnuoc: '',
-                sac: '',
-                dophangiai: '',
-                kichthuoc: '',
-                camera: '',
-                khoiluong: '',
-                hedieuhanh: '',
-                nguongoc: '',
-                chatlieu: '',
-                kichthuocmanhinh: '',
-                loaiphukien: '',
-                congnghe: '',
-                congsuat: '',
-                baohanh: ''
+                name: '',
+                age: '',
+                description: ''
             };
         break;
         case 'NEWS':
@@ -125,7 +104,7 @@ function AddNew({ inputs, titlee, type }) {
     const GetApiPost = (type) => {
         switch (type) {
             case "PRODUCT":
-                return "http://localhost:3001/api/product";
+                return "https://localhost:7094/api/Materials";
             case "DAMAGEREPORT":
                 return "http://localhost:3001/api/product2";
             case "CUSTOMER":
@@ -195,25 +174,10 @@ function AddNew({ inputs, titlee, type }) {
 
                 <div className={classes.new_page_main}>
                     <div className={classes.new_page_content}>
-                        <div className={classes.image}>
-                            <p className={classes.add_new_user}>{titlee}</p>
-                            <img src={file ? URL.createObjectURL(file) : noImage} alt="" />
-                        </div>
+                       
 
                         <form onSubmit={handleSubmit} className={classes.form}>
-                            <div className={classes.form_inp}>
-                                <label htmlFor="file">
-                                    Upload: <DriveFolderUploadIcon className={classes.file_icon} />
-                                </label>
-
-                                <input
-                                    type="file"
-                                    name="file"
-                                    id="file"
-                                    style={{ display: 'none' }}
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                />
-                            </div>
+                            
 
                             {inputs.map((detail) => (
                                 <Input
