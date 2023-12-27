@@ -139,12 +139,12 @@ const Register = () => {
 
     const sendRequestSU = async () => {
         const res = await axios
-            .post(`${base}api/auth/`, {
-                hoten: String(inputs.name),
+            .post(`${base}api/Accounts/AddUser`, {
+                name: String(inputs.name),
                 email: String(inputs.email),
                 password: String(inputs.password),
-                sdt: String(inputs.dienthoai),
-                gioitinh: String(inputs.gioitinh),
+                phone: String(inputs.dienthoai),
+                
             })
             .catch((err) => {
                 /*Swal.fire({

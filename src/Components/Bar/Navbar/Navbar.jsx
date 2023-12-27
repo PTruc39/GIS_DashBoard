@@ -51,10 +51,7 @@ function Navbar() {
     return (
         <div className={classes.navbar}>
             <div className={classes.search}>
-                <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder="Assistant" onChange={handleChange} />
-                    <button>Help</button>
-                </form>
+               
             </div>
             <div>
                 {messages.map((message, index) => (

@@ -109,12 +109,12 @@ function Sidebar() {
                                   <LogoutIcon className="icon" /> Đăng Xuất
                               </li>
                           </Link>
-                        ) : (
-                            <Link to="/login" >
-                              <li>
-                                  <LogoutIcon className="icon" /> Đăng Nhập
-                              </li>
-                          </Link>
+                        ) : (null
+                           // <Link to="/login" >
+                             // <li>
+                              //    <LogoutIcon className="icon" /> Đăng Nhập
+                              //</li>
+                          //</Link>
                         )}
                 </ul>
             </div>

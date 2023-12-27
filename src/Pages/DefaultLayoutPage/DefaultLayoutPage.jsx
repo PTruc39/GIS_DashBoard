@@ -161,7 +161,7 @@ console.log(type);
             break;
         case "product":
             linkPath = "products";
-            title = "sản phẩm";
+            title = "vật liệu";
             break;
             case "damagereport":
             linkPath = "products2";
@@ -209,7 +209,8 @@ console.log(type);
                             to={`/${linkPath}/addnew`}
                             style={{ textDecoration: "none" }}
                         >
-                            <button type="button">Thêm {title} mới</button>
+                            {title !== 'đơn hàng' ? (
+                            <button type="button">Thêm {title} mới</button>) : null}
                         </Link>
                     </div>
 

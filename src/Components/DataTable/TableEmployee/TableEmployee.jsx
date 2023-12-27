@@ -11,35 +11,35 @@ import Swal from 'sweetalert2';
 const userData = [
     {
         id: '1',
-        username: 'Employee',
+        hoten: 'Trúc',
         email: 'linha1xp@gmail.com',
         image: man,
-        address: 'HCMC City',
-        age: '24',
+        role: 'admin',
+        sdt:'0987'
     },
     {
         id: '2',
-        username: 'Employee',
+        hoten: 'Trúc',
         email: 'linha1xp@gmail.com',
         image: man,
-        address: 'Ha Noi City',
-        age: '29',
+        role: 'admin',
+        sdt:'0987'
     },
     {
         id: '3',
-        username: 'dangbalinh',
+        hoten: 'Trúc',
         email: 'linha1xp@gmail.com',
         image: man,
-        address: 'HCMC City',
-        age: '20',
+        role: 'admin',
+        sdt:'0987'
     },
     {
         id: '4',
-        username: 'dangbalinh',
+        hoten: 'Trúc',
         email: 'linha1xp@gmail.com',
         image: man,
-        address: 'HCMC City',
-        age: '23',
+        role: 'admin',
+        sdt:'0987'
     }
 ];
 
@@ -108,7 +108,7 @@ function TableEmployee({type}) {
             width: 110,
             renderCell: (param) => (
                 <div className={classes.userr}>
-                    {param.row.manv}
+                    {param.row.id}
                 </div>
             ),
         },
