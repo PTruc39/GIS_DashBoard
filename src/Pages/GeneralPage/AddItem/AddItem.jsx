@@ -43,7 +43,17 @@ function AddNew({ inputs, titlee, type }) {
                         accountId: '',
                        
                     };
-                    break;         
+                    break;      
+        case 'REPAIR':
+        dynamicInpVal = {
+            startDate: "",
+            finishDate: "",
+            repairReason: "",
+            accountId: "",
+            damageReportId: "",
+            bodyId: ""
+        };
+        break;          
         case 'PRODUCT':
             dynamicInpVal = {
                 name: '',
