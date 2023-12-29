@@ -98,23 +98,19 @@ function Sidebar() {
                         </li>
     </Link>*/}
                     <p className="spann">Cài đặt</p>
-                    <Link to="/login" >
-                        <li>
-                            <LogoutIcon className="icon" /> Đăng Xuất
-                        </li>
-                    </Link>
+
                     {document.cookie.indexOf("token") !== -1 ? (
                               <Link to="/login" >
-                              <li>
-                                  <LogoutIcon className="icon" /> Đăng Xuất
+                              <li onClick={console}>
+                                  <LogoutIcon className="icon" />Đăng Xuất
                               </li>
                           </Link>
-                        ) : (null
-                           // <Link to="/login" >
-                             // <li>
-                              //    <LogoutIcon className="icon" /> Đăng Nhập
-                              //</li>
-                          //</Link>
+                        ) : (
+                            <Link to="/login" >
+                              <li>
+                                 <LogoutIcon className="icon" /> Đăng Nhập
+                              </li>
+                          </Link>
                         )}
                 </ul>
             </div>

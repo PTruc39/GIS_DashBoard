@@ -54,8 +54,7 @@ function TableEmployee({type}) {
                 const fetchedData = response.map((item) => {
                     index = index + 1;
                     return {
-                        ...item,
-                        id: index,
+                        ...item
                     };
                 });
                 setData(fetchedData);
@@ -113,7 +112,7 @@ function TableEmployee({type}) {
             ),
         },
         {
-            field: 'hoten',
+            field: 'name',
             headerName: 'Tên',
             width: 180,
         },

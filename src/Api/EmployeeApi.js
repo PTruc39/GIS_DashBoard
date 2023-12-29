@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 const getAllNV = async () => {
-    let query = `/api/nhanvien`;
+    let query = `/api/Accounts/GetAllUser`;
     return await axiosInstance.get(query);
 };
 
