@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import classes from "./TableRepair.module.scss";
-
+import RepairApi from "../../../Api/RepairApi";
 
 function TableRepair() {
     const [data, setData] = useState([]);
@@ -15,7 +15,7 @@ function TableRepair() {
         axios
             .delete(`http://localhost:3001/api/product/${id}`)
             .then((response) => {
-                GetAllProduct();
+                GetAllRepair();
                 console.log("Item deleted successfully.", response);
             })
             .catch((error) => {
@@ -40,31 +40,31 @@ function TableRepair() {
                 showConfirmButton: false,
                 timer: 800,
             });
-            GetAllProduct();
+            GetAllRepair();
         }
     };
 
-    const GetAllProduct = () => {
-        axios
-            .get("http://localhost:3001/api/product")
-            .then((response) => {
-                let index = 0;
-                const fetchedData = response.data.listProducts.map((item) => {
-                    index = index + 1;
-                    return {
-                        ...item,
-                        id: index,
-                    };
-                });
-                console.log("Rerender");
-                setData(fetchedData);
-            })
-            .catch((error) => {
-                console.error(error);
+    const GetAllRepair = () => {
+        // axios
+        //     .get("http://localhost:3001/api/product")
+        RepairApi.getAllBodyRepairStatus()
+        .then((response) => {
+            let index = 0;
+            const fetchedData = response.map((item) => {
+                index = index + 1;
+                return {
+                    ...item
+                };
             });
+            console.log("Rerender");
+            setData(fetchedData);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     };
     useEffect(() => {
-        GetAllProduct();
+        GetAllRepair();
     }, []);
 
     const columns = [
@@ -91,49 +91,55 @@ function TableRepair() {
         //     ),
         // },
         {
-            field: "productName",
+            field: "startDate",
             headerName: "Ngày bắt đầu",
             width: 220,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productName}>
-                    {param.row.tensanpham}
+                    {param.row.startDate}
                 </div>
             ),
         },
         {
-            field: "typeProduct",
+            field: "finishDate",
             headerName: "Ngày kết thúc",
             width: 220,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productType}>
-                    {param.row.loaisanpham}
+                    {param.row.finishDate}
                 </div>
             ),
         },
         {
-            field: "price",
-            headerName: "Loại",
-            width: 150,
-            headerAlign: "center",
-            renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
-        },
-        {
-            field: "price2",
-            headerName: "Đối tượng",
-            width: 150,
-            headerAlign: "center",
-            renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
-        },
-        {
-            field: "color",
+            field: "repairReason",
             headerName: "Lý do sửa chữa",
+            width: 150,
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.repairReason}</div>,
+        },
+        {
+            field: "accountId",
+            headerName: "Id người tạo",
+            width: 150,
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.accountId}</div>,
+        },
+        {
+            field: "damageReportId",
+            headerName: "Id báo cáo hư hại",
             width: 120,
             headerAlign: "center",
-            renderCell: (param) => <div>{param.row.mausac}</div>,
+            renderCell: (param) => <div>{param.row.damageReportId}</div>,
         },
-        
+        {
+            field: "damageReportId",
+            headerName: "Id body",
+            width: 120,
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.bodyId}</div>,
+        },
         {
             field: "action",
             headerName: "Hành động",
