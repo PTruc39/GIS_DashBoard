@@ -111,7 +111,7 @@ function AddNew({ inputs, titlee, type }) {
             case "STORE":
                 return "http://localhost:3001/api/store/"   
             case "EMPLOYEE":
-                return "http://localhost:3001/api/nhanvien"
+                return "https://localhost:7094/api/Accounts/AddUser"
             case "PROMOTION":
                 return "http://localhost:3001/api/khuyenmai"
             case "GUARANTEE":
