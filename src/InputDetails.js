@@ -134,7 +134,7 @@ export const InputDetails ={
     employeeUpDetails: [
         {
             id: 2,
-            name: 'hoten',
+            name: 'name',
             lable: 'Tên',
             type: 'text',
             placeholder: 'tên',
@@ -144,7 +144,7 @@ export const InputDetails ={
         },
         {
             id: 3,
-            name: 'sdt',
+            name: 'phone',
             lable: 'SDT',
             type: 'text',
             placeholder: 'sdt',
@@ -178,23 +178,6 @@ export const InputDetails ={
             lable: 'Chức vụ',
             type: 'text',
             placeholder: 'role',
-            //required: true,
-            //errorMsg: 'Address is required!',
-        },{
-            id: 7,
-            name: 'cccd',
-            lable: 'CCCD',
-            type: 'text',
-            placeholder: 'Căn cước',
-            //required: true,
-            //errorMsg: 'Address is required!',
-        },
-        {
-            id: 7,
-            name: 'ns',
-            lable: 'Ngày sinh',
-            type: 'date',
-            placeholder: 'Ngày sinh',
             //required: true,
             //errorMsg: 'Address is required!',
         }
@@ -203,7 +186,7 @@ export const InputDetails ={
     employeeInpDetails: [
         {
             id: 2,
-            name: 'hoten',
+            name: 'name',
             lable: 'Tên',
             type: 'text',
             placeholder: 'tên',
@@ -213,7 +196,7 @@ export const InputDetails ={
         },
         {
             id: 3,
-            name: 'sdt',
+            name: 'phone',
             lable: 'SDT',
             type: 'text',
             placeholder: 'sdt',
@@ -249,25 +232,7 @@ export const InputDetails ={
             placeholder: 'role',
             //required: true,
             //errorMsg: 'Address is required!',
-        },{
-            id: 7,
-            name: 'cccd',
-            lable: 'CCCD',
-            type: 'text',
-            placeholder: 'Căn cước',
-            //required: true,
-            //errorMsg: 'Address is required!',
-        },
-        {
-            id: 7,
-            name: 'ns',
-            lable: 'Ngày sinh',
-            type: 'date',
-            placeholder: 'Ngày sinh',
-            //required: true,
-            //errorMsg: 'Address is required!',
         }
-        
         
     ],
     productInpDetails : [

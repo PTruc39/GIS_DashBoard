@@ -5,7 +5,7 @@ const getAllNV = async () => {
 };
 
 const getNVById = async (id) => {
-    let query = `/api/nhanvien/${id}`;
+    let query = `/api/Accounts/GetUserById/${id}`;
     return await axiosInstance.get(query);
 };
 

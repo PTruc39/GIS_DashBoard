@@ -140,7 +140,7 @@ function TableEmployee({type}) {
                         Xóa
                     </button>
                     <Link 
-                        to={`/employees/updatenew/${params.row._id}`}
+                        to={`/employees/updatenew/${params.row.id}`}
                         style={{ textDecoration: 'none' }}
                         
                     >
