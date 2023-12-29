@@ -17,6 +17,7 @@ import Guarantee from './Pages/Guarantee/Guarantee';
 import TableGuaranteeDetail from './Components/DataTable/TableGuaranteeDetail/TableGuaranteeDetail';
 import Register from './Pages/Register';
 import DetailCustomer from './Components/DataTable/TableCustomer/CustomerView.jsx/DetailCustomer';
+import AddBody from './Pages/BuildingPage/AddBody'
 
 
 import './app.scss';
@@ -34,6 +35,7 @@ const orderInpDetails = InputDetails.orderInpDetails
 
 const guaranteeInpDetails = InputDetails.guaranteeInputs;
 const invoiceInputDetails = InputDetails.invoiceInputs;
+const bodyInputDetails = InputDetails.bodyInputs;
 
 
 function App() {
@@ -102,14 +104,14 @@ function App() {
                         {/* Repair status */}
                         <Route path="repair">
                             <Route index element={<DefaultLayoutPage type="repair" />} />
-                            <Route path=":productId" element={< ViewNew inputs={productInpDetails}
+                            <Route path=":productId" element={< ViewNew inputs={InputDetails.bodyRepairInputs}
                                         titlee="Xem sửa chữa"
                                         type="REPAIR"/>} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={productInpDetails}
+                                        inputs={InputDetails.bodyRepairInputs}
                                         titlee="Thêm sửa chửa"
                                         type="REPAIR"
                                     />
@@ -118,7 +120,7 @@ function App() {
                             />
                             <Route path="updatenew/:productId"
                                 element={
-                                    <UpdateItem inputs={productInpDetails}
+                                    <UpdateItem inputs={InputDetails.bodyRepairInputs}
                                         type="REPAIR"
                                         titlee="Cập nhật sửa chữa"
                                     />
@@ -133,16 +135,16 @@ function App() {
                             <Route
                                 path="addnew"
                                 element={
-                                    <AddNew
-                                        inputs={userInpDetails}
+                                    <AddBody
+                                        inputs={bodyInputDetails}
                                         titlee="Thêm công trình mới"
-                                        type="BUILDING"
+                                        typee="BUILDING"
                                     />
                                 }
                             />
                             <Route path="updatenew/:customerId"
                                 element={
-                                    <UpdateItem inputs={InputDetails.userUpDetails}
+                                    <UpdateItem inputs={bodyInputDetails}
                                         type="BUILDING"
                                         titlee="Cập nhật công trình"
                                     />

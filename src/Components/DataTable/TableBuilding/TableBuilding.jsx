@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import classes from "./TableBuilding.module.scss";
+import BodyApi from "../../../Api/BodyApi";
 
 
 function TableBuilding() {
@@ -15,7 +16,7 @@ function TableBuilding() {
         axios
             .delete(`http://localhost:3001/api/product/${id}`)
             .then((response) => {
-                GetAllProduct();
+                GetAllBody();
                 console.log("Item deleted successfully.", response);
             })
             .catch((error) => {
@@ -24,9 +25,9 @@ function TableBuilding() {
     };
     const handleDeleteAction = async (id) => {
         const notification = await Swal.fire({
-            title: "Xóa sản phẩm",
+            title: "Xóa body",
             icon: "warning",
-            text: "Bạn có muốn xóa sản phẩm này?",
+            text: "Bạn có muốn xóa Body này?",
             button: "Đồng ý",
             showCancelButton: true,
             confirmButtonText: "Đồng ý",
@@ -40,31 +41,33 @@ function TableBuilding() {
                 showConfirmButton: false,
                 timer: 800,
             });
-            GetAllProduct();
+            GetAllBody();
         }
     };
 
-    const GetAllProduct = () => {
-        axios
-            .get("http://localhost:3001/api/product")
-            .then((response) => {
-                let index = 0;
-                const fetchedData = response.data.listProducts.map((item) => {
-                    index = index + 1;
-                    return {
-                        ...item,
-                        id: index,
-                    };
-                });
-                console.log("Rerender");
-                setData(fetchedData);
-            })
-            .catch((error) => {
-                console.error(error);
+    const GetAllBody = () => {
+        // axios
+        //     .get("http://localhost:3001/api/product")
+        BodyApi.getAllBody()
+        .then((response) => {
+            let index = 0;
+            console.log(response)
+            const fetchedData = response.map((item) => {
+                index = index + 1;
+                return {
+                    ...item,
+                    id: index,
+                };
             });
+            console.log("Rerender");
+            setData(fetchedData);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     };
     useEffect(() => {
-        GetAllProduct();
+        GetAllBody();
     }, []);
 
     const columns = [
@@ -91,40 +94,47 @@ function TableBuilding() {
         //     ),
         // },
         {
-            field: "productName",
-            headerName: "Tên công trình",
-            width: 250,
+            field: "name",
+            headerName: "Tên body",
+            width: 180,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productName}>
-                    {param.row.tensanpham}
+                    {param.row.name}
                 </div>
             ),
         },
         {
-            field: "typeProduct",
-            headerName: "Loại sản phẩm",
+            field: "path",
+            headerName: "Path",
             width: 250,
             headerAlign: "center",
             renderCell: (param) => (
                 <div className={classes.productType}>
-                    {param.row.loaisanpham}
+                    {param.row.path}
                 </div>
             ),
         },
         {
-            field: "price",
-            headerName: "Giá",
-            width: 150,
-            headerAlign: "center",
-            renderCell: (param) => <div>{Number(param.row.gia).toLocaleString() + "đ"}</div>,
-        },
-        {
             field: "color",
             headerName: "Màu sắc",
+            width: 150,
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.color}</div>,
+        },
+        {
+            field: "material",
+            headerName: "Vật liệu",
             width: 120,
             headerAlign: "center",
-            renderCell: (param) => <div>{param.row.mausac}</div>,
+            renderCell: (param) => <div>{param.row.material}</div>,
+        },
+        {
+            field: "status",
+            headerName: "Trạng thái",
+            width: 120,
+            headerAlign: "center",
+            renderCell: (param) => <div>{param.row.status}</div>,
         },
         {
             field: "action",
