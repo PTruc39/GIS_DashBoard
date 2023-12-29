@@ -118,7 +118,7 @@ const Login = () => {
                     });
                 }
             })
-            .then(() => navigate("/"))
+            .then(() => navigate("/employees"))
             .catch((err) => {
                 Swal.fire({
                     icon: "error",

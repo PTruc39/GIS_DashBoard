@@ -27,11 +27,11 @@ function AddNew({ inputs, titlee, type }) {
             break;
         case 'EMPLOYEE':
                 dynamicInpVal = {
-                    username: '',
+                    
                     name: '',
                     email: '',
                     password: '',
-                    address: '',
+                    phonred: '',
                     age: ''
                 };
                 break;    

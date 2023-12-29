@@ -161,17 +161,17 @@ export const InputDetails ={
             //required: true,
             //errorMsg: 'Enter a valid email!',
         },
-        {
-            id: 5,
-            name: 'password',
-            lable: 'Password',
-            type: 'password',
-            placeholder: 'Password',
-            //required: true,
-            //pattern: '^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[!@#$%^&*()_+])[A-Za-z0-9!@#$%^&*()_+]{6,20}$',
-            errorMsg:
-                'Password should be 6-20 characters and include at last 1 num, 1 letter, 1 special character!',
-        },
+        // {
+        //     id: 5,
+        //     name: 'password',
+        //     lable: 'Password',
+        //     type: 'password',
+        //     placeholder: 'Password',
+        //     //required: true,
+        //     //pattern: '^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[!@#$%^&*()_+])[A-Za-z0-9!@#$%^&*()_+]{6,20}$',
+        //     errorMsg:
+        //         'Password should be 6-20 characters and include at last 1 num, 1 letter, 1 special character!',
+        // },
         {
             id: 6,
             name: 'role',

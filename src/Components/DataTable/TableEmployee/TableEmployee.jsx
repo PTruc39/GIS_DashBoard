@@ -104,7 +104,7 @@ function TableEmployee({type}) {
         {
             field: 'id',
             headerName: 'ID',
-            width: 110,
+            width: 170,
             renderCell: (param) => (
                 <div className={classes.userr}>
                     {param.row.id}
@@ -114,18 +114,11 @@ function TableEmployee({type}) {
         {
             field: 'name',
             headerName: 'Tên',
-            width: 180,
+            width: 200,
         },
-        { field: 'role', headerName: 'Chức vụ', width: 120 },
+       
         { field: 'email', headerName: 'Email', width: 280 },
-        {
-            field: 'sdt',
-            headerName: 'SDT',
-            width: 150,
-            renderCell: (param) => (
-                <div className={`status ${param.row.address}`}>{param.row.sdt}</div>
-            ),
-        },
+        
         {
             field: 'action',
             headerName: 'Hành động',
@@ -135,7 +128,7 @@ function TableEmployee({type}) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleSuccessAction(params.row._id)}
+                        onClick={() => handleSuccessAction(params.row.id)}
                     >
                         Xóa
                     </button>

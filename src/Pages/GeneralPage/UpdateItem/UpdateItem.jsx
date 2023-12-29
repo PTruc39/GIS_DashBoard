@@ -111,10 +111,10 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         console.log("ok");
         console.log(id);
         EmployeeApi.updateNV(id, {
-                hoten: formInp.name,
-                role: formInp.role,
+                name: formInp.name,
+                
                 email: formInp.email,
-                sdt: formInp.phone,
+                phone: formInp.phone,
             })
             .then((response) => {
                 console.log("Update successfully!" + response);

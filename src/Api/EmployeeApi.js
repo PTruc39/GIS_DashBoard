@@ -18,11 +18,11 @@ const createKH = async (data) => {
     return await axiosInstance.post("/api/nhanvien/", data);
 };
 const deleteNV = async (id) => {
-    return await axiosInstance.delete(`/api/nhanvien/${id}`);
+    return await axiosInstance.delete(`/api/Accounts/DeleteUser/${id}`);
 };
 
 const updateNV = async (id,data) => {
-    return await axiosInstance.put(`/api/nhanvien/${id}`,data);
+    return await axiosInstance.put(`/api/Accounts/UpdateUser/${id}`,data);
 };
 
 export default {

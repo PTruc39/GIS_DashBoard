@@ -14,11 +14,18 @@ import { Link } from 'react-router-dom';
 import { ColorContext } from '../../../ColorContext/darkContext';
 import BuildIcon from '@mui/icons-material/Build';
 import './Sidebar.scss';
+import Cookies from "js-cookie";
 
 function Sidebar() {
     
     const { darkMode, dispatch } = useContext(ColorContext);
-
+    const handleClose2 = () => {
+        //setAnchorEl(null);
+        localStorage.removeItem("user");
+        //localStorage.removeItem("token");
+        Cookies.remove("token");
+        
+    };
     return (
         <div className="sidebar">
             <div className="logo">
@@ -101,7 +108,7 @@ function Sidebar() {
 
                     {document.cookie.indexOf("token") !== -1 ? (
                               <Link to="/login" >
-                              <li onClick={console}>
+                              <li onClick={handleClose2}>
                                   <LogoutIcon className="icon" />Đăng Xuất
                               </li>
                           </Link>
