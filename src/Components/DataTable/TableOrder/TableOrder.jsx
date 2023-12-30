@@ -99,7 +99,7 @@ function TableOrder({ type }) {
                     <button
                         type="button"
                         className={classes.delete_btn}
-                        onClick={() => handleDelete(params.row.madh)}
+                        onClick={() => handleDelete(params.row.id)}
                     >
                         Xóa
                     </button>

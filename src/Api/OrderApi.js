@@ -23,7 +23,7 @@ const updateOrder = async (id, data) => {
 };
 
 const deleteOrder = async (madh) => {
-    return await axiosInstance.delete(`/api/don-hang?madh=${madh}`);
+    return await axiosInstance.delete(`/api/Feedbacks/${madh}`);
 };
 
 
