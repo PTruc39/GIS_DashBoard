@@ -30,7 +30,7 @@ const UpdateItem = ({ inputs, titlee, type }) => {
         console.log("ok");
         console.log(id);
         axios
-            .put(`https://localhost:7094/api/DamageReport/${id}`, formInp)
+            .put(`https://localhost:7094/api/Materials/${id}`, formInp)
             .then((response) => {
                 console.log("Update successfully!" + response);
             })
